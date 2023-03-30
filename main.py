@@ -1,9 +1,16 @@
 
 from numpy import *
+import json
 from matplotlib import pyplot as plt
 
-frequency = {1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0}
+with open('package.json','r') as file:
+    data = json.load(file)
+    for i in data:
+        print(i,": ",data[i])
 
+
+
+frequency = {1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0}
 
 def collatz_conjecture(num):
     global frequency

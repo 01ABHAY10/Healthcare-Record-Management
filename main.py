@@ -1,12 +1,13 @@
 
 from numpy import *
 import json
+import sys
 from matplotlib import pyplot as plt
+from IPython.display import display
+jsonObject = json.loads(sys.argv[1])
 
-with open('package.json','r') as file:
-    data = json.load(file)
-    for i in data:
-        print(i,": ",data[i])
+for i in jsonObject:
+    print(i,": ",jsonObject[i])
 
 
 

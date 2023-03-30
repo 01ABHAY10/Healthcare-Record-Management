@@ -2,6 +2,7 @@ const express = require('express');
 const  {Web3Storage}  = require('web3.storage');
 const  {File}  = require('web3.storage')
 const https = require('https');
+const { spawn } = require("child_process");
 
 const {KEY} = require ('./config.js')
 const app = express();
@@ -24,9 +25,23 @@ async function Retrieve (id,cid) {
     response.on('data',function(data){
       const obj = JSON.parse(data);
       console.log(obj);
+      const pyScript = spawn("python", ["main.py", JSON.stringify(obj)]);
+
+      pyScript.stdout.on("data", (data) => {
+        console.log(`stdout: ${data}`);
+      });
+
+      pyScript.stderr.on("data", (data) => {
+        console.error(`stderr: ${data}`);
+      });
+
+      pyScript.on("close", (code) => {
+        console.log(`child process exited with code ${code}`);
+      });
     })
   })
 }
+
 //  upload();
   Retrieve('trial','bafybeicw5nzz3fgqhlhw36a2sin62i6rqiidesegirdo4si44dgy7w53ry');
 app.use(express.static("public"));
@@ -35,7 +50,7 @@ app.get("/", function (req, res) {
   res.sendFile(__dirname + "/index.html");
 });
 
-app.listen(3000, function () {
-  console.log("Server started at port 3000.");
+app.listen(8000, function () {
+  console.log("Server started at port 8000.");
 });
 

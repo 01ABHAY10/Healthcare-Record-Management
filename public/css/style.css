@@ -7,13 +7,12 @@ div#graph {
 }
 
 .container {
-   width: 200px;
+   /* visibility: hidden; */
+   width: 100px;
 }
 input.email {
    margin: 5px;
 }
 
-button.login {
-   outline: 2px;
-   color: black;
-}
+
+

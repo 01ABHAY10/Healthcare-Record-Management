@@ -5,3 +5,7 @@ button.btn-secondary {
 div#graph {
    visibility: hidden;
 }
+
+ul.alignment {
+   margin: auto;
+}

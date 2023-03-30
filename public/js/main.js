@@ -8,3 +8,4 @@ $("button.btn-secondary").on("click", function () {
     $("button.btn-secondary").text("Hide");
   }
 });
+

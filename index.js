@@ -3,10 +3,10 @@ const  {Web3Storage}  = require('web3.storage');
 const  {File}  = require('web3.storage')
 const https = require('https');
 
-
+const {KEY} = require ('./config.js')
 const app = express();
 
-const KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweEQ5OTQ2YkM3ZDExNzU1ZTUxRWEyQUU4OEU3RjA1YjAwYkIyN2JlNzkiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2ODAxNzIyNDU5NDcsIm5hbWUiOiJIQ1JNIn0.gDA83LOadNzAUVYV9s7H_gfFkDJBRYT85cR6cbmM49Y';
+
 const client = new Web3Storage({ token: KEY });
 
 async function upload(){

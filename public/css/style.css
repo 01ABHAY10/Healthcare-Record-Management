@@ -166,8 +166,9 @@ form .btn .btn-layer{
   border-radius: 15px;
   transition: all 0.4s ease;;
 }
-form .btn:hover .btn-layer{
-  left: 0;
+
+.container {
+   width: 200px;
 }
 form .btn input[type="submit"]{
   height: 100%;
@@ -184,6 +185,7 @@ form .btn input[type="submit"]{
   cursor: pointer;
 }
 
-.center{
-   text-align:center;
+button.login {
+   outline: 2px;
+   color: black;
 }

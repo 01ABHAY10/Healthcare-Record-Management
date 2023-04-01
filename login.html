@@ -15,19 +15,55 @@
     <link rel="stylesheet" href="public/css/style.css">
   </head>
   <body>
-    <div class="container row-col-6">
-      <div>
-        <button class="btn btn-primary">Login</button><button class="btn btn-white">SignUp</button>
+    <div class="wrapper">
+      <div class="container center">
+        <img src="public/images/icon.png" height="55" width="55" alt="404">
       </div>
-      <div>
-        <h5 class="card-title">Login</h5>
-        <form action="/login" method="post">
-          <input type="email" style="width:300px" name="email" id="email" placeholder="e-mail"><br>
-          <input type="password" style="width:300px" name="password" id="password" placeholder="password">
-          <button class="btn login">Login</button>
-        </form>
-      </div>
+  <div class="title-text">
+    <div class="title login mt-4"><h3>Welcome back !</h3></div>
+    <div class="title signup mt-4"><h3>Welcome !</h3></div>
+  </div>
+  <div class="form-container">
+    <div class="slide-controls">
+      <input type="radio" name="slide" id="login" checked>
+      <input type="radio" name="slide" id="signup">
+      <label for="login" class="slide login">Login</label>
+      <label for="signup" class="slide signup">Signup</label>
+      <div class="slider-tab"></div>
     </div>
+    <div class="form-inner">
+      <form action="#" class="login">
+        <div class="field">
+          <input type="text" placeholder="e-mail address" required>
+        </div>
+        <div class="field">
+          <input type="password" placeholder="password" required>
+        </div>
+        <div class="pass-link"><a href="#">Forgot password?</a></div>
+        <div class="field btn">
+          <div class="btn-layer"></div>
+          <input type="submit" value="Login">
+        </div>
+        <div class="signup-link">Not a member? <a href="">Signup now</a></div>
+      </form>
+      <form action="#" class="signup">
+        <div class="field">
+          <input type="text" placeholder="e-mail address" required>
+        </div>
+        <div class="field">
+          <input type="password" placeholder="password" required>
+        </div>
+        <div class="field">
+          <input type="password" placeholder="confirm password" required>
+        </div>
+        <div class="field btn">
+          <div class="btn-layer"></div>
+          <input type="submit" value="Signup">
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"

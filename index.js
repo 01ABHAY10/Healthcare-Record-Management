@@ -10,7 +10,7 @@ const app = express();
 
 const client = new Web3Storage({ token: KEY });
 
-async function upload(){
+async function Upload(){
   const obj = { "name": "Healthcare record management", "type": "project","author" : "James Bond" };
   const buffer = Buffer.from(JSON.stringify(obj))
 

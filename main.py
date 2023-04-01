@@ -1,15 +1,8 @@
 
 from numpy import *
-import json
-import sys
 from matplotlib import pyplot as plt
-from IPython.display import display
-jsonObject = json.loads(sys.argv[1])
-
-for i in jsonObject:
-    print(i,": ",jsonObject[i])
-
-
+# from js import pyObj
+import json
 
 frequency = {1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0}
 

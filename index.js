@@ -9,7 +9,7 @@ const app = express();
 
 const client = new Web3Storage({ token: KEY });
 
-async function upload(){
+async function Upload(){
   const obj = { "name": "Healthcare record management", "type": "project","author" : "James Bond" };
   const buffer = Buffer.from(JSON.stringify(obj))
 
@@ -35,7 +35,7 @@ app.get("/", function (req, res) {
   res.sendFile(__dirname + "/index.html");
 });
 
-app.listen(3000, function () {
-  console.log("Server started at port 3000.");
+app.listen(8000, function () {
+  console.log("Server started at port 8000.");
 });
 

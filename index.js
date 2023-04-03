@@ -24,6 +24,7 @@ async function Retrieve (id,cid) {
   https.get(url,function(response){
     response.on('data',function(data){
       const info = JSON.stringify(JSON.parse(data));
+      console.log(info);
     })
   })
 }

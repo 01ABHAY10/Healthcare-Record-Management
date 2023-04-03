@@ -23,7 +23,8 @@ async function Retrieve (id,cid) {
   const url = 'https://ipfs.io/ipfs/'+cid+'/'+id+'.json';
   https.get(url,function(response){
     response.on('data',function(data){
-      const info = JSON.stringify(JSON.parse(data));
+      const obj = JSON.parse(data);
+      console.log(obj);
     })
   })
 }

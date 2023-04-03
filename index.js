@@ -10,6 +10,44 @@ const app = express();
 
 const client = new Web3Storage({ token: KEY });
 
+const server = https.createServer((req, res) => {
+  if (req.method === "POST") {
+    let data = "";
+
+    req.on("data", (chunk) => {
+      data += chunk;
+    });
+
+    req.on("end", () => {
+      // Parse JSON data
+      const jsonData = JSON.parse(data);
+
+      // Spawn Python script and send JSON data as arguments
+      const pythonProcess = spawn("python", [
+        "script.py",
+        JSON.stringify(jsonData),
+      ]);
+
+      // Log output from Python script
+      pythonProcess.stdout.on("data", (data) => {
+        console.log(`stdout: ${data}`);
+      });
+
+      // Handle any errors from the Python script
+      pythonProcess.stderr.on("data", (data) => {
+        console.error(`stderr: ${data}`);
+      });
+
+      // Send response to client
+      res.writeHead(200, { "Content-Type": "text/plain" });
+      res.end("Data received and processed by Python script\n");
+    });
+  } else {
+    res.writeHead(404, { "Content-Type": "text/plain" });
+    res.end("Page not found\n");
+  }
+});
+
 async function Upload(){
   const obj = { "name": "Healthcare record management", "type": "project","author" : "James Bond" };
   const buffer = Buffer.from(JSON.stringify(obj))
@@ -37,7 +75,7 @@ app.get("/", function (req, res) {
   res.sendFile(__dirname + "/index.html");
 });
 
-app.listen(8000, function () {
-  console.log("Server started at port 8000.");
+server.listen(8000, () => {
+  console.log('Server listening on port 8000');
 });
 

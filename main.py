@@ -1,6 +1,14 @@
-import sys
 import json
+import sys
 
-jsonData = json.loads(sys.argv[1])
+# read JSON object from standard input
+json_str = sys.stdin.readline()
 
-print(f'Received data: {jsonData}')
+# parse JSON string back into a Python object
+json_obj = json.loads(json_str)
+print(json_obj["name"])
+# do something with the JSON object
+response = {'status': 'success'}
+
+# write response to standard output
+sys.stdout.write(json.dumps(response))

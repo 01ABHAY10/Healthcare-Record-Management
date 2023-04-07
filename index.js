@@ -3,13 +3,41 @@ const { Web3Storage } = require("web3.storage");
 const { File } = require("web3.storage");
 const https = require("https");
 const { spawn } = require("child_process");
+const mongoose = require("mongoose");
+
 
 const { KEY } = require("./config.js");
+const { MONGO_URL } = require("./config.js");
+const { ID } = require("./config.js");
 // const { log } = require("console");
-const app = express();
 
+
+const app = express();
 const client = new Web3Storage({ token: KEY });
 const python = spawn("python", ["main.py"]);
+
+//starting server at port
+app.listen(8000, function(){
+  console.log("Server listening on port 8000...");
+});
+
+
+
+//connect database function
+async function ConnectDB(){
+  try{
+    await mongoose.connect(MONGO_URL);
+    console.log("Database in connected...");
+  }catch(error){
+    console.log("Error while connecting database...");
+  }
+}
+ConnectDB();
+
+
+
+
+
 
 
 async function Upload() {
@@ -66,6 +94,14 @@ app.get("/", function (req, res) {
   res.sendFile(__dirname + "/index.html");
 });
 
-app.listen(8000, () => {
-  console.log("Server listening on port 8000");
-});
+app.post("/patient-data",async function(req,res){
+  const {id,cid} = req.body;
+  try{
+      const report = await ID.create({id,cid});
+      res.status(200).json({ success: true, message: "Data stored successfully" });
+  }catch(error){
+      console.log("Error on storing data...");
+      res.status(500).json({ success: false, message: "Error storing data" });
+  }
+})
+

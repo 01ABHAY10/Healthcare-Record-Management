@@ -4,6 +4,7 @@ const { File } = require("web3.storage");
 const https = require("https");
 const { spawn } = require("child_process");
 const mongoose = require("mongoose");
+const bodyParser = require('body-parser');
 
 
 const { KEY } = require("./config.js");
@@ -15,6 +16,11 @@ const { ID } = require("./config.js");
 const app = express();
 const client = new Web3Storage({ token: KEY });
 const python = spawn("python", ["main.py"]);
+
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
 
 //starting server at port
 app.listen(8000, function(){

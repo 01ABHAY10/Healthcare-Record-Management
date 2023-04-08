@@ -44,27 +44,21 @@ ConnectDB();
 //get latest filename
 async function getFilename(){
   try{
-    const latest = await ID.findOne().sort({id : -1}).exec();
-    const filename = (latest.id) + 1;
-    return filename;
-
+      const latest = await ID.findOne().sort({id : -1}).exec();
+      const fileNo = (latest.id) + 1;
+      return fileNo;
   }catch(error){
-    return -1;
+      return -1;
   }
 }
 
 //upload patient data to web3 storage 
-async function Upload() {
-  const obj = {
-    name: "Healthcare record management",
-    type: "project",
-    author: "James Bond",
-  };
+async function upload(obj,filename) {
   const buffer = Buffer.from(JSON.stringify(obj));
-
-  const files = [new File([buffer], "trial.json")];
-  const cid = await client.put(files);
+  const file = [new File([buffer], filename)];
+  const cid = await client.put(file);
   console.log("Data stored with CID : " + cid);
+  return cid;
 }
 
 //Data retrieve from web3 storage
@@ -107,20 +101,40 @@ Retrieve(
 app.use(express.static("public"));
 
 app.get("/", function (req, res) {
-  res.sendFile(__dirname + "/index.html");
+  res.sendFile(__dirname + "/login.html");
 });
 
 app.post("/patient-data",async function(req,res){
-  const {cid,email} = req.body;
-  const id = await getFilename();
-  try{
-      const report = await ID.create({id,cid,email});
-      res.status(200).json({ success: true, message: "Data stored successfully" });
-  }catch(error){
-      console.log("Error on storing data...");
-      res.status(500).json({ success: false, message: "Error storing data" });
+  const {name,age,gender,blood_group,height,weight,smoke,drink,tobacco,date,email} = req.body;
+
+  //creating patient object
+const patient = {
+  Data_Uploading_Date : date,
+  Email : email,
+  Name : name,
+  Age : age,
+  Gender : gender,
+  Blood_Group : blood_group,
+  Height : height,
+  Weight : weight,
+  Smoking : smoke ? "Yes" : "No",
+  Drinking : drink ? "Yes" : "No",
+  Tobacco : tobacco ? "Yes" : "No"
+}
+
+const id = await getFilename();
+const filename = id+'.json';
+const cid = await upload(patient,filename);
+
+
+try{
+    const report = await ID.create({id,cid,email});
+    res.status(200).json({ success: true, message: "Data stored successfully" });
+}catch(error){
+    console.log("Error on storing data...");
+    res.status(500).json({ success: false, message: "Error storing data" });
   }
-})
+});
 
 
 

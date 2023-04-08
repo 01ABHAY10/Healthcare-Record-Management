@@ -145,6 +145,45 @@
     </button>
   </div>
 
+  <form action="/patient-data" method="post">
+    <p>Date:</p> <input type="date" name="date" id="date">
+    <p>E-mail: </p>
+    <input type="email" name="email" id="email">
+    <p>Name: </p>
+    <input type="text" name="name" id="name">
+    <p>Age: </p>
+    <input type="number" name="age" id="age">
+    <p>Gender: </p>
+    <select name ='gender' id='gender' class='gender'>
+				<option value='gender' required> Gender </option>
+				<option value='male' required> Male</option>
+				<option value='female' required> Female </option>
+				<option value='others' required> Other </option>
+			</select>
+    <p>Blood-Group: </p>
+    <select name ='blood_group' id='blood_group' class='blood_group'>
+				<option value='blood_group' required> --Select Blood Group-- </option>
+				<option value='A+' required> A+</option>
+				<option value='A-' required> A- </option>
+				<option value='B+' required> B+ </option>
+        <option value='B-' required> B- </option>
+				<option value='AB+' required> AB+ </option>
+				<option value='AB-' required> AB- </option>
+        <option value='O+' required> O+ </option>
+				<option value='O-' required> O- </option>
+				<option value='RH-null' required> RH-null </option>
+			</select>
+      <p>Height (in cm): </p>
+      <input type="number" name="height" id="height">
+      <p>Weight (in kg): </p>
+      <input type="number" name="weight" id="weight">
+      <p>Smoking: </p><input type="checkbox" name="smoke" id="smoke">
+      <p>Drinking: </p><input type="checkbox" name="drink" id="drink">
+      <p>Tobacco</p> <input type="checkbox" name="tobacco" id="tobacco">
+      <input type="submit">
+    
+  </form>
+
 
   <!-- Marketing messaging and featurettes
   ================================================== -->

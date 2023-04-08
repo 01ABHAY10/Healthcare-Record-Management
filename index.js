@@ -99,13 +99,14 @@ async function retrieve(id) {
 //   });
 // }
 
-
+// bafybeicw5nzz3fgqhlhw36a2sin62i6rqiidesegirdo4si44dgy7w53r;
 
 //  upload();
 // Retrieve(
 //   "trial",
 //   "bafybeicw5nzz3fgqhlhw36a2sin62i6rqiidesegirdo4si44dgy7w53ry"
 // );
+// app.use(express.static("public"));
 
 app.get("/", function (req, res) {
   res.sendFile(__dirname + "/index.html");

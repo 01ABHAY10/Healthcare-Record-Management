@@ -5,6 +5,7 @@
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
 }
+
 html,body{
   display: grid;
   height: 100%;
@@ -13,10 +14,10 @@ html,body{
   background: -webkit-linear-gradient(left, #4db6c2,#84c0be,#9bc1be
   , #dde4e6);
 }
-::selection{
+ ::selection{
   background: #1a75ff;
   color: #fff;
-}
+} 
 .wrapper{
   overflow: hidden;
   max-width: 390px;

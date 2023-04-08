@@ -41,11 +41,19 @@ async function ConnectDB(){
 ConnectDB();
 
 
+//get latest filename
+async function getFilename(){
+  try{
+    const latest = await ID.findOne().sort({id : -1}).exec();
+    const filename = (latest.id) + 1;
+    return filename;
 
+  }catch(error){
+    return -1;
+  }
+}
 
-
-
-
+//upload patient data to web3 storage 
 async function Upload() {
   const obj = {
     name: "Healthcare record management",
@@ -56,7 +64,7 @@ async function Upload() {
 
   const files = [new File([buffer], "trial.json")];
   const cid = await client.put(files);
-  console.log("Stored JSON object with CID : " + cid);
+  console.log("Data stored with CID : " + cid);
 }
 
 //Data retrieve from web3 storage
@@ -89,6 +97,8 @@ async function Retrieve(id, cid) {
   });
 }
 
+
+
 //  upload();
 Retrieve(
   "trial",
@@ -101,13 +111,16 @@ app.get("/", function (req, res) {
 });
 
 app.post("/patient-data",async function(req,res){
-  const {id,cid} = req.body;
+  const {cid,email} = req.body;
+  const id = await getFilename();
   try{
-      const report = await ID.create({id,cid});
+      const report = await ID.create({id,cid,email});
       res.status(200).json({ success: true, message: "Data stored successfully" });
   }catch(error){
       console.log("Error on storing data...");
       res.status(500).json({ success: false, message: "Error storing data" });
   }
 })
+
+
 

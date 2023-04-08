@@ -12,7 +12,7 @@
       integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="public/css/style.css" />
+    <link rel="stylesheet" href="/css/style.css" />
   </head>
   <body>
     <h1>Healthcare Record Management</h1>
@@ -20,9 +20,9 @@
     <button class="btn btn-secondary">Display</button>
 
     <form action="/patient-data" method="post">
-      <input type="text" name="id" id="id">
-      <br>
+      <input type="number" name="id" id="id">
       <input type="text" name="cid" id="cid">
+      <input type="text" name="email" id="email">
       <input type="submit" value="Submit">
     </form>
     
@@ -33,6 +33,6 @@
       integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"
       crossorigin="anonymous"
     ></script>
-    <script src="public/js/main.js"></script>
+    <script src="/js/main.js"></script>
   </body>
 </html>

@@ -134,7 +134,7 @@ try{
     console.log("Error on storing data...");
     res.status(500).json({ success: false, message: "Error storing data" });
   }
-});
+})
 
 
 

@@ -17,6 +17,6 @@ signupLink.onclick = () => {
   return false;
 };
 
-$(a.signup-redirect).on(click, function () {
+$("a.signup-redirect").on(click, function () {
   window.location.href = "signup.html";
 });

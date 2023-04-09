@@ -15,19 +15,16 @@ for i in json_obj:
     data.append(json_obj[i])
 
 with open('event.csv', 'a') as f_object:
-
     writer_object = csv.writer(f_object)
-
     writer_object.writerow(data)
-
     f_object.close()
 
-file = 'event.csv'
-if (os.path.exists(file) and os.path.isfile(file)):
-  os.remove(file)
-  print("file deleted")
-else:
-  print("file not found")
+# file = 'event.csv'
+# if (os.path.exists(file) and os.path.isfile(file)):
+#   os.remove(file)
+#   print("file deleted")
+# else:
+#   print("file not found")
 
 # do something with the JSON object
 response = {'status': 'success'}

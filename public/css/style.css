@@ -1,4 +1,4 @@
-div.card{
+div.lscard{
   padding: 20px;
   margin: 0 auto;
   margin-top: 7%;
@@ -6,7 +6,7 @@ div.card{
   border-radius: 2%;
   max-width: 350px;
   min-height: 450px;
-  background-color: rgb(148, 194, 251);
+  background-color: rgb(235, 244, 255);
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
 }
 input.form-control {

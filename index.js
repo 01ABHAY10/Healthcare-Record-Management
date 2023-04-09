@@ -53,6 +53,7 @@ async function getFilename(){
   }
 }
 
+
 //upload patient data to web3 storage 
 async function upload(obj,filename) {
   const buffer = Buffer.from(JSON.stringify(obj));
@@ -76,7 +77,8 @@ async function retrieve(id) {
     })
   }catch(error){
      console.log("Invalid id");
-  }}
+  }
+}
 
 //       // sending obj to main.py
 //       python.stdin.write(JSON.stringify(obj));
@@ -145,7 +147,7 @@ try{
 });
 
 app.post("/retrieve",async function(req,res){
-  const id = req.body;
+  const id = req.body.id;
   retrieve(id);
 })
 

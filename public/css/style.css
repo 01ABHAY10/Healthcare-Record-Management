@@ -4,7 +4,7 @@ body{
 }
 
 .navbar{
-  background-color: #cacaca;
+  background-color: #f5ffff;
 }
 
 .center{
@@ -34,5 +34,5 @@ body{
   bottom: 0;
   width: 100%;
   height: 60px;
-  background-color: rgb(77, 74, 87);
+  background-color: rgb(255, 255, 255);
 }

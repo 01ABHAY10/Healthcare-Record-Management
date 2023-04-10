@@ -29,6 +29,15 @@ small.login-redirect {
   animation: 1s;
 }
 
+.modal-btn {
+  background-color: rgb(0, 179, 255);
+  border-color: black;
+}
+.modal-btn:hover {
+  background-color: rgb(1, 137, 44);
+  color: white;
+}
+
 .icon {
   width: 60px;
   height: auto;

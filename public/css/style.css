@@ -145,21 +145,26 @@ border-color: rgb(0, 0, 0);
 
 @media (min-width : 769px){
   .card-container{
+  
+    border-width: 1.5px;
+    border-color: rgb(0, 0, 0);
     width: 1000px;
     margin-top: 10%;
     margin-bottom: 10%;
-    border-radius: 3%;
-  }
-  .discription{
-    margin-left: 3%;
-    margin-bottom: 10%;
+    border-radius: 2%;
   }
 }
 @media (max-width : 768px){
   .card-container{
+
+    border-width: 1.5px;
+    border-color: rgb(0, 0, 0);
     width: 100%;
     margin-top: 10%;
     border-radius: 2%;
 
   }
+}
+.discription{
+  margin-bottom: 7%;
 }

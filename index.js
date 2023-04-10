@@ -179,7 +179,9 @@ function generateToken() {
 // Email sending function
 function sendVerificationEmail(email, token) {
   // Construct the verification URL using the token and your application's base URL
-  var verifyUrl = "https://example.com/verify-email?token=" + token;
+  var verifyUrl =
+    "https://abhinav-21.github.io/Healthcare-Record-Management/verify-email?token=" +
+    token;
 
   // Construct the email message with the verification URL
   var emailBody =

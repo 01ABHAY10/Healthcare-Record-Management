@@ -146,13 +146,21 @@ border-color: rgb(0, 0, 0);
 
 @media (min-width : 769px){
   .card-container{
-  
     border-width: 1.5px;
     border-color: rgb(0, 0, 0);
     width: 1000px;
     margin-top: 10%;
     margin-bottom: 10%;
     border-radius: 2%;
+  }
+  .form-check{
+    margin-left: 15%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+  }
+  .description{
+    margin-bottom: 7%;
+    margin-right: 25%;
   }
 }
 @media (max-width : 768px){
@@ -163,9 +171,12 @@ border-color: rgb(0, 0, 0);
     width: 100%;
     margin-top: 10%;
     border-radius: 2%;
-
+  }
+  .form-check{
+    margin-left: 15%;
+  }
+  .description{
+    margin-bottom: 7%;
   }
 }
-.discription{
-  margin-bottom: 7%;
-}
+

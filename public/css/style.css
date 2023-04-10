@@ -9,7 +9,7 @@ div.lscard{
   background-color: rgb(171, 209, 255);
   box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.5);
 }
-input.form-control {
+.form-control {
   margin: 0 auto;
   width: 85%;
   border-color: #727272;
@@ -42,7 +42,7 @@ small.login-redirect {
   width: 60px;
   height: auto;
   margin: 0 auto;
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 label {
@@ -83,6 +83,10 @@ button {
 body{
   background: -webkit-linear-gradient(left,#ebf1f9,#e6f0ff,#e4f9f7
 , #c9d6d6);
+}
+
+a.verify {
+  margin-left: 70px;
 }
 
 .navbar{

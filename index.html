@@ -136,10 +136,36 @@
             <div class="card-body center">
               <h5 class="card-title"><b>UPLOAD</b></h5>
               <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              <a href="#" class="btn btn-success center">Upload Data</a>
+              <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#uploadModal">Upload Data</button>
             </div>
           </div>
         </div>
+        <!-- upload data modal start here  -->
+        <div class="modal fade" id="uploadModal" >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header center">
+                <h1 class="modal-title fs-5 " id="exampleModalLabel">Administrative login required</h1>
+              </div>
+              <div class="modal-body">
+                <div class="mb-3 row">
+                  <label class="col-sm-1 col-form-label"><b>KEY</b></label>
+                  <div class="col-sm-9">
+                      <input type="text" class="form-control" name="key" id="key">
+                  </div>
+                </div>
+                <div class="mb-3 row alert">
+                  <small>Not having a '<b>KEY</b>'? mail us to become administrator and get access to upload patient data.</small>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="modal-btn btn">Verify</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- upload data modal end here  -->
         <div class="col-sm-4">
           <div class="card" style="width: auto; margin-top: 20%;">
             <img src="public/images/analytics.jpg" height="360" width="100" class="card-img-top" alt="...">
@@ -154,7 +180,7 @@
     </div>
     <!-- cards end here  -->
     <!-- footer start here  -->
-    <footer class="footer" style="margin-top: 6%;">
+    <footer class="footer sticky-bottom" style="margin-top: 6%;">
       <div class="container center">
         <span class="text-muted ">copyright ©2023</span>
         <span class="text-muted">Created and Designed by room no. 241, P. D. Tandon Hostel</span>

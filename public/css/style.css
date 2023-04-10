@@ -115,13 +115,47 @@ body{
   position:static;
   bottom: 0;
   width: 100%;
-  height: 60px;
+  height: 40px;
   background-color: rgb(255, 255, 255);
 }
-
+.view-page-footer {
+  position:fixed;
+  bottom: 0;
+  width: 100%;
+  height: 40px;
+  background-color: rgb(255, 255, 255);
+}
+.alert{
+  background-color: rgb(255, 214, 132);
+  border-width: 1px;
+  border-color: red;
+  margin: 3% 3%;
+}
 .modal-content{
   background: -webkit-linear-gradient(left,#ebf1f9,#e6f0ff,#e4f9f7
 , #c9d6d6);
 border-width: 1.5px;
 border-color: rgb(0, 0, 0);
+}
+
+
+@media (min-width : 769px){
+  .card-container{
+    width: 1000px;
+    margin-top: 10%;
+    margin-bottom: 10%;
+    border-radius: 3%;
+  }
+  .discription{
+    margin-left: 3%;
+    margin-bottom: 10%;
+  }
+}
+@media (max-width : 768px){
+  .card-container{
+    width: 100%;
+    margin-top: 10%;
+    border-radius: 2%;
+
+  }
 }

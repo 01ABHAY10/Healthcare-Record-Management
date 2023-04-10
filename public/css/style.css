@@ -7,7 +7,7 @@ div.lscard{
   max-width: 350px;
   min-height: 450px;
   background-color: rgb(171, 209, 255);
-  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.5);
 }
 input.form-control {
   margin: 0 auto;
@@ -22,6 +22,11 @@ small.signup-redirect {
 
 small.login-redirect {
   margin-left: 20%;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+  animation: 1s;
 }
 
 .icon {

@@ -184,3 +184,10 @@ border-color: rgb(0, 0, 0);
   }
 }
 
+#cnf{
+  font-size: 2rem;
+}
+
+#activateModal{
+  visibility:hidden;
+}

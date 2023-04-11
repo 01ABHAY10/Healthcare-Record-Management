@@ -115,7 +115,9 @@ app.get("/", function (req, res) {
 });
 
 app.post("/patient-data",async function(req,res){
-  const {name,age,gender,blood_group,height,weight,smoke,drink,tobacco,date,email} = req.body;
+  
+  const {name,age,gender,blood_group,height,weight,smoke,drink,tobacco,date,email,
+    covid,disease1,disease2,disease3,disease4,disease5,disease6,other} = req.body;
 
   //creating patient object
 const patient = {
@@ -129,7 +131,15 @@ const patient = {
   Weight : weight,
   Smoking : smoke ? "Yes" : "No",
   Drinking : drink ? "Yes" : "No",
-  Tobacco : tobacco ? "Yes" : "No"
+  Tobacco : tobacco ? "Yes" : "No",
+  Disease_1 : disease1,
+  Disease_2 : disease2,
+  Disease_3 : disease3,
+  Disease_4 : disease4,
+  Disease_5 : disease5,
+  Disease_6 : disease6,
+  Covid_Vaccination_Status : covid,
+  Other_problems_or_symptoms : other
 }
 
 const id = await getFilename();

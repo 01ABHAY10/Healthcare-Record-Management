@@ -161,6 +161,11 @@ app.post("/retrieve",async function(req,res){
   retrieve(id);
 })
 
+app.get('/upload', function(req, res) {
+  res.sendFile(__dirname + "/upload.html");
+});
+
+
 app.post("/signup", function(req, res){
   res.sendFile(__dirname+"/signup.html");
   const userEmail = req.body.email;

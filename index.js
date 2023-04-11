@@ -114,6 +114,8 @@ app.get("/", function (req, res) {
   res.sendFile(__dirname + "/index.html");
 });
 
+let Doc_ID;
+
 app.post("/patient-data",async function(req,res){
   
   const {name,age,gender,blood_group,height,weight,smoke,drink,tobacco,date,email,
@@ -149,11 +151,24 @@ const cid = await upload(patient,filename);
 
 try{
     const report = await ID.create({id,cid,email});
-    res.status(200).json({ success: true, message: "Data stored successfully" });
+      Doc_ID = {
+       ID : id
+     };
+    // res.status(200).json({ success: true, message: "Data stored successfully" });
 }catch(error){
     console.log("Error on storing data...");
-    res.status(500).json({ success: false, message: "Error storing data" });
+    
+       Doc_ID = {
+        ID : false
+      };
+    // res.status(500).json({ success: false, message: "Error storing data" });
   }
+});
+
+
+app.get("/data",function(req,response){
+ response.header('Content-Type','application/json');
+ response.send(Doc_ID);
 });
 
 app.post("/retrieve",async function(req,res){

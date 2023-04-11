@@ -33,7 +33,7 @@
     <input type="password" name="password" class="form-control" id="exampleInputPassword1" required>
   </div>
 
-      <div class="login"><button  class="signup btn btn-primary" data-bs-toggle="modal" data-bs-target="#signupModal">Sign-Up</button></div>
+      <div class="login"><input type="submit" class="signup btn btn-primary" data-bs-toggle="modal" data-bs-target="#signupModal" value="Sign-Up"></div>
        
       </form>
       <small class="login-redirect">Already have an account?<a class="login-redirect" href="login.html"> login</a></small>
@@ -44,19 +44,13 @@
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header center">
-                <h1 class="modal-title fs-5 " id="exampleModalLabel">Fill the below details</h1>
+                <h1 class="modal-title fs-5 " id="exampleModalLabel">Enter the security token sent to your mail.</h1>
               </div>
               <div class="modal-body">
                 <div class="mb-3 row">
-                  <label class="col-sm-1 col-form-label"><b>Doc_ID</b></label>
+                  <label class="col-sm-1 col-form-label"><b>Token</b></label>
                   <div class="col-sm-9">
-                      <input type="number" class="form-control" name="id" id="id">
-                  </div>
-                </div>
-                <div class="mb-3 row">
-                  <label class="col-sm-1 col-form-label"><b>Email</b></label>
-                  <div class="col-sm-9">
-                      <input type="email" class="form-control" name="email" id="email">
+                      <input type="text" class="form-control" name="token" id="token">
                   </div>
                 </div>
               </div>

@@ -162,6 +162,7 @@ app.post("/retrieve",async function(req,res){
 })
 
 app.post("/signup", function(req, res){
+  res.sendFile(__dirname+"/signup.html");
   const userEmail = req.body.email;
   console.log(userEmail);
   var verificationToken = generateToken();
@@ -189,14 +190,14 @@ function generateToken() {
 // Email sending function
 function sendVerificationEmail(email, token) {
   // Construct the verification URL using the token and your application's base URL
-  var verifyUrl =
-    "https://abhinav-21.github.io/Healthcare-Record-Management/verify-email?token=" +
-    token;
+  // var verifyUrl =
+  //   "https://abhinav-21.github.io/Healthcare-Record-Management/verify-email?token=" +
+  //   token;
 
   // Construct the email message with the verification URL
   var emailBody =
-    "Thank you for registering with our application. Please click the following link to verify your email address and complete registration: " +
-    verifyUrl;
+    "Thank you for registering with our application. Please paste the following token to verify your email address and complete registration: " +
+    token;
 
   const transporter = nodemailer.createTransport({
     service: "gmail",

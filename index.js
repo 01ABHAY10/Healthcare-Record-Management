@@ -63,20 +63,25 @@ async function upload(obj,filename) {
   return cid;
 }
 
+
 //Data retrieve from web3 storage
 async function retrieve(id) {
   try{
      const key = await ID.findOne({id : id});
      const cid = key.cid;
      const url = "https://ipfs.io/ipfs/" + cid + "/" + id + ".json";
-     https.get(url, function (response) {
-     response.on("data", function (data) {
-        const obj = JSON.parse(data);
-        console.log(obj);
+     const data = await new Promise(function(resolve,reject){
+      https.get(url, function (response) {
+        response.on("data", function (data) {
+           const obj = JSON.parse(data);
+          resolve(obj);
+     })
      })
     })
+    return data;
   }catch(error){
      console.log("Invalid id");
+     return -1;
   }
 }
 
@@ -114,15 +119,19 @@ app.get("/", function (req, res) {
   res.sendFile(__dirname + "/index.html");
 });
 
-let Doc_ID;
+let Doc_ID_No;
 
 app.post("/patient-data",async function(req,res){
   
   const {name,age,gender,blood_group,height,weight,smoke,drink,tobacco,date,email,
     covid,disease1,disease2,disease3,disease4,disease5,disease6,other} = req.body;
 
-  //creating patient object
+  const id = await getFilename();
+  
+
+//creating patient object
 const patient = {
+  Doc_ID : id,
   Data_Uploading_Date : date,
   Email : email,
   Name : name,
@@ -144,41 +153,53 @@ const patient = {
   Other_problems_or_symptoms : other
 }
 
-const id = await getFilename();
 const filename = id+'.json';
 const cid = await upload(patient,filename);
 
 
 try{
     const report = await ID.create({id,cid,email});
-      Doc_ID = {
+      Doc_ID_No = {
        ID : id
      };
-    // res.status(200).json({ success: true, message: "Data stored successfully" });
 }catch(error){
     console.log("Error on storing data...");
     
-       Doc_ID = {
+       Doc_ID_No = {
         ID : false
       };
-    // res.status(500).json({ success: false, message: "Error storing data" });
   }
 });
-
-
-app.get("/data",function(req,response){
- response.header('Content-Type','application/json');
- response.send(Doc_ID);
-});
-
-app.post("/retrieve",async function(req,res){
-  const id = req.body.id;
-  retrieve(id);
-})
 
 app.get('/upload', function(req, res) {
   res.sendFile(__dirname + "/upload.html");
 });
+
+app.get("/update",function(req,res){
+ res.header('Content-Type','application/json');
+ res.send(Doc_ID_No);
+});
+
+let patient_data;
+app.post("/view-data",async function(req,res){
+  const ID= req.body.id;
+  console.log(ID);
+  patient_data = await retrieve(ID);
+  if(patient_data == -1){
+    patient_data = {
+      Name : 'error'
+    }
+  }else{
+    res.sendFile(__dirname + "/view.html");
+  }
+})
+
+
+app.get("/data",function(req,res){
+  res.header('Content-Type','application/json');
+  res.send(patient_data);
+})
+
 
 app.get('/signup',function(req,res){
   res.sendFile(__dirname+"/signup.html");
@@ -191,58 +212,60 @@ app.post("/signup", function(req, res){
   console.log(userEmail);
   // var verificationToken = generateToken();
 
-  // // Send the verification email
+  // Send the verification email
   // sendVerificationEmail(userEmail, verificationToken);
 
-  // // Prompt the user to check their email for the verification link
+  // Prompt the user to check their email for the verification link
   // alert(
   //   "A verification link has been sent to your email. Please click the link to complete registration."
-  // );
+  // );rs
 });
 
-function generateToken() {
-  // Generate a random token using a library like CryptoJS
-  var token = CryptoJS.lib.WordArray.random(128 / 8).toString(CryptoJS.enc.Hex);
+// function generateToken() {
+//   // Generate a random token using a library like CryptoJS
+//   var token = CryptoJS.lib.WordArray.random(128 / 8).toString(CryptoJS.enc.Hex);
 
-  // Store the token in the database, associated with the user's email address
+//   // Store the token in the database, associated with the user's email address
 
-  // Return the token
-  console.log(token);
-  return token;
-}
+//   // Return the token
+//   console.log(token);
+//   return token;
+// }
 
-// Email sending function
-function sendVerificationEmail(email, token) {
-  // Construct the verification URL using the token and your application's base URL
-  // var verifyUrl =
-  //   "https://abhinav-21.github.io/Healthcare-Record-Management/verify-email?token=" +
-  //   token;
+// // Email sending function
+// function sendVerificationEmail(email) {
+//   // Construct the verification URL using the token and your application's base URL
+//   // var verifyUrl =
+//   //   "https://abhinav-21.github.io/Healthcare-Record-Management/verify-email?token=" +
+//   //   token;
 
-  // Construct the email message with the verification URL
-  var emailBody =
-    "Thank you for registering with our application. Please paste the following token to verify your email address and complete registration: " +
-    token;
+//   // Construct the email message with the verification URL
+//   // const emailBody =
+//   //   "Thank you for registering with our application. Please paste the following token to verify your email address and complete registration: " +
+//   //   token;
 
-  const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: "healthcare.record.management@gmail.com", // Replace with your email address
-      pass: "hrm@12345", // Replace with your email password
-    },
-  });
-  const mailOptions = {
-    from: "healthcare.record.management@gmail.com", // Replace with your email address
-    to: email, // Replace with the recipient's email address
-    subject: "Test Email from Nodemailer",
-    text: emailBody,
-  };
-  transporter.sendMail(mailOptions, function (error, info) {
-    if (error) {
-      console.log(error);
-    } else {
-      console.log("Email sent: " + info.response);
-    }
-  });
-}
+//     const transporter = nodemailer.createTransport({
+//       service: 'gmail',
+//       auth: {
+//         user: 'healthcare.record.management@gmail.com',
+//         pass: 'hrm@12345'
+//       }
+//     });
+//   const mailOptions = {
+//     from: "healthcare.record.management@gmail.com",
+//     to: email, 
+//     subject: "Test Email from Nodemailer",
+//     text: "hello",
+//   };
+//   transporter.sendMail(mailOptions, function (error, info) {
+//     if (error) {
+//       console.log(error);
+//     } else {
+//       console.log("Email sent: " + info.response);
+//     }
+//   });
+// }
+
+// sendVerificationEmail('babujames0007@gmail.com');
 
 

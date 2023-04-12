@@ -14,16 +14,11 @@
     document.getElementById("activateModal").disabled = false;
 }
 
-function loadingData(){
-    $("#cnfHead").html("Loading...");
-    $(".spinner").html('<div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div>');
-}
 
 $("#cancel").click(function(){
     location.reload();
 });
 
 $("#submit").click(function(){
-    loadingData;
     setTimeout(getDoc_ID,7000);
 });

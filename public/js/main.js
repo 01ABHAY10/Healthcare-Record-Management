@@ -19,6 +19,10 @@ $("#cancel").click(function(){
     location.reload();
 });
 
+$("#viewClose").click(function(){
+    location.reload();
+});
+
 $("#submit").click(function(){
     setTimeout(getDoc_ID,7000);
 });
@@ -27,8 +31,7 @@ $("#submit").click(function(){
 async function getData(){
     const response = await fetch('http://localhost:8000/data');
     const data = await response.json();
-
-   if(data){
+   if(data && data.Doc_ID != -1){
         $('#doc').html('Patient with Doc_ID : '+data.Doc_ID);
         $('#date').val(data.Data_Uploading_Date);
         $('#email').val(data.Email);
@@ -52,8 +55,19 @@ async function getData(){
    }else{
     alert("Error");
    }
-
 }
+
+async function Error(){
+    const response = await fetch('http://localhost:8000/data');
+    const data = await response.json();
+    if(data.Doc_ID == -1){
+        $('#viewLabel').html('<span style="color:red";>Invalid Doc_ID! ..Re-enter<span>');
+    }
+}
+
+$('#view').click(function(){
+    setTimeout(Error,7000);
+})
 
 if(window.location.href == "http://localhost:8000/view-data"){
     getData();

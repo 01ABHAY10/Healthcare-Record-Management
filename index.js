@@ -187,7 +187,7 @@ app.post("/view-data",async function(req,res){
   patient_data = await retrieve(ID);
   if(patient_data == -1){
     patient_data = {
-      Name : 'error'
+      Doc_ID : -1
     }
   }else{
     res.sendFile(__dirname + "/view.html");

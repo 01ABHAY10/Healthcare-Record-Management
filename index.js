@@ -189,18 +189,16 @@ app.post("/signup", function(req, res){
   // res.sendFile(__dirname+"/signup.html");
   const userEmail = req.body.email;
   console.log(userEmail);
+  // var verificationToken = generateToken();
+
+  // // Send the verification email
+  // sendVerificationEmail(userEmail, verificationToken);
+
+  // // Prompt the user to check their email for the verification link
+  // alert(
+  //   "A verification link has been sent to your email. Please click the link to complete registration."
+  // );
 });
-//   console.log(userEmail);
-//   var verificationToken = generateToken();
-
-//   // Send the verification email
-//   sendVerificationEmail(userEmail, verificationToken);
-
-//   // Prompt the user to check their email for the verification link
-//   alert(
-//     "A verification link has been sent to your email. Please click the link to complete registration."
-//   );
-// });
 
 function generateToken() {
   // Generate a random token using a library like CryptoJS

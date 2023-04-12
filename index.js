@@ -183,29 +183,29 @@ app.get('/upload', function(req, res) {
 
 app.post("/signup", function(req, res){
   res.sendFile(__dirname+"/signup.html");
-  const userEmail = req.body.email;
-  console.log(userEmail);
-  var verificationToken = generateToken();
+//   const userEmail = req.body.email;
+//   console.log(userEmail);
+//   var verificationToken = generateToken();
 
-  // Send the verification email
-  sendVerificationEmail(userEmail, verificationToken);
+//   // Send the verification email
+//   sendVerificationEmail(userEmail, verificationToken);
 
-  // Prompt the user to check their email for the verification link
-  alert(
-    "A verification link has been sent to your email. Please click the link to complete registration."
-  );
+//   // Prompt the user to check their email for the verification link
+//   alert(
+//     "A verification link has been sent to your email. Please click the link to complete registration."
+//   );
+// });
+
+// function generateToken() {
+//   // Generate a random token using a library like CryptoJS
+//   var token = CryptoJS.lib.WordArray.random(128 / 8).toString(CryptoJS.enc.Hex);
+
+//   // Store the token in the database, associated with the user's email address
+
+//   // Return the token
+//   console.log(token);
+//   return token;
 });
-
-function generateToken() {
-  // Generate a random token using a library like CryptoJS
-  var token = CryptoJS.lib.WordArray.random(128 / 8).toString(CryptoJS.enc.Hex);
-
-  // Store the token in the database, associated with the user's email address
-
-  // Return the token
-  console.log(token);
-  return token;
-}
 
 // Email sending function
 function sendVerificationEmail(email, token) {

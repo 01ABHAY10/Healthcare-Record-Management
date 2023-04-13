@@ -6,6 +6,7 @@ const { spawn } = require("child_process");
 const mongoose = require("mongoose");
 const bodyParser = require('body-parser');
 const CryptoJS = require("crypto-js");
+const cron = require("node-cron");
 const nodemailer = require("nodemailer");
 const { KEY } = require("./config.js");
 const { MONGO_URL } = require("./config.js");
@@ -227,7 +228,11 @@ app.get("/data",function(req,res){
 app.get('/signup',function(req,res){
   res.sendFile(__dirname+"/signup.html");
 
-})
+});
+
+app.get('/analytics', function(req, res){
+  res.sendFile(__dirname+"/analytics.html");
+});
 
 app.post("/signup", function(req, res){
   // res.sendFile(__dirname+"/signup.html");
@@ -244,16 +249,16 @@ app.post("/signup", function(req, res){
   // );rs
 });
 
-// function generateToken() {
-//   // Generate a random token using a library like CryptoJS
-//   var token = CryptoJS.lib.WordArray.random(128 / 8).toString(CryptoJS.enc.Hex);
+function generateToken() {
+  // Generate a random token using a library like CryptoJS
+  var token = CryptoJS.lib.WordArray.random(128 / 8).toString(CryptoJS.enc.Hex);
 
-//   // Store the token in the database, associated with the user's email address
+  // Store the token in the database, associated with the user's email address
 
-//   // Return the token
-//   console.log(token);
-//   return token;
-// }
+  // Return the token
+  console.log(token);
+  return token;
+}
 
 // // Email sending function
 // function sendVerificationEmail(email) {
@@ -292,3 +297,13 @@ app.post("/signup", function(req, res){
 // sendVerificationEmail('babujames0007@gmail.com');
 
 
+cron.schedule(
+  "0 0 * * *",
+  () => {
+    require("./analytics.js");
+  },
+  {
+    scheduled: true,
+    timezone: "Asia/Kolkata",
+  }
+);

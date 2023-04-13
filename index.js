@@ -10,6 +10,7 @@ const nodemailer = require("nodemailer");
 const { KEY } = require("./config.js");
 const { MONGO_URL } = require("./config.js");
 const { ID } = require("./config.js");
+const { AdminKey } = require("./config.js");
 // const { log } = require("console");
 
 
@@ -171,8 +172,30 @@ try{
   }
 });
 
-app.get('/upload', function(req, res) {
-  res.sendFile(__dirname + "/upload.html");
+let present;
+app.post('/upload', async function(req, res) {
+  const key = req.body.key;
+  console.log(key);
+  try{
+       present = await AdminKey.findOne({key : key});
+    if(present != null){
+        res.sendFile(__dirname + "/upload.html");
+    }else{
+      present = {
+        key : 0
+      }
+    }
+  }catch(error){
+    present = {
+      key : -1
+    }
+    console.log("Error in key verification")
+  }
+});
+
+app.get("/verify-key",function(req,res){
+  res.header('Content-Type','application/json');
+  res.send(present);
 });
 
 app.get("/update",function(req,res){

@@ -17,6 +17,10 @@ $("#cancel").click(function () {
   location.reload();
 });
 
+$("#uploadClose").click(function(){
+  location.reload();
+});
+
 $("#viewClose").click(function () {
   location.reload();
 });
@@ -64,10 +68,29 @@ async function Error() {
   }
 }
 
+async function KeyError(){
+  const response = await fetch("http://localhost:8000/verify-key");
+  const data = await response.json();
+  if(data.key == 0){
+    $('#admKeyLabel').html(
+      '<span style="color:red";>Invalid Admin_Key! ..Re-enter<span>'
+    );
+  }
+  if(data.key == -1){
+    $('#admKeyLabel').html(
+      '<span style="color:red";>Error occured! ..Try again<span>'
+    );
+  }
+}
+
+$("#verifyKey").click(function(){
+  setTimeout(KeyError, 4000);
+});
+
 $("#view").click(function () {
   setTimeout(Error, 7000);
 });
 
 if (window.location.href == "http://localhost:8000/view-data") {
   getData();
-}
+};

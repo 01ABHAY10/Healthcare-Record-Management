@@ -275,7 +275,7 @@ function generateToken() {
 
 
 cron.schedule(
-  "30 5 * * *",
+  "0 0 * * *",
   () => {
     require("./analytics.js");
   },

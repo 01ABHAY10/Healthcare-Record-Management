@@ -43,3 +43,4 @@ plt.plot(x, y)
 # Save the plot to a file
 save_path = "D:\Study\Healthcare record management\public\images\img.png"
 plt.savefig(save_path)
+print(1)

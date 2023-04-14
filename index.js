@@ -263,7 +263,12 @@ app.post("/get-token",async function(req,res){
 });
 
 function generateToken() {
-  let token = CryptoJS.lib.WordArray.random(128 / 8).toString(CryptoJS.enc.Hex);
+  // Generate a random token using a library like CryptoJS
+  var token = CryptoJS.lib.WordArray.random(8).toString(CryptoJS.enc.Hex);
+
+  // Store the token in the database, associated with the user's email address
+
+  // Return the token
   console.log(token);
   return token;
 }

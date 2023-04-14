@@ -61,9 +61,14 @@ async function getData() {
 async function Error() {
   const response = await fetch("http://localhost:8000/data");
   const data = await response.json();
-  if (data.Doc_ID == -1) {
+  if(data.Doc_ID == -1){
     $("#viewLabel").html(
       '<span style="color:red";>Invalid Doc_ID! ..Re-enter<span>'
+    );
+  }
+  if(data.Doc_ID == 0){
+    $("#viewLabel").html(
+      '<span style="color:red";>Incorrect Token!..Retry<span>'
     );
   }
 }
@@ -94,3 +99,21 @@ $("#view").click(function () {
 if (window.location.href == "http://localhost:8000/view-data") {
   getData();
 };
+
+async function Request(){
+  const data = {
+    value : 1
+  }
+  const response = await fetch("http://localhost:8000/get-token",{
+    method : 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  });
+}
+
+$("#otp").click(function(){
+  // setTimeout(KeyError, 4000);
+  Request();
+});

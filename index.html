@@ -115,14 +115,18 @@
                 <div class="mb-3 row">
                   <label class="col-sm-1 col-form-label"><b>Doc_ID</b></label>
                   <div class="col-sm-9">
-                      <input type="number" class="form-control" name="id" id="docID" >
+                      <input type="number" class="form-control" name="id" id="docID" value="" required>
                   </div>
                 </div>
                 <div class="mb-3 row">
-                  <label class="col-sm-1 col-form-label"><b>Email</b></label>
+                  <label class="col-sm-1 col-form-label"><b>Token</b></label>
                   <div class="col-sm-9">
-                      <input type="email" class="form-control" name="email">
+                    <input  class="form-control" name="token" value="">
                   </div>
+                </div>
+                  <div class="center"><button  id="otp" class=" modal-btn btn">Get Token</button></div>
+                <div class="mb-3 row alert">
+                  <small>A verification '<b>Token</b>' will be sent to your mail. </small>
                 </div>
               </div>
               <div class="modal-footer">

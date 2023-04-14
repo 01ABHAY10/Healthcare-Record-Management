@@ -205,16 +205,25 @@ app.get("/update",function(req,res){
 });
 
 let patient_data;
+let TOKEN;
 app.post("/view-data",async function(req,res){
   const ID= req.body.id;
-  console.log(ID);
-  patient_data = await retrieve(ID);
-  if(patient_data == -1){
-    patient_data = {
-      Doc_ID : -1
+  const token = req.body.token;
+  // console.log(ID);
+  // console.log(token);
+  if(token == TOKEN){
+    patient_data = await retrieve(ID);
+    if(patient_data == -1){
+      patient_data = {
+        Doc_ID : -1
+      }
+    }else{
+      res.sendFile(__dirname + "/view.html");
     }
   }else{
-    res.sendFile(__dirname + "/view.html");
+    patient_data = {
+      Doc_ID : 0
+    }
   }
 })
 
@@ -249,16 +258,16 @@ app.post("/signup", function(req, res){
   // );rs
 });
 
+app.post("/get-token",async function(req,res){
+      TOKEN = generateToken();
+});
+
 function generateToken() {
-  // Generate a random token using a library like CryptoJS
-  var token = CryptoJS.lib.WordArray.random(128 / 8).toString(CryptoJS.enc.Hex);
-
-  // Store the token in the database, associated with the user's email address
-
-  // Return the token
+  let token = CryptoJS.lib.WordArray.random(128 / 8).toString(CryptoJS.enc.Hex);
   console.log(token);
   return token;
 }
+// generateToken();
 
 // // Email sending function
 // function sendVerificationEmail(email) {

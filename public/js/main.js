@@ -1,4 +1,4 @@
-
+//function for fetching Doc_ID from server side
 async function getDoc_ID() {
   const response = await fetch("http://localhost:8000/update");
   const Doc_ID = await response.json();
@@ -29,6 +29,8 @@ $("#submit").click(function () {
   setTimeout(getDoc_ID, 7000);
 });
 
+
+//function for fetching patient data
 async function getData() {
   const response = await fetch("http://localhost:8000/data");
   const data = await response.json();
@@ -58,6 +60,8 @@ async function getData() {
   }
 }
 
+
+//function for identifying type of error while viewing data
 async function Error() {
   const response = await fetch("http://localhost:8000/data");
   const data = await response.json();
@@ -73,6 +77,8 @@ async function Error() {
   }
 }
 
+
+//function for identifying type of error while uploading data
 async function KeyError(){
   const response = await fetch("http://localhost:8000/verify-key");
   const data = await response.json();
@@ -100,10 +106,14 @@ if (window.location.href == "http://localhost:8000/view-data") {
   getData();
 };
 
+
+//function for requesting to generate token to server side
 async function Request(){
+  const docID = $('#docID').val();
   const data = {
-    value : 1
+    value : docID
   }
+  console.log(docID);
   const response = await fetch("http://localhost:8000/get-token",{
     method : 'POST',
     headers: {
@@ -114,6 +124,6 @@ async function Request(){
 }
 
 $("#otp").click(function(){
-  // setTimeout(KeyError, 4000);
+  setTimeout(Error, 4000);
   Request();
 });

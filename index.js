@@ -12,7 +12,6 @@ const { KEY } = require("./config.js");
 const { MONGO_URL } = require("./config.js");
 const { ID } = require("./config.js");
 const { AdminKey } = require("./config.js");
-// const { log } = require("console");
 
 
 const app = express();
@@ -117,12 +116,15 @@ async function retrieve(id) {
 // );
 // app.use(express.static("public"));
 
+
+//mainpage get request
 app.get("/", function (req, res) {
   res.sendFile(__dirname + "/index.html");
 });
 
-let Doc_ID_No;
 
+//upload data to web3.storage
+let Doc_ID_No;
 app.post("/patient-data",async function(req,res){
   
   const {name,age,gender,blood_group,height,weight,smoke,drink,tobacco,date,email,
@@ -173,8 +175,11 @@ try{
   }
 });
 
+
+
+//key verification while uploading data
 let present;
-app.post('/upload', async function(req, res) {
+app.post('/upload', async function(req, res){
   const key = req.body.key;
   console.log(key);
   try{
@@ -194,16 +199,22 @@ app.post('/upload', async function(req, res) {
   }
 });
 
+
+//Sending type of error to client side while verifying key
 app.get("/verify-key",function(req,res){
   res.header('Content-Type','application/json');
   res.send(present);
 });
 
+
+//Sernding patient data stored with Doc_ID
 app.get("/update",function(req,res){
  res.header('Content-Type','application/json');
  res.send(Doc_ID_No);
 });
 
+
+//Token verification while viewing patient data
 let patient_data;
 let TOKEN;
 app.post("/view-data",async function(req,res){
@@ -228,6 +239,7 @@ app.post("/view-data",async function(req,res){
 })
 
 
+//Sending type of error in client side while verifying token
 app.get("/data",function(req,res){
   res.header('Content-Type','application/json');
   res.send(patient_data);
@@ -258,22 +270,31 @@ app.post("/signup", function(req, res){
   // );rs
 });
 
+
+
+//Generating token for verification
 app.post("/get-token",async function(req,res){
-      TOKEN = generateToken();
+      const data = req.body.value;
+      const check = await ID.findOne({id : data});
+      if(check){
+        TOKEN = generateToken();
+      }else{
+        patient_data = {
+          Doc_ID : -1
+        }
+      }
 });
 
+
+//function for generating tokens for verifications
 function generateToken() {
-  // Generate a random token using a library like CryptoJS
   var token = CryptoJS.lib.WordArray.random(8).toString(CryptoJS.enc.Hex);
-
-  // Store the token in the database, associated with the user's email address
-
-  // Return the token
   console.log(token);
   return token;
 }
-// generateToken();
 
+
+// generateToken();
 // // Email sending function
 // function sendVerificationEmail(email) {
 //   // Construct the verification URL using the token and your application's base URL

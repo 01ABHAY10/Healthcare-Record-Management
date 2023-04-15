@@ -112,7 +112,7 @@ async function sendDataTopy(){
       python.on("exit", (code) => {
         console.log("Python process exited with code:", code);
       })
-      console.log("hello");
+      console.log(obj);
   }
 }
 

@@ -62,15 +62,15 @@ async function getData() {
 
 
 //function for identifying type of error while viewing data
-async function Error() {
+async function Error(num) {
   const response = await fetch("http://localhost:8000/data");
   const data = await response.json();
-  if(data.Doc_ID == -1){
+  if(data.Doc_ID == -1 && num == 1){
     $("#viewLabel").html(
       '<span style="color:red";>Invalid Doc_ID! ..Re-enter<span>'
     );
   }
-  if(data.Doc_ID == 0){
+  if(data.Doc_ID == 0 && num == 0){
     $("#viewLabel").html(
       '<span style="color:red";>Incorrect Token!..Retry<span>'
     );
@@ -99,7 +99,9 @@ $("#verifyKey").click(function(){
 });
 
 $("#view").click(function () {
-  setTimeout(Error, 7000);
+  setTimeout(function(){
+    Error(0);
+  }, 5000);
 });
 
 if (window.location.href == "http://localhost:8000/view-data") {
@@ -124,6 +126,8 @@ async function Request(){
 }
 
 $("#otp").click(function(){
-  setTimeout(Error, 4000);
+  setTimeout(function(){
+    Error(1);
+  }, 4000);
   Request();
 });

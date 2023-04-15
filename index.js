@@ -12,6 +12,10 @@ const { KEY } = require("./config.js");
 const { MONGO_URL } = require("./config.js");
 const { ID } = require("./config.js");
 const { AdminKey } = require("./config.js");
+const { MAILJET_KEY,MAILJET_SECRET_KEY } = require("./config.js");
+const mailjet = require('node-mailjet');
+const connection = mailjet.connect(MAILJET_KEY, MAILJET_SECRET_KEY);
+
 
 
 const app = express();
@@ -336,7 +340,35 @@ function generateToken() {
 
 // sendVerificationEmail('babujames0007@gmail.com');
 
+async function sendMail(){
 
+    const request = connection.post('send', { version: 'v3.1' }).request({
+      Messages: [
+        {
+          From: {
+            Email: 'babujames0007@gmail.com',
+            Name: 'Healthcare Record'
+          },
+          To: [
+            {
+              Email: 'vishwakarmaabhay10@gmail.com',
+              Name: 'james babu'
+            }
+          ],
+          Subject: 'First mail',
+          TextPart: 'hello'
+        }
+      ]
+    });
+    try {
+      const result = await request;
+      console.log(result.body);
+    } catch (err) {
+      console.log(err.statusCode, err.message);
+    }
+  };
+
+sendMail();
 cron.schedule(
   "5 * * * *",
   () => {
@@ -347,3 +379,34 @@ cron.schedule(
     timezone: "Asia/Kolkata",
   }
 );
+
+function sendmail(){
+// create reusable transporter object using the default SMTP transport
+let transporter = nodemailer.createTransport({
+    host: 'smtp.office365.com',
+    port: 587,
+    secure: false, // secure:false for port 587, secure:true for port 465
+    auth: {
+        user: 'healthcare.record.management@outlook.com',
+        pass: 'hrm@12345'
+    }
+});
+
+// setup email data with unicode symbols
+let mailOptions = {
+    from: 'healthcare.record.management@outlook.com',
+    to: 'vishwakarmaabhay10@gmail.com',
+    subject: 'Test email from Nodemailer',
+    text: 'Hello world from Nodemailer!'
+};
+
+// send mail with defined transport object
+transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+        return console.log(error);
+    }
+    console.log('Message sent: %s', info.messageId);
+});
+}
+
+// sendmail();

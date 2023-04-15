@@ -20,7 +20,7 @@ const connection = mailjet.connect(MAILJET_KEY, MAILJET_SECRET_KEY);
 
 const app = express();
 const client = new Web3Storage({ token: KEY });
-const python = spawn("python", ["main.py"]);
+
 
 
 app.use(express.static("public"));
@@ -96,23 +96,25 @@ async function sendDataTopy(){
   let n = await getFilename();
   for(i=1; i<n; i++){
     const obj = await retrieve(i);
+    const python = spawn("python", ["filegenerator.py"]);
     python.stdin.write(JSON.stringify(obj));
-      python.stdin.end();
 
-      // listen for response from Python process
-      python.stdout.on("data", (data) => {
-        console.log("Received data from Python:", data.toString());
-      });
+    python.stdin.end();
+    // listen for response from Python process
+    python.stdout.on("data", (data) => {
+      console.log("Received data from Python:", data.toString());
+    });
 
-      // handle errors and exit events
-      python.on("error", (err) => {
-        console.error("Python process error:", err);
-      });
+    // handle errors and exit events
+    python.on("error", (err) => {
+      console.error("Python process error:", err);
+    });
 
-      python.on("exit", (code) => {
-        console.log("Python process exited with code:", code);
-      })
+    python.on("exit", (code) => {
+      console.log("Python process exited with code:", code);
+    });
       console.log("hello");
+      
   }
 }
 

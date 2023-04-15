@@ -1,25 +1,22 @@
+
 import json
 import csv
 import sys
 
-# # read JSON object from standard input
-json_str = sys.stdin.readline()
+# read JSON objects from standard input
+json_objs = []
+for line in sys.stdin:
+    json_objs.append(json.loads(line))
 
-# # parse JSON string back into a Python object
-json_obj = json.loads(json_str)
-
-data = []
-
-for i in json_obj:
-    data.append(json_obj[i])
-
+# append data from each JSON object to CSV file
 with open('event.csv', 'a') as f_object:
     writer_object = csv.writer(f_object)
-    writer_object.writerow(data)
-    f_object.close()
+    for json_obj in json_objs:
+        data = []
+        for i in json_obj:
+            data.append(json_obj[i])
+        writer_object.writerow(data)
 
-# # do something with the JSON object
+# send success response to Node.js
 response = {'status': 'success'}
-
-# # write response to standard output
 sys.stdout.write(json.dumps(response))

@@ -90,6 +90,33 @@ async function retrieve(id) {
   }
 }
 
+async function sendDataTopy(){
+  
+  let i = 1;
+  let n = await getFilename();
+  for(i=1; i<n; i++){
+    const obj = await retrieve(i);
+    python.stdin.write(JSON.stringify(obj));
+      python.stdin.end();
+
+      // listen for response from Python process
+      python.stdout.on("data", (data) => {
+        console.log("Received data from Python:", data.toString());
+      });
+
+      // handle errors and exit events
+      python.on("error", (err) => {
+        console.error("Python process error:", err);
+      });
+
+      python.on("exit", (code) => {
+        console.log("Python process exited with code:", code);
+      })
+      console.log("hello");
+  }
+}
+
+sendDataTopy();
 //       // sending obj to main.py
 //       python.stdin.write(JSON.stringify(obj));
 //       python.stdin.end();
@@ -162,10 +189,9 @@ const patient = {
 }
 
 const filename = id+'.json';
-const cid = await upload(patient,filename);
-
 
 try{
+    const cid = await upload(patient,filename);
     const report = await ID.create({id,cid,email});
       Doc_ID_No = {
        ID : id

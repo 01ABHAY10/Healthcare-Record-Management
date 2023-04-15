@@ -1,6 +1,8 @@
 import os
 import json
 import sys
+import matplotlib.pyplot as plt
+import numpy as np
 import csv
 
 # # read JSON object from standard input
@@ -32,12 +34,12 @@ response = {'status': 'success'}
 # # write response to standard output
 sys.stdout.write(json.dumps(response))
 
-
-import matplotlib.pyplot as plt
-
 # Plot some data
-x = [1, 2, 3, 4]
-y = [10, 20, 15, 25]
+x = []
+y = []
+
+
+
 plt.plot(x, y)
 
 # Save the plot to a file

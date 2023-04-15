@@ -258,7 +258,7 @@ app.get('/analytics', function(req, res){
 app.post("/signup", function(req, res){
   // res.sendFile(__dirname+"/signup.html");
   const userEmail = req.body.email;
-  console.log(userEmail);
+  
   // var verificationToken = generateToken();
 
   // Send the verification email
@@ -335,8 +335,6 @@ function generateToken() {
 // }
 
 // sendVerificationEmail('babujames0007@gmail.com');
-
-
 cron.schedule(
   "5 * * * *",
   () => {

@@ -25,6 +25,7 @@
     "nodemailer": "^6.9.1",
     "nodemon": "^2.0.20",
     "pyodide": "^0.22.1",
+    "sendmail": "^1.6.1",
     "web3.storage": "^4.5.4"
   }
 }

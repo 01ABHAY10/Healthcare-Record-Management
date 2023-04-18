@@ -9,7 +9,7 @@ for line in sys.stdin:
     json_objs.append(json.loads(line))
 
 # append data from each JSON object to CSV file
-with open('event.csv', 'a') as f_object:
+with open('event.csv', 'a', newline="") as f_object:
     writer_object = csv.writer(f_object)
     for json_obj in json_objs:
         data = []

@@ -140,27 +140,27 @@ app.post("/patient-data",async function(req,res){
 
 //creating patient object
 const patient = {
-  Doc_ID : id,
-  Data_Uploading_Date : date,
-  Email : email,
-  Name : name,
-  Age : age,
-  Gender : gender,
-  Blood_Group : blood_group,
-  Height : height,
-  Weight : weight,
-  Smoking : smoke ? "Yes" : "No",
-  Drinking : drink ? "Yes" : "No",
-  Tobacco : tobacco ? "Yes" : "No",
-  Disease_1 : disease1,
-  Disease_2 : disease2,
-  Disease_3 : disease3,
-  Disease_4 : disease4,
-  Disease_5 : disease5,
-  Disease_6 : disease6,
-  Covid_Vaccination_Status : covid,
-  Other_problems_or_symptoms : other
-}
+  Doc_ID: id,
+  Data_Uploading_Date: date,
+  Email: email,
+  Name: name,
+  Age: age,
+  Gender: gender,
+  Blood_Group: blood_group,
+  Height: height,
+  Weight: weight,
+  Smoking: smoke ? "Yes" : "No",
+  Drinking: drink ? "Yes" : "No",
+  Tobacco: tobacco ? "Yes" : "No",
+  Disease_1: "-" ? "" : disease1,
+  Disease_2: "-" ? "" : disease2,
+  Disease_3: "-" ? "" : disease3,
+  Disease_4: "-" ? "" : disease4,
+  Disease_5: "-" ? "" : disease5,
+  Disease_6: "-" ? "" : disease6,
+  Covid_Vaccination_Status: covid,
+  Other_problems_or_symptoms: other,
+};
 
 const filename = id+'.json';
 

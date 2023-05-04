@@ -341,16 +341,16 @@ function generateToken() {
 // sendVerificationEmail('babujames0007@gmail.com');
 
 
-// cron.schedule(
-//   "56 22 * * *",
-//   () => {
-//     require("./analytics.js");
-//   },
-//   {
-//     scheduled: true,
-//     timezone: "Asia/Kolkata",
-//   }
-// );
+cron.schedule(
+  "56 22 * * *",
+  () => {
+    require("./analytics.js");
+  },
+  {
+    scheduled: true,
+    timezone: "Asia/Kolkata",
+  }
+);
 
 cron.schedule(
   "1 15 * * *",

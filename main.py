@@ -23,7 +23,8 @@ disDat = {0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0}
 diabetes = {"1-15": 0, "16-30": 0, "31-45": 0, "46-60": 0, "60+": 0}
 
 # body mass index
-bmi = {}
+bmi_male = {}
+bmi_female = {}
 
 chronic = [
     "heart disease",
@@ -45,7 +46,10 @@ chronic = [
 df = pd.read_csv("event.csv")
 for index, row in df.iterrows():
     disease_count = 0
-    bmi[row[7] / 100] = row[8]
+    if row[5].lower() == "male":   
+        bmi_male[row[7] / 100] = row[8]
+    else:
+        bmi_female[row[7] / 100] = row[8]
     for i in range(6):
         if str(row[13 + i]) != "-":
             if str(row[13 + i]).lower() in chronic:
@@ -100,7 +104,8 @@ plt.xlim([36, 124])
 plt.ylim([1.4314, 2.009])
 # plt.grid()
 
-plt.scatter(bmi.values(), bmi.keys(), s=2, color="black")
+plt.scatter(bmi_male.values(), bmi_male.keys(), s=2.5, color="blue")
+plt.scatter(bmi_female.values(), bmi_female.keys(), s=2.5, color="crimson")
 save_path = "D:\Study\Healthcare record management\public\images\plot4.png"
 plt.savefig(save_path)
 plt.close()

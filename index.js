@@ -91,16 +91,16 @@ async function retrieve(id) {
 }
 
 
-//       // sending obj to main.py
+      // sending obj to main.py
 //       python.stdin.write(JSON.stringify(obj));
 //       python.stdin.end();
 
-//       // listen for response from Python process
+      // listen for response from Python process
 //       python.stdout.on("data", (data) => {
 //         console.log("Received data from Python:", data.toString());
 //       });
 
-//       // handle errors and exit events
+      // handle errors and exit events
 //       python.on("error", (err) => {
 //         console.error("Python process error:", err);
 //       });
@@ -181,7 +181,7 @@ try{
 
 
 
-//key verification while uploading data
+// key verification while uploading data
 let present;
 app.post('/upload', async function(req, res){
   const key = req.body.key;
@@ -304,17 +304,17 @@ function generateToken() {
 
 
 // generateToken();
-// // Email sending function
+// Email sending function
 // function sendVerificationEmail(email) {
-//   // Construct the verification URL using the token and your application's base URL
-//   // var verifyUrl =
-//   //   "https://abhinav-21.github.io/Healthcare-Record-Management/verify-email?token=" +
-//   //   token;
+  // Construct the verification URL using the token and your application's base URL
+  // var verifyUrl =
+  //   "https://abhinav-21.github.io/Healthcare-Record-Management/verify-email?token=" +
+  //   token;
 
-//   // Construct the email message with the verification URL
-//   // const emailBody =
-//   //   "Thank you for registering with our application. Please paste the following token to verify your email address and complete registration: " +
-//   //   token;
+  // Construct the email message with the verification URL
+  // const emailBody =
+  //   "Thank you for registering with our application. Please paste the following token to verify your email address and complete registration: " +
+  //   token;
 
 //     const transporter = nodemailer.createTransport({
 //       service: 'gmail',
@@ -364,16 +364,16 @@ cron.schedule(
 );
 
 // function sendmail(){
-// // create reusable transporter object using the default SMTP transport
-// // let transporter = nodemailer.createTransport({
-// //     host: 'smtp.office365.com',
-// //     port: 587,
-// //     secure: false, // secure:false for port 587, secure:true for port 465
-// //     auth: {
-// //         user: 'healthcare.record.management@outlook.com',
-// //         pass: 'hrm@12345'
-// //     }
-// // });
+// create reusable transporter object using the default SMTP transport
+// let transporter = nodemailer.createTransport({
+//     host: 'smtp.office365.com',
+//     port: 587,
+//     secure: false, // secure:false for port 587, secure:true for port 465
+//     auth: {
+//         user: 'healthcare.record.management@outlook.com',
+//         pass: 'hrm@12345'
+//     }
+// });
 // const transporter = nodemailer.createTransport({
 //   host: "smtp.ethereal.email",
 //   port: 587,
@@ -383,7 +383,7 @@ cron.schedule(
 //   },
 // });
 
-// // setup email data with unicode symbols
+// setup email data with unicode symbols
 // let mailOptions = {
 //     from: '"Healthcare Record" <healthcare.record.management@outlook.com>',
 //     to: 'abhinav.20211055@mnnit.ac.in',
@@ -391,7 +391,7 @@ cron.schedule(
 //     text: 'Hello world from Nodemailer!'
 // };
 
-// // send mail with defined transport object
+// send mail with defined transport object
 // transporter.sendMail(mailOptions, (error, info) => {
 //     if (error) {
 //         return console.log("Dhat tere ki");
@@ -402,11 +402,11 @@ cron.schedule(
 
 // async..await is not allowed in global scope, must use a wrapper
 // async function main() {
-//   // Generate test SMTP service account from ethereal.email
-//   // Only needed if you don't have a real mail account for testing
-//   // let testAccount = await nodemailer.createTestAccount();
+  // Generate test SMTP service account from ethereal.email
+  // Only needed if you don't have a real mail account for testing
+  // let testAccount = await nodemailer.createTestAccount();
 
-//   // create reusable transporter object using the default SMTP transport
+  // create reusable transporter object using the default SMTP transport
 //   let transporter = nodemailer.createTransport({
 //     host: "smtp.ethereal.email",
 //     port: 587,
@@ -417,7 +417,7 @@ cron.schedule(
 //     },
 //   });
 
-//   // send mail with defined transport object
+  // send mail with defined transport object
 //   let info = await transporter.sendMail({
 //     from: '"Fred Foo 👻" <abhitiwari0@outlook.com>', // sender address
 //     to: "abhinav.20211055@mnnit.ac.in", // list of receivers
@@ -427,11 +427,11 @@ cron.schedule(
 //   });
 
 //   console.log("Message sent: %s", info.messageId);
-//   // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+  // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
 
-//   // Preview only available when sending through an Ethereal account
+  // Preview only available when sending through an Ethereal account
 //   console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-//   // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
+  // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
 // }
 
 // main().catch(console.error);

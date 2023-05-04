@@ -15,19 +15,44 @@ dat = {
     "rh-null": 0,
     "others": 0,
 }
+
+# number of diseases
 disDat = {0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0}
+
+# diabetes
 diabetes = {"1-15": 0, "16-30": 0, "31-45": 0, "46-60": 0, "60+": 0}
+
+# body mass index
 bmi = {}
+
+chronic = [
+    "heart disease",
+    "stroke",
+    "lung cancer",
+    "colorectal cancer",
+    "depression",
+    "type 2 diabetes",
+    "arthritis",
+    "osteoporosis",
+    "asthma",
+    "chronic obstructive pulmonary disease",
+    "copd",
+    "chronic kidney disease",
+    "ckd",
+    "oral disease"
+]
 
 df = pd.read_csv("event.csv")
 for index, row in df.iterrows():
     disease_count = 0
-    bmi[row[7]/100] = row[8]
+    bmi[row[7] / 100] = row[8]
     for i in range(6):
-        if (str(row[13 + i]) != "-"):
-            if (str(row[13 + i]).lower() == "diabetes"):
+        if str(row[13 + i]) != "-":
+            if str(row[13 + i]).lower() in chronic:
+                pass
+            if str(row[13 + i]).lower() == "diabetes":
                 for i in range(5):
-                    if (15*(i+1) - row[4] < 15) and (row[4] - (15*i) < 15):
+                    if (15 * (i + 1) - row[4] < 15) and (row[4] - (15 * i) < 15):
                         if i == 0:
                             diabetes["1-15"] += 1
                         elif i == 1:
@@ -38,12 +63,9 @@ for index, row in df.iterrows():
                             diabetes["46-60"] += 1
                         else:
                             diabetes["60+"] += 1
-            # print(row[12+i], disease_count)
             disease_count += 1
     disDat[disease_count] += 1
     dat[row[6]] += 1
-
-# print(df.head())
 
 plt.bar(diabetes.keys(), diabetes.values(), width=0.9)
 
@@ -73,13 +95,12 @@ plt.close()
 img = plt.imread("public/images/BMI_chart1.jpg")
 fig, ax = plt.subplots()
 ax.imshow(img, extent=[36, 124, 1.4314, 2.009])
-ax.set_aspect('auto')
+ax.set_aspect("auto")
 plt.xlim([36, 124])
 plt.ylim([1.4314, 2.009])
-plt.grid()
+# plt.grid()
 
-plt.scatter(bmi.values(), bmi.keys())
+plt.scatter(bmi.values(), bmi.keys(), s=2, color="black")
 save_path = "D:\Study\Healthcare record management\public\images\plot4.png"
 plt.savefig(save_path)
 plt.close()
-

@@ -15,6 +15,7 @@ const { AdminKey } = require("./config.js");
 const { MAILJET_KEY,MAILJET_SECRET_KEY } = require("./config.js");
 const mailjet = require('node-mailjet');
 const connection = mailjet.connect(MAILJET_KEY, MAILJET_SECRET_KEY);
+const { sendDataToPy } = require("./gendata.js");
 
 
 
@@ -355,7 +356,8 @@ cron.schedule(
 cron.schedule(
   "1 15 * * *",
   () => {
-    require("./gendata.js");
+    // require("./gendata.js");
+    sendDataToPy();
   },
   {
     scheduled: true,

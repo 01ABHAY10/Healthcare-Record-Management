@@ -33,10 +33,10 @@ async function getFilename() {
   }
 }
 
+let last = 0;
 async function sendDataToPy() {
-  let i = 1;
   let n = await getFilename();
-  for (i = 1; i < n; i++) {
+  for (let i = last; i < n; i++) {
     const obj = await retrieve(i);
     const python = spawn("python", ["filegenerator.py"]);
     python.stdin.write(JSON.stringify(obj));
@@ -56,6 +56,7 @@ async function sendDataToPy() {
       console.log("Python process exited with code:", code);
     });
   }
+  last = n;
 }
 
-sendDataToPy();
+module.exportsa = {sendDataToPy};

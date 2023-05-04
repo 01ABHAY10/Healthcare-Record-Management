@@ -1,6 +1,8 @@
 import matplotlib.pyplot as plt
 import pandas as pd
+import seaborn as sns
 import numpy as np
+from matplotlib.ticker import MaxNLocator
 
 # Blood Group
 dat = {
@@ -71,27 +73,43 @@ for index, row in df.iterrows():
     disDat[disease_count] += 1
     dat[row[6]] += 1
 
-plt.bar(diabetes.keys(), diabetes.values(), width=0.9)
-
+ax = plt.subplot()
+plt.bar(diabetes.keys(), diabetes.values(), width=0.8)
+sns.despine(left=True)
+sns.set(style="whitegrid")
+ax.yaxis.set_major_locator(MaxNLocator(integer=True))
+ax.yaxis.grid(True, linestyle='-', which='major', color='grey', alpha=0.5)
+plt.rcParams['figure.dpi'] = 240
 save_path = "D:\Study\Healthcare record management\public\images\plot0.png"
 plt.savefig(save_path)
 plt.close()
 
-plt.bar(dat.keys(), dat.values(), width=0.9)
-
+ax = plt.subplot()
+plt.bar(dat.keys(), dat.values(), width=0.8)
+plt.grid(False)
+sns.despine(left=True)
+ax.yaxis.set_major_locator(MaxNLocator(integer=True))
+ax.yaxis.grid(True, linestyle='-', which='major', color='grey', alpha=0.5)
+# plt.rcParams['figure.dpi'] = 360
 save_path = "D:\Study\Healthcare record management\public\images\plot1.png"
 plt.savefig(save_path)
 plt.close()
 
-plt.bar(disDat.keys(), disDat.values(), width=0.9)
-
+ax = plt.subplot()
+plt.bar(disDat.keys(), disDat.values(), width=0.8)
+plt.grid(False)
+sns.despine(left=True)
+ax.yaxis.set_major_locator(MaxNLocator(integer=True))
+ax.yaxis.grid(True, linestyle='-', which='major', color='grey', alpha=0.5)
+# plt.rcParams['figure.dpi'] = 360
 save_path = "D:\Study\Healthcare record management\public\images\plot2.png"
 plt.savefig(save_path)
 plt.close()
 
-explodeTuple = (0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1)
+explodeTuple = (0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02)
 lab = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-", "rh-null", "others"]
-plt.pie(dat.values(), labels=lab, shadow=True, explode=explodeTuple, autopct="%1.2f%%")
+# plt.rcParams['figure.dpi'] = 360
+plt.pie(dat.values(), labels=lab, shadow=False, explode=explodeTuple, autopct="%1.2f%%")
 save_path = "D:\Study\Healthcare record management\public\images\plot3.png"
 plt.savefig(save_path)
 plt.close()
@@ -102,8 +120,9 @@ ax.imshow(img, extent=[36, 124, 1.4314, 2.009])
 ax.set_aspect("auto")
 plt.xlim([36, 124])
 plt.ylim([1.4314, 2.009])
-# plt.grid()
-
+plt.grid(False)
+sns.despine(left=True)
+# plt.rcParams['figure.dpi'] = 360
 plt.scatter(bmi_male.values(), bmi_male.keys(), s=2.5, color="blue")
 plt.scatter(bmi_female.values(), bmi_female.keys(), s=2.5, color="crimson")
 save_path = "D:\Study\Healthcare record management\public\images\plot4.png"

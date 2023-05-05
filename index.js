@@ -354,9 +354,9 @@ cron.schedule(
 );
 
 cron.schedule(
-  "1 15 * * *",
+  "15 20 * * *",
   () => {
-    // require("./gendata.js");
+    require("./gendata.js");
     sendDataToPy();
   },
   {

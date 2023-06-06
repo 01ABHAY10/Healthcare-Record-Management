@@ -45,6 +45,8 @@ chronic = [
     "oral disease"
 ]
 
+chronicDis = []
+
 df = pd.read_csv("event.csv")
 for index, row in df.iterrows():
     disease_count = 0
@@ -52,11 +54,12 @@ for index, row in df.iterrows():
         bmi_male[row[7] / 100] = row[8]
     else:
         bmi_female[row[7] / 100] = row[8]
+    chronicDis.append(0)
     for i in range(6):
         if str(row[13 + i]) != "-":
             if str(row[13 + i]).lower() in chronic:
-                pass
-            if str(row[13 + i]).lower() == "diabetes":
+                chronicDis[-1] = chronicDis[-1] or 1
+            if str(row[13 + i]).lower() == "type 2 diabetes" or str(row[13 + i]).lower() == "type 1 diabetes" or str(row[13 + i]).lower() == "diabetes":
                 for i in range(5):
                     if (15 * (i + 1) - row[4] < 15) and (row[4] - (15 * i) < 15):
                         if i == 0:
@@ -126,5 +129,22 @@ sns.despine(left=True)
 plt.scatter(bmi_male.values(), bmi_male.keys(), s=2.5, color="blue")
 plt.scatter(bmi_female.values(), bmi_female.keys(), s=2.5, color="crimson")
 save_path = "D:\Study\Healthcare record management\public\images\plot4.png"
+plt.savefig(save_path)
+plt.close()
+
+
+chronicCount = 0
+for i in chronicDis:
+    if i:
+        chronicCount += 1
+acu = 0
+for i in disDat.values():
+    acu += i
+acu -= chronicCount
+chroAcu = {"chronic":chronicCount, "acute":acu}
+lab = chroAcu.keys()
+explodeTuple = (0.02, 0.02)
+plt.pie(chroAcu.values(), labels=lab, shadow=False, explode=explodeTuple, autopct="%1.2f%%")
+save_path = "D:\Study\Healthcare record management\public\images\plot5.png"
 plt.savefig(save_path)
 plt.close()

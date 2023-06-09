@@ -131,3 +131,7 @@ $("#otp").click(function(){
   }, 4000);
   Request();
 });
+
+$(function () {
+  $('[data-toggle="popover"]').popover()
+})

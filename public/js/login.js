@@ -1,62 +1,46 @@
-// const CryptoJS = require("crypto-js");
-// const nodemailer = require('nodemailer');
+// signup login
 
-// Email verification function
-$("button.signup").on(click, function() {
-    // Get the user's email address
+$("#login-btn").click(function() {
+  $("#signup-body").html( 
+    `<div class="container">
+    <div class="card log lscard">
+    <img class=icon src="public/images/icon.png" alt="404">
+    <h3 class="title"><b>HEALTHCARE RECORD</b></h3>
+    <h4 class="login">Login</h4>
+   
+    <form action="/login" method="post">
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Email address</label>
+    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+    <div class="mb-3">
+    <label for="exampleInputPassword1" id="pswd" class="form-label">Password</label>
+    <input type="password" name="password" class="form-control" id="exampleInputPassword1" required>
+  </div>
+      <div class="login"><button class="btn btn-primary">Login</button></div>
+      </form>
+      <small class="mx-4 my-2"><b>Not a member?</b><a href="#" id="signup-btn"> <b> Sign-up</b></a></small>
+  </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"
+    crossorigin="anonymous"></script>
+  <script src="public/js/login.js"></script>
+  </body>`);
     
-
-    // Generate a verification token
-    var verificationToken = generateToken();
-
-    // Send the verification email
-    sendVerificationEmail(userEmail, verificationToken);
-
-    // Prompt the user to check their email for the verification link
-    alert(
-      "A verification link has been sent to your email. Please click the link to complete registration."
-    );
 });
 
-// Token generation function
-function generateToken() {
-  // Generate a random token using a library like CryptoJS
-  var token = CryptoJS.lib.WordArray.random(128 / 8).toString(CryptoJS.enc.Hex);
-
-  // Store the token in the database, associated with the user's email address
-
-  // Return the token
-  return token;
-}
-
-// Email sending function
-function sendVerificationEmail(email, token) {
-  // Construct the verification URL using the token and your application's base URL
-  var verifyUrl = "https://example.com/verify-email?token=" + token;
-
-  // Construct the email message with the verification URL
-  var emailBody =
-    "Thank you for registering with our application. Please click the following link to verify your email address and complete registration: " +
-    verifyUrl;
-
-  const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: "healthcare.record.management@gmail.com", // Replace with your email address
-      pass: "hrm@12345", // Replace with your email password
-    },
-  });
-  const mailOptions = {
-    from: "healthcare.record.management@gmail.com", // Replace with your email address
-    to: email, // Replace with the recipient's email address
-    subject: "Test Email from Nodemailer",
-    text: emailBody,
-  };
-  transporter.sendMail(mailOptions, function (error, info) {
-    if (error) {
-      console.log(error);
-    } else {
-      console.log("Email sent: " + info.response);
-    }
+if($("#signup-btn")){
+  $("#signup-btn").click(function(){
+    location.reload();
   });
 }
+
+//signup modal control
+
+
+// if(document.getElementById('email').value != ""){
+//   document.getElementById("vsgn-btn").disabled = false;
+// }else{
+//   document.getElementById("vsgn-btn").disabled = true;
+// }

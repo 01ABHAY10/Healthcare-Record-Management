@@ -9,36 +9,39 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous" />
-  <link rel="stylesheet" href="/css/style.css">
-  <script src="https://smtpjs.com/v3/smtp.js"></script>
+  <link rel="stylesheet" href="public/css/style.css">
+  
 
 </head>
 
-<body>
- 
+<body id="signup-body ">
+    
   <div class="container">
     <div class="card sign lscard">
-    <img class=icon src="/images/icon.png" alt="404">
+    <img class=icon src="public/images/icon.png" alt="404">
     <h3 class="title"><b>HEALTHCARE RECORD</b></h3>
-    <h4 class="login">Sign-Up</h4>
+    <h4 class="login">Signup</h4>
    
     <form action="/signup" method="post">
   <div class="mb-3">
     <label for="exampleInputEmail1" class="form-label" id="email-input">Email address</label>
-    <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" required>
+    <input type="email" class="form-control" name="email" id="email" value="" required>
   <div class="mb-3">
     <label for="exampleInputPassword1" id="pswd" class="form-label">Password</label>
-    <input type="password" name="password" class="form-control" id="exampleInputPassword1" required>
+    <input type="password" name="password" class="form-control" id="password"  value="" required>
   </div>
   <div class="mb-3">
     <label for="exampleInputPassword1" class="form-label">Confirm Password</label>
-    <input type="password" name="cnfpassword" class="form-control" id="cnfpassword" required>
+    <input type="password" name="cnfpassword" class="form-control" id="cnfpassword" value="" required>
   </div>
 
-      <div class="login"><input type="submit" class="signup btn btn-primary" data-bs-toggle="modal" data-bs-target="#signupModal" value="Sign-Up"></div>
+      <div class="login"><input type="submit" id="vsgn-btn" class="signup btn btn-primary" data-bs-toggle="modal" data-bs-target="#signupModal" value="Sign-Up"></div>
        
       </form>
-      <small class="login-redirect">Already have an account?<a class="login-redirect" href="login.html"> login</a></small>
+      <small class="mx-4 my-2">
+        <b>Already have an account?</b>
+        <a href="#" id="login-btn"><b> login</b></a>
+      </small>
   </div>
   </div>
 
@@ -67,8 +70,9 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"
     crossorigin="anonymous"></script>
+<script src="public/js/login.js"></script>
 
-  <script src="/js/main.js"></script>
+    
 </body>
 
 </html>

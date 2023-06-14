@@ -135,3 +135,5 @@ $("#otp").click(function(){
 $(function () {
   $('[data-toggle="popover"]').popover()
 })
+
+

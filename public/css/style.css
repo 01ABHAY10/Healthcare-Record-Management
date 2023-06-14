@@ -191,3 +191,6 @@ border-color: rgb(0, 0, 0);
 #activateModal{
   visibility:hidden;
 }
+#actsgnModal{
+  visibility:hidden;
+}

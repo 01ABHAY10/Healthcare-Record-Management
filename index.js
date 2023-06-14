@@ -302,7 +302,7 @@ function generateToken() {
   return token;
 }
 
-function sendMail(To, otp){
+function sendMail(To,Token){
   const mailOptions = {
     from: 'Healthcare Record',
     to: To,
@@ -321,13 +321,12 @@ function sendMail(To, otp){
       </style>
     </head>
     <body>
-        <img class="center" src="https://drive.google.com/file/d/1nmcdVf5RXfOfHb911ol2XhQQWfXHMbAs/view?usp=sharing" alt="Logo" width="35" height="35">
-        <h1 class="center">OTP Verification - Action Required</h1>
+        <h1 class="center">Token Verification - Action Required</h1>
         <p>
-        Please note that the OTP is valid for a limited time and should be used immediately to ensure successful verification. 
-        In case you do not complete the verification within the specified time, you may need to request a new OTP.
+        Please note that the <b>Token</b> is valid for a limited time and should be used immediately to ensure successful verification. 
+        In case you do not complete the verification within the specified time, you may need to request a new <b>Token</b>.
         </p>
-        <h2 class="center">${otp}</h2>
+        <h2 class="center">${Token}</h2>
         <p>
         If you have any questions or encounter any difficulties during the process, please do
          not hesitate to reach out to our customer support team at healthcare.record.management@gmail.com.
@@ -349,7 +348,7 @@ function sendMail(To, otp){
   });
   
 }
-// sendMail("babujames0007@gmail.com","Ques bna le");
+
 
 cron.schedule(
   "56 22 * * *",

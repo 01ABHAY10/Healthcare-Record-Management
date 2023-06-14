@@ -12,15 +12,22 @@ const { KEY } = require("./config.js");
 const { MONGO_URL } = require("./config.js");
 const { ID } = require("./config.js");
 const { AdminKey } = require("./config.js");
-const { MAILJET_KEY,MAILJET_SECRET_KEY } = require("./config.js");
+const { MAIL_KEY } = require("./config.js");
 const mailjet = require('node-mailjet');
-const connection = mailjet.connect(MAILJET_KEY, MAILJET_SECRET_KEY);
 const { sendDataToPy } = require("./gendata.js");
 
 
 
 const app = express();
 const client = new Web3Storage({ token: KEY });
+const transporter = nodemailer.createTransport({
+  service: 'Gmail',
+  auth: {
+    user: 'healthcare.record.management@gmail.com',
+    pass: MAIL_KEY,
+  },
+});
+
 
 
 
@@ -223,12 +230,18 @@ app.get("/update",function(req,res){
 let patient_data;
 let TOKEN;
 app.post("/view-data",async function(req,res){
-  const ID= req.body.id;
+  const id= req.body.id;
   const token = req.body.token;
-  // console.log(ID);
-  // console.log(token);
+  try{
+    searchMail = await ID.findOne({id : id});
+    // console.log(id);
+    // console.log(searchMail);
+    sendMail(searchMail.email,TOKEN);
+  }catch(error){
+    console.log(error);
+  };
   if(token == TOKEN){
-    patient_data = await retrieve(ID);
+    patient_data = await retrieve(id);
     if(patient_data == -1){
       patient_data = {
         Doc_ID : -1
@@ -261,18 +274,9 @@ app.get('/analytics', function(req, res){
 });
 
 app.post("/signup", function(req, res){
-  // res.sendFile(__dirname+"/signup.html");
+ 
   const userEmail = req.body.email;
   
-  // var verificationToken = generateToken();
-
-  // Send the verification email
-  // sendVerificationEmail(userEmail, verificationToken);
-
-  // Prompt the user to check their email for the verification link
-  // alert(
-  //   "A verification link has been sent to your email. Please click the link to complete registration."
-  // );rs
 });
 
 
@@ -293,54 +297,59 @@ app.post("/get-token",async function(req,res){
 
 //function for generating tokens for verifications
 function generateToken() {
-  // Generate a random token using a library like CryptoJS
   var token = CryptoJS.lib.WordArray.random(4).toString(CryptoJS.enc.Hex);
-
-  // Store the token in the database, associated with the user's email address
-
-  // Return the token
   console.log(token);
   return token;
 }
 
-
-// generateToken();
-// Email sending function
-// function sendVerificationEmail(email) {
-  // Construct the verification URL using the token and your application's base URL
-  // var verifyUrl =
-  //   "https://abhinav-21.github.io/Healthcare-Record-Management/verify-email?token=" +
-  //   token;
-
-  // Construct the email message with the verification URL
-  // const emailBody =
-  //   "Thank you for registering with our application. Please paste the following token to verify your email address and complete registration: " +
-  //   token;
-
-//     const transporter = nodemailer.createTransport({
-//       service: 'gmail',
-//       auth: {
-//         user: 'healthcare.record.management@gmail.com',
-//         pass: 'hrm@12345'
-//       }
-//     });
-//   const mailOptions = {
-//     from: "healthcare.record.management@gmail.com",
-//     to: email, 
-//     subject: "Test Email from Nodemailer",
-//     text: "hello",
-//   };
-//   transporter.sendMail(mailOptions, function (error, info) {
-//     if (error) {
-//       console.log(error);
-//     } else {
-//       console.log("Email sent: " + info.response);
-//     }
-//   });
-// }
-
-// sendVerificationEmail('babujames0007@gmail.com');
-
+function sendMail(To, otp){
+  const mailOptions = {
+    from: 'Healthcare Record',
+    to: To,
+    subject: 'Account Verification',
+    html: `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <style>
+      .center{
+        text-align: center;
+        align-items: center;
+        align-self: center;
+        align-content: center;
+      }
+      </style>
+    </head>
+    <body>
+        <img class="center" src="https://drive.google.com/file/d/1nmcdVf5RXfOfHb911ol2XhQQWfXHMbAs/view?usp=sharing" alt="Logo" width="35" height="35">
+        <h1 class="center">OTP Verification - Action Required</h1>
+        <p>
+        Please note that the OTP is valid for a limited time and should be used immediately to ensure successful verification. 
+        In case you do not complete the verification within the specified time, you may need to request a new OTP.
+        </p>
+        <h2 class="center">${otp}</h2>
+        <p>
+        If you have any questions or encounter any difficulties during the process, please do
+         not hesitate to reach out to our customer support team at healthcare.record.management@gmail.com.
+          We are available 24x7 and will be glad to assist you.
+        </p>
+        <h3 style="color: blue;">- Team @healthcare_record<h3>
+    </body>
+    </html>
+    
+    `,
+  };
+  
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.log('Error:', error);
+    } else {
+      console.log('Email sent:', info.response);
+    }
+  });
+  
+}
+// sendMail("babujames0007@gmail.com","Ques bna le");
 
 cron.schedule(
   "56 22 * * *",
@@ -365,75 +374,3 @@ cron.schedule(
   }
 );
 
-// function sendmail(){
-// create reusable transporter object using the default SMTP transport
-// let transporter = nodemailer.createTransport({
-//     host: 'smtp.office365.com',
-//     port: 587,
-//     secure: false, // secure:false for port 587, secure:true for port 465
-//     auth: {
-//         user: 'healthcare.record.management@outlook.com',
-//         pass: 'hrm@12345'
-//     }
-// });
-// const transporter = nodemailer.createTransport({
-//   host: "smtp.ethereal.email",
-//   port: 587,
-//   auth: {
-//     user: "hellen.cummerata31@ethereal.email",
-//     pass: "EfmHBKuWvz8ph78Wuu",
-//   },
-// });
-
-// setup email data with unicode symbols
-// let mailOptions = {
-//     from: '"Healthcare Record" <healthcare.record.management@outlook.com>',
-//     to: 'abhinav.20211055@mnnit.ac.in',
-//     subject: 'Test email from Nodemailer',
-//     text: 'Hello world from Nodemailer!'
-// };
-
-// send mail with defined transport object
-// transporter.sendMail(mailOptions, (error, info) => {
-//     if (error) {
-//         return console.log("Dhat tere ki");
-//     }
-//     console.log('Message sent: %s', info.messageId);
-// });
-// }
-
-// async..await is not allowed in global scope, must use a wrapper
-// async function main() {
-  // Generate test SMTP service account from ethereal.email
-  // Only needed if you don't have a real mail account for testing
-  // let testAccount = await nodemailer.createTestAccount();
-
-  // create reusable transporter object using the default SMTP transport
-//   let transporter = nodemailer.createTransport({
-//     host: "smtp.ethereal.email",
-//     port: 587,
-//     secure: false,
-//     auth: {
-//       user: "hellen.cummerata31@ethereal.email", // generated ethereal user
-//       pass: "EfmHBKuWvz8ph78Wuu", // generated ethereal password
-//     },
-//   });
-
-  // send mail with defined transport object
-//   let info = await transporter.sendMail({
-//     from: '"Fred Foo 👻" <abhitiwari0@outlook.com>', // sender address
-//     to: "abhinav.20211055@mnnit.ac.in", // list of receivers
-//     subject: "Hello ✔", // Subject line
-//     text: "Hello world?", // plain text body
-//     html: "<b>Hello world?</b>", // html body
-//   });
-
-//   console.log("Message sent: %s", info.messageId);
-  // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
-
-  // Preview only available when sending through an Ethereal account
-//   console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-  // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
-// }
-
-// main().catch(console.error);

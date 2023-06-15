@@ -13,8 +13,9 @@ const { MONGO_URL } = require("./config.js");
 const { ID } = require("./config.js");
 const { AdminKey } = require("./config.js");
 const { MAIL_KEY } = require("./config.js");
-const mailjet = require('node-mailjet');
+const bcrypt = require('bcrypt');
 const { sendDataToPy } = require("./gendata.js");
+const salt = bcrypt.genSaltSync(10);
 
 
 
@@ -264,8 +265,22 @@ app.get("/data",function(req,res){
 })
 
 
-app.get('/signup',function(req,res){
+app.post('/signup',function(req,res){
+  const email = req.body.email;
+  const pass = req.body.pass;
   res.sendFile(__dirname+"/signup.html");
+
+});
+
+app.post('/login',function(req,res){
+  const email = req.body.email;
+  const pass = req.body.pass;
+  const passwordMatch = bcrypt.compareSync(userInputPassword, hashedPassword);
+if (passwordMatch) {
+  res.sendFile(__dirname + "/index.html");
+} else {
+  // Passwords do not match, login failed
+}
 
 });
 
@@ -273,11 +288,6 @@ app.get('/analytics', function(req, res){
   res.sendFile(__dirname+"/analytics.html");
 });
 
-app.post("/signup", function(req, res){
- 
-  const userEmail = req.body.email;
-  
-});
 
 
 

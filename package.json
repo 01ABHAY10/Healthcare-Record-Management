@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/Abhinav-21/Healthcare-Record-Management#readme",
   "dependencies": {
+    "bcrypt": "^5.1.0",
     "body-parser": "^1.20.2",
     "crypto-js": "^4.1.1",
     "express": "^4.18.2",

@@ -2,7 +2,8 @@
 
 $("#login-btn").click(function() {
   $("#signup-body").html( 
-    `<div class="container">
+    `<button  disabled class="hidden">.</button>
+    <div class="container">
     <div class="card log lscard">
     <img class=icon src="public/images/icon.png" alt="404">
     <h3 class="title"><b>HEALTHCARE RECORD</b></h3>
@@ -16,7 +17,7 @@ $("#login-btn").click(function() {
     <label for="exampleInputPassword1" id="pswd" class="form-label">Password</label>
     <input type="password" name="password" class="form-control" id="exampleInputPassword1" required>
   </div>
-      <div class="login"><button class="btn btn-primary">Login</button></div>
+      <div class="login"><button class="btn btn-primary">Login</button></div> 
       </form>
       <small class="mx-4 my-2"><b>Not a member?</b><a href="#" id="signup-btn"> <b> Sign-up</b></a></small>
   </div>
@@ -38,9 +39,19 @@ if($("#signup-btn")){
 
 //signup modal control
 
+  $('#sgn-btn').click(function() {
+    if ($('#email').val() != "" && $('#password').val() != "" && $('#cnfpassword').val() != "") {
+      if ($('#password').val() != $('#cnfpassword').val()) {
+        alert("Password is not matched!");
+      } else {
+       $('#actsgnModal').click();
+        // Submit the form
+        // $('form').submit();
+      }
+    }
+  });
 
-// if(document.getElementById('email').value != ""){
-//   document.getElementById("vsgn-btn").disabled = false;
-// }else{
-//   document.getElementById("vsgn-btn").disabled = true;
-// }
+
+
+
+

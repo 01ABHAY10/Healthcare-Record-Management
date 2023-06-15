@@ -275,6 +275,7 @@ app.get("/data",function(req,res){
 
 // });
 let loggedIn = false;
+let Username;
 app.post('/homepage',async function(req,res){
   const email = req.body.email1;
   const pass = req.body.password1;
@@ -285,6 +286,9 @@ app.post('/homepage',async function(req,res){
     if (passwordMatch) {
       res.sendFile(__dirname + "/index.html");
       loggedIn = true;
+      Username ={
+        name : email
+      }
     } else {
       // Passwords do not match, login failed
     }
@@ -345,8 +349,19 @@ app.get('/analytics', function(req, res){
   res.sendFile(__dirname+"/analytics.html");
 });
 
+//for current user info
+app.get('/username', function(req, res){
+  res.header('Content-Type','application/json');
+  res.send(Username);
+});
 
 
+//for logout
+app.get('/logout', function(req, res){
+    loggedIn = false;
+     Username = null;
+     res.send(true);
+});
 
 //Generating token for verification
 app.post("/get-token",async function(req,res){

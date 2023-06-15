@@ -51,7 +51,7 @@
               </li>
           </ul>
           <li class="nav-item">
-            <a  data-toggle="popover" data-placement="bottom" title="hola" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
+            <a data-bs-toggle="modal" data-bs-target=".myModal" id="user">
               <img src="/images/profile.png" width="45" height="45">
             </a>
           </li>
@@ -59,6 +59,25 @@
       </div>
     </nav>
     <!-- navbar end here  -->
+    <div class="modal fade myModal"  >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header center">
+            <h1 class="modal-title fs-5 " style="color: green;"><b>Logged-In</b></h1>
+          </div>
+          <div class="modal-body">
+            <div class="center" id="showUser">
+              <h5><b>User :</b> jamesbond@gmail.com</h5>
+             </div> 
+             <br>
+             <div class="center">
+              <button class="btn btn-danger"  id="logout">Logout</button>
+             </div> 
+          </div>
+        </div>
+      </div>
+    </div>
+    
     <!-- carousel start here  -->
     <div  class="carousel carousel-dark slide"  data-bs-ride="carousel" id="carouselExample">
       <div class="carousel-inner">

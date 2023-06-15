@@ -136,3 +136,32 @@ $(function () {
   $('[data-toggle="popover"]').popover()
 })
 
+//function for profile email
+async function UserInfo(){
+  const response = await fetch("http://localhost:8000/username");
+  const data = await response.json();
+  console.log(data.name);
+  if(data){
+    $('#showUser').html(`<h5><b>User :</b> ${data.name}</h5>`);
+  }
+}
+$('#user').click(async function(){
+  await UserInfo();
+});
+
+//function for logout
+async function Logout(){
+  const response = await fetch("http://localhost:8000/logout");
+  const data = await response.json();
+  console.log(data);
+  if(data == true){
+    location.href="/";
+  }
+}
+$('#logout').click(async function(){
+  await Logout();
+});
+
+
+
+  

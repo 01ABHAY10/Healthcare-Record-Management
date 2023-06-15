@@ -12,6 +12,7 @@ const { KEY } = require("./config.js");
 const { MONGO_URL } = require("./config.js");
 const { ID } = require("./config.js");
 const { AdminKey } = require("./config.js");
+const { User } = require("./config.js");
 const { MAIL_KEY } = require("./config.js");
 const bcrypt = require('bcrypt');
 const { sendDataToPy } = require("./gendata.js");
@@ -133,7 +134,9 @@ async function retrieve(id) {
 
 //mainpage get request
 app.get("/", function (req, res) {
-  res.sendFile(__dirname + "/index.html");
+  // res.sendFile(__dirname + "/index.html");
+  res.sendFile(__dirname+"/signup.html");
+
 });
 
 
@@ -265,23 +268,77 @@ app.get("/data",function(req,res){
 })
 
 
-app.post('/signup',function(req,res){
-  const email = req.body.email;
-  const pass = req.body.pass;
-  res.sendFile(__dirname+"/signup.html");
+// app.post('/signup',function(req,res){
+//   const email = req.body.email;
+//   const pass = req.body.pass;
+//   res.sendFile(__dirname+"/signup.html");
 
+// });
+let loggedIn = false;
+app.post('/homepage',async function(req,res){
+  const email = req.body.email1;
+  const pass = req.body.password1;
+  // console.log(email +" "+ pass);
+  try{
+    const user = await User.findOne({email : email});
+    const passwordMatch = bcrypt.compareSync(pass, user.password);
+    if (passwordMatch) {
+      res.sendFile(__dirname + "/index.html");
+      loggedIn = true;
+    } else {
+      // Passwords do not match, login failed
+    }
+  }catch(error){
+    console.log(error);
+  }
 });
 
-app.post('/login',function(req,res){
-  const email = req.body.email;
-  const pass = req.body.pass;
-  const passwordMatch = bcrypt.compareSync(userInputPassword, hashedPassword);
-if (passwordMatch) {
-  res.sendFile(__dirname + "/index.html");
-} else {
-  // Passwords do not match, login failed
-}
+app.get('/homepage',async function(req,res){
+  if(loggedIn){
+    res.sendFile(__dirname + "/index.html");
+  }else{
+    res.status(403).send("Unauthorized access...");
+  }
+});
 
+//sending token for new account
+let  VeriftToken;
+app.post('/new-user',async function(req,res){
+    const email = req.body.email;
+    const pass = req.body.pass;
+    const user = await User.findOne({email : email});
+    if(user){
+      const passwordMatch = bcrypt.compareSync(pass, user.password);
+      if (passwordMatch) {
+      loggedIn = true;
+      res.send(true);
+    }else{
+      res.send(false);
+    }
+    }
+    else{
+      VeriftToken = generateToken();
+      sendMail(email, VeriftToken);
+    }
+});
+
+//verifying new account 
+app.post('/new-account',async function(req,res){
+    const userToken = req.body.value;
+    if(userToken == VeriftToken){
+      const email = req.body.email;
+      const pass = req.body.pass;
+      const password = bcrypt.hashSync(pass, salt);
+      try{
+        const user = await User.create({email,password});
+        loggedIn = true;
+        res.send(true);
+      }catch(error){
+        console.log(error);
+      }
+    }else{
+      res.send(false);
+    }
 });
 
 app.get('/analytics', function(req, res){

@@ -315,6 +315,9 @@ app.post('/new-user',async function(req,res){
       const passwordMatch = bcrypt.compareSync(pass, user.password);
       if (passwordMatch) {
       loggedIn = true;
+      Username ={
+        name : email
+      }
       res.send(true);
     }else{
       res.send(false);
@@ -336,6 +339,9 @@ app.post('/new-account',async function(req,res){
       try{
         const user = await User.create({email,password});
         loggedIn = true;
+        Username ={
+          name : email
+        }
         res.send(true);
       }catch(error){
         console.log(error);

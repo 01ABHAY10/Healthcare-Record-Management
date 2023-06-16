@@ -142,10 +142,10 @@ async function UserInfo(){
   const data = await response.json();
   console.log(data.name);
   if(data){
-    $('#showUser').html(`<h5><b>User :</b> ${data.name}</h5>`);
+    $('.showUser').html(`<h5><b>User :</b> ${data.name}</h5>`);
   }
 }
-$('#user').click(async function(){
+$('.user').click(async function(){
   await UserInfo();
 });
 
@@ -158,7 +158,7 @@ async function Logout(){
     location.href="/";
   }
 }
-$('#logout').click(async function(){
+$('.logout').click(async function(){
   await Logout();
 });
 

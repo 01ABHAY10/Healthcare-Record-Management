@@ -47,7 +47,7 @@
                 </li>
               </ul>
               <li class="nav-item">
-                <a  data-toggle="popover" data-placement="bottom" title="hola" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
+                <a data-bs-toggle="modal" data-bs-target=".myModal" class="user">
                   <img src="/images/profile.png" width="45" height="45">
                 </a>
               </li>
@@ -55,6 +55,24 @@
       </div>
   </nav>
   <!-- navbar end here  -->
+  <div class="modal fade myModal"  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header center">
+          <h1 class="modal-title fs-5 " style="color: green;"><b>Logged-In</b></h1>
+        </div>
+        <div class="modal-body">
+          <div class="center showUser" >
+            <h5><b>User :</b> jamesbond@gmail.com</h5>
+           </div> 
+           <br>
+           <div class="center">
+            <button class="btn btn-danger logout" >Logout</button>
+           </div> 
+        </div>
+      </div>
+    </div>
+  </div>
   <!-- card start here  -->
   <div class="card container card-container">
     <div class="center my-4">

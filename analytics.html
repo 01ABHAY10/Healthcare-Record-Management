@@ -12,7 +12,7 @@
 <body class="content">
   <nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
-      <a class="navbar-brand" href="/">
+      <a class="navbar-brand" href="/homepage">
         <div class="d-flex align-items-center">
           <img src="/images/icon.png" alt="Logo" width="35" height="35" class="d-inline-block align-text-top">
           <h3 class="ms-2 mb-0"><b style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif"> HEALTHCARE RECORD</b></h3>
@@ -24,7 +24,7 @@
       <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/">Home</a>
+            <a class="nav-link active" aria-current="page" href="/homepage">Home</a>
           </li>
           <li class="nav-item">
             <a class="nav-link active" href="#">About us</a>
@@ -40,10 +40,35 @@
             </div>
           </li>
         </ul>
+        <li class="nav-item">
+          <a data-bs-toggle="modal" data-bs-target=".myModal" class="user">
+            <img src="/images/profile.png" width="45" height="45">
+          </a>
+        </li>
       </div>
     </div>
   </nav>
+<!-- login modal starts here  -->
+<div class="modal fade myModal"  >
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header center">
+        <h1 class="modal-title fs-5 " style="color: green;"><b>Logged-In</b></h1>
+      </div>
+      <div class="modal-body">
+        <div class="center showUser" >
+          <h5><b>User :</b> jamesbond@gmail.com</h5>
+         </div> 
+         <br>
+         <div class="center">
+          <button class="btn btn-danger logout" >Logout</button>
+         </div> 
+      </div>
+    </div>
+  </div>
+</div>
 
+<!-- login modal ends here  -->
   <div class="cards">
   <div class="card">
     <div class="row g-0">
@@ -133,7 +158,8 @@
       <span class="text-muted">Created and Designed by room no. 241, P. D. Tandon Hostel</span>
     </div>
   </footer>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" 
+  integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+  <script src="/js/main.js"></script>
 </body>
 </html>

@@ -195,3 +195,15 @@ border-color: rgb(0, 0, 0);
 .hidden{
   visibility:hidden;
 }
+
+.cards {
+  margin: 0 auto;
+  width: 80%;
+}
+
+.card {
+  margin-top: 1rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+}

@@ -87,16 +87,16 @@ save_path = "D:\Study\Healthcare record management\public\images\plot0.png"
 plt.savefig(save_path)
 plt.close()
 
-ax = plt.subplot()
-plt.bar(dat.keys(), dat.values(), width=0.8)
-plt.grid(False)
-sns.despine(left=True)
-ax.yaxis.set_major_locator(MaxNLocator(integer=True))
-ax.yaxis.grid(True, linestyle='-', which='major', color='grey', alpha=0.5)
-# plt.rcParams['figure.dpi'] = 360
-save_path = "D:\Study\Healthcare record management\public\images\plot1.png"
-plt.savefig(save_path)
-plt.close()
+# ax = plt.subplot()
+# plt.bar(dat.keys(), dat.values(), width=0.8)
+# plt.grid(False)
+# sns.despine(left=True)
+# ax.yaxis.set_major_locator(MaxNLocator(integer=True))
+# ax.yaxis.grid(True, linestyle='-', which='major', color='grey', alpha=0.5)
+# # plt.rcParams['figure.dpi'] = 360
+# save_path = "D:\Study\Healthcare record management\public\images\plot1.png"
+# plt.savefig(save_path)
+# plt.close()
 
 ax = plt.subplot()
 plt.bar(disDat.keys(), disDat.values(), width=0.8)

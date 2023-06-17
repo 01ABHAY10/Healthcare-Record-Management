@@ -441,9 +441,8 @@ function sendMail(To,Token){
   
 }
 
-
 cron.schedule(
-  "56 22 * * *",
+  "0 12 * * *",
   () => {
     require("./analytics.js");
   },
@@ -454,7 +453,7 @@ cron.schedule(
 );
 
 cron.schedule(
-  "15 20 * * *",
+  "0 0 * * *",
   () => {
     require("./gendata.js");
     sendDataToPy();
@@ -464,4 +463,3 @@ cron.schedule(
     timezone: "Asia/Kolkata",
   }
 );
-

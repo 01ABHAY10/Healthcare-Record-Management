@@ -352,7 +352,11 @@ app.post('/new-account',async function(req,res){
 });
 
 app.get('/analytics', function(req, res){
+  if(loggedIn){
   res.sendFile(__dirname+"/analytics.html");
+  }else{
+    res.status(403).send("Login to see analytics...");
+  }
 });
 
 //for current user info

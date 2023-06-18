@@ -4,7 +4,7 @@ import seaborn as sns
 import numpy as np
 from matplotlib.ticker import MaxNLocator
 
-# Blood Group
+# ? Blood Group
 dat = {
     "A+": 0,
     "A-": 0,
@@ -18,13 +18,18 @@ dat = {
     "others": 0,
 }
 
-# number of diseases
+# ? Cancer
+
+ntox = [0, 0]
+tox = [0, 0]
+
+# ? Number of Diseases
 disDat = {0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0}
 
-# diabetes
+# ? Diabetes
 diabetes = {"1-15": 0, "16-30": 0, "31-45": 0, "46-60": 0, "60+": 0}
 
-# body mass index
+# ? Body-Mass Index
 bmi_male = {}
 bmi_female = {}
 
@@ -55,6 +60,16 @@ for index, row in df.iterrows():
     else:
         bmi_female[row[7] / 100] = row[8]
     chronicDis.append(0)
+    if ("cancer" in str(row[13]).lower() or "cancer" in str(row[14]).lower() or "cancer" in str(row[15]).lower() or "cancer" in str(row[16]).lower() or "cancer" in str(row[17]).lower() or "cancer" in str(row[13]).lower()):
+        if (str(row[9]) == "No" and str(row[10]) == "No" and str(row[11]) == "No"):
+            ntox[1] += 1
+        else:
+            tox[1] += 1
+    else:
+        if (str(row[9]) == "No" and str(row[10]) == "No" and str(row[11]) == "No"):
+            ntox[0] += 1
+        else:
+            tox[0] += 1
     for i in range(6):
         if str(row[13 + i]) != "-":
             if str(row[13 + i]).lower() in chronic:
@@ -87,16 +102,22 @@ save_path = "D:\Study\Healthcare record management\public\images\plot0.png"
 plt.savefig(save_path)
 plt.close()
 
-# ax = plt.subplot()
-# plt.bar(dat.keys(), dat.values(), width=0.8)
-# plt.grid(False)
-# sns.despine(left=True)
-# ax.yaxis.set_major_locator(MaxNLocator(integer=True))
-# ax.yaxis.grid(True, linestyle='-', which='major', color='grey', alpha=0.5)
-# # plt.rcParams['figure.dpi'] = 360
-# save_path = "D:\Study\Healthcare record management\public\images\plot1.png"
-# plt.savefig(save_path)
-# plt.close()
+ax = plt.subplot()
+width = 0.2
+x = np.arange(2)
+plt.bar(x-0.1, ntox, width, color='orange')
+plt.bar(x+0.1, tox, width, color='green')
+plt.xticks(x, ["People without Cancer", "People with Cancer"])
+plt.ylabel("Number of people")
+plt.legend(["those who don't smoke/drink/consume tobacco", "those who smoke/drink/consume tobacco"])
+plt.grid(False)
+sns.despine(left=True)
+ax.yaxis.set_major_locator(MaxNLocator(integer=True))
+ax.yaxis.grid(True, linestyle='-', which='major', color='grey', alpha=0.5)
+# plt.rcParams['figure.dpi'] = 360
+save_path = "D:\Study\Healthcare record management\public\images\plot1.png"
+plt.savefig(save_path)
+plt.close()
 
 ax = plt.subplot()
 plt.bar(disDat.keys(), disDat.values(), width=0.8)

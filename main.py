@@ -47,7 +47,7 @@ chronic = [
     "copd",
     "chronic kidney disease",
     "ckd",
-    "oral disease"
+    "oral disease",
 ]
 
 chronicDis = []
@@ -55,18 +55,25 @@ chronicDis = []
 df = pd.read_csv("event.csv")
 for index, row in df.iterrows():
     disease_count = 0
-    if row[5].lower() == "male":   
+    if row[5].lower() == "male":
         bmi_male[row[7] / 100] = row[8]
     else:
         bmi_female[row[7] / 100] = row[8]
     chronicDis.append(0)
-    if ("cancer" in str(row[13]).lower() or "cancer" in str(row[14]).lower() or "cancer" in str(row[15]).lower() or "cancer" in str(row[16]).lower() or "cancer" in str(row[17]).lower() or "cancer" in str(row[13]).lower()):
-        if (str(row[9]) == "No" and str(row[10]) == "No" and str(row[11]) == "No"):
+    if (
+        "cancer" in str(row[13]).lower()
+        or "cancer" in str(row[14]).lower()
+        or "cancer" in str(row[15]).lower()
+        or "cancer" in str(row[16]).lower()
+        or "cancer" in str(row[17]).lower()
+        or "cancer" in str(row[13]).lower()
+    ):
+        if str(row[9]) == "No" and str(row[10]) == "No" and str(row[11]) == "No":
             ntox[1] += 1
         else:
             tox[1] += 1
     else:
-        if (str(row[9]) == "No" and str(row[10]) == "No" and str(row[11]) == "No"):
+        if str(row[9]) == "No" and str(row[10]) == "No" and str(row[11]) == "No":
             ntox[0] += 1
         else:
             tox[0] += 1
@@ -74,7 +81,11 @@ for index, row in df.iterrows():
         if str(row[13 + i]) != "-":
             if str(row[13 + i]).lower() in chronic:
                 chronicDis[-1] = chronicDis[-1] or 1
-            if str(row[13 + i]).lower() == "type 2 diabetes" or str(row[13 + i]).lower() == "type 1 diabetes" or str(row[13 + i]).lower() == "diabetes":
+            if (
+                str(row[13 + i]).lower() == "type 2 diabetes"
+                or str(row[13 + i]).lower() == "type 1 diabetes"
+                or str(row[13 + i]).lower() == "diabetes"
+            ):
                 for i in range(5):
                     if (15 * (i + 1) - row[4] < 15) and (row[4] - (15 * i) < 15):
                         if i == 0:
@@ -96,8 +107,8 @@ plt.bar(diabetes.keys(), diabetes.values(), width=0.8)
 sns.despine(left=True)
 sns.set(style="whitegrid")
 ax.yaxis.set_major_locator(MaxNLocator(integer=True))
-ax.yaxis.grid(True, linestyle='-', which='major', color='grey', alpha=0.5)
-plt.rcParams['figure.dpi'] = 240
+ax.yaxis.grid(True, linestyle="-", which="major", color="grey", alpha=0.5)
+plt.rcParams["figure.dpi"] = 240
 save_path = "D:\Study\Healthcare record management\public\images\plot0.png"
 plt.savefig(save_path)
 plt.close()
@@ -105,15 +116,15 @@ plt.close()
 ax = plt.subplot()
 width = 0.2
 x = np.arange(2)
-plt.bar(x-0.1, ntox, width, color='orange')
-plt.bar(x+0.1, tox, width, color='green')
+plt.bar(x - 0.1, ntox, width, color="orange")
+plt.bar(x + 0.1, tox, width, color="green")
 plt.xticks(x, ["People without Cancer", "People with Cancer"])
 plt.ylabel("Number of people")
-plt.legend(["those who don't smoke/drink/consume tobacco", "those who smoke/drink/consume tobacco"])
+plt.legend(["don't smoke/drink/tobacco", "smoke/drink/tobacco"])
 plt.grid(False)
 sns.despine(left=True)
 ax.yaxis.set_major_locator(MaxNLocator(integer=True))
-ax.yaxis.grid(True, linestyle='-', which='major', color='grey', alpha=0.5)
+ax.yaxis.grid(True, linestyle="-", which="major", color="grey", alpha=0.5)
 # plt.rcParams['figure.dpi'] = 360
 save_path = "D:\Study\Healthcare record management\public\images\plot1.png"
 plt.savefig(save_path)
@@ -124,7 +135,7 @@ plt.bar(disDat.keys(), disDat.values(), width=0.8)
 plt.grid(False)
 sns.despine(left=True)
 ax.yaxis.set_major_locator(MaxNLocator(integer=True))
-ax.yaxis.grid(True, linestyle='-', which='major', color='grey', alpha=0.5)
+ax.yaxis.grid(True, linestyle="-", which="major", color="grey", alpha=0.5)
 # plt.rcParams['figure.dpi'] = 360
 save_path = "D:\Study\Healthcare record management\public\images\plot2.png"
 plt.savefig(save_path)
@@ -162,10 +173,12 @@ acu = 0
 for i in disDat.values():
     acu += i
 acu -= chronicCount
-chroAcu = {"chronic":chronicCount, "acute":acu}
+chroAcu = {"chronic": chronicCount, "acute": acu}
 lab = chroAcu.keys()
 explodeTuple = (0.02, 0.02)
-plt.pie(chroAcu.values(), labels=lab, shadow=False, explode=explodeTuple, autopct="%1.2f%%")
+plt.pie(
+    chroAcu.values(), labels=lab, shadow=False, explode=explodeTuple, autopct="%1.2f%%"
+)
 save_path = "D:\Study\Healthcare record management\public\images\plot5.png"
 plt.savefig(save_path)
 plt.close()

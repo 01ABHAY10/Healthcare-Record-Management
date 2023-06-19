@@ -52,4 +52,4 @@ This project is licensed under the MIT License (https://opensource.org/licenses/
 
 For any inquiries or support, please contact our team at healthcare.record.management@gmail.com.
 
-# ❤️ Thank You
+<h1 align="center"> ❤️ Thank You </h1>

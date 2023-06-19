@@ -38,12 +38,23 @@ To get started with the Distributed Patient Data Storage Website, follow these s
 
 ## 🔧 Technologies Used
 
-- Front-end: HTML, CSS, JavaScript, Bootstrap.
-- Back-end: Python, JavaScript, NodeJS, ExpressJS.
-- Python-libraries: Numpy, Pandas, Matplotlib, Seaborn.
-- Distributed Storage Network: web3.storage.
-- Database: MongoDB.
-- Developer tools: npm, pip, Git.
+- Front-end: <a href="#"><img src="https://img.shields.io/badge/-HTML-E34F26?style=flat&logo=html5&logoColor=white"></a>
+<a href="#"><img src="https://img.shields.io/badge/-CSS-1572B6?style=flat&logo=css3&logoColor=white"></a>
+<a href="#"><img src="https://img.shields.io/badge/-JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black"></a>
+<a href="#"><img src="https://img.shields.io/badge/-Bootstrap-7952B3?style=flat&logo=bootstrap&logoColor=white"></a>
+- Back-end: <a href="#"><img src="https://img.shields.io/badge/-Python-3776AB?style=flat&logo=python&logoColor=white"></a>
+<a href="#"><img src="https://img.shields.io/badge/-JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black"></a>
+<a href="#"><img src="https://img.shields.io/badge/-Node.js-339933?style=flat&logo=node.js&logoColor=white"></a>
+<a href="#"><img src="https://img.shields.io/badge/-Express.js-000000?style=flat&logo=express&logoColor=white"></a>
+- Python-libraries: <a href="#"><img src="https://img.shields.io/badge/-NumPy-013243?style=flat&logo=numpy&logoColor=white"></a>
+<a href="#"><img src="https://img.shields.io/badge/-Pandas-150458?style=flat&logo=pandas&logoColor=white"></a>
+<a href="#"><img src="https://img.shields.io/badge/-Matplotlib-FF7400?style=flat&logo=matplotlib&logoColor=white"></a>
+<a href="#"><img src="https://img.shields.io/badge/-Seaborn-3776AB?style=flat&logo=python&logoColor=white"></a>
+- Distributed Storage Network: <a href="#"><img src="https://img.shields.io/badge/-web3.storage-FFFFFF?style=flat&logo=ipfs&logoColor=black"></a>
+- Database: <a href="#"><img src="https://img.shields.io/badge/-MongoDB-47A248?style=flat&logo=mongodb&logoColor=white"></a
+- Developer tools: <a href="#"><img src="https://img.shields.io/badge/-npm-CB3837?style=flat&logo=npm&logoColor=white"></a>
+<a href="#"><img src="https://img.shields.io/badge/-pip-3776AB?style=flat&logo=pypi&logoColor=white"></a>
+<a href="#"><img src="https://img.shields.io/badge/-Git-F05032?style=flat&logo=git&logoColor=white"></a>
 
 ## 📜 License
 

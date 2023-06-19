@@ -233,7 +233,7 @@ plt.close()
 ax = plt.subplot()
 width = 0.2
 x = np.arange(4)
-plt.bar(x - 0.1, covid, width, color="blue")
+plt.bar(x - 0.1, covid, width, color="dodgerblue")
 plt.bar(x + 0.1, noCovid, width, color="lightPink")
 plt.xticks(x, ["no dose", "first dose", "second dose", "booster dose"])
 plt.ylabel("Number of people")

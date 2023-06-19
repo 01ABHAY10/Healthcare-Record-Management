@@ -40,6 +40,7 @@ To get started with the Distributed Patient Data Storage Website, follow these s
 
 - Front-end: HTML, CSS, JavaScript, Bootstrap.
 - Back-end: Python, JavaScript, NodeJS, ExpressJS.
+- Python-libraries: Numpy, Pandas, Matplotlib, Seaborn.
 - Distributed Storage Network: web3.storage.
 - Database: MongoDB.
 - Developer tools: npm, pip, Git.

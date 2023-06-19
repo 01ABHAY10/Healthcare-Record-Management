@@ -2,6 +2,8 @@
 const https = require("https");
 const { spawn } = require("child_process");
 const { ID } = require("./config.js");
+const { Var } = require("./config.js");
+
 
 async function retrieve(id) {
   try {
@@ -23,6 +25,7 @@ async function retrieve(id) {
   }
 }
 
+
 async function getFilename() {
   try {
     const latest = await ID.findOne().sort({ id: -1 }).exec();
@@ -33,10 +36,11 @@ async function getFilename() {
   }
 }
 
-let last = 0;
+
 async function sendDataToPy() {
+  const last = await Var.findOne({name:"last"});
   let n = await getFilename();
-  for (let i = last; i < n; i++) {
+  for (let i = last.value; i < n; i++) {
     const obj = await retrieve(i);
     const python = spawn("python", ["filegenerator.py"]);
     python.stdin.write(JSON.stringify(obj));
@@ -56,7 +60,8 @@ async function sendDataToPy() {
       console.log("Python process exited with code:", code);
     });
   }
-  last = n;
+  last.value = n;
+  await last.save();
 }
 
 module.exportsa = {sendDataToPy};

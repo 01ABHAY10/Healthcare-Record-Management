@@ -51,7 +51,7 @@ To get started with the Distributed Patient Data Storage Website, follow these s
 <a href="#"><img src="https://img.shields.io/badge/-Matplotlib-FF7400?style=flat&logo=matplotlib&logoColor=white"></a>
 <a href="#"><img src="https://img.shields.io/badge/-Seaborn-3776AB?style=flat&logo=python&logoColor=white"></a>
 - Distributed Storage Network: <a href="#"><img src="https://img.shields.io/badge/-web3.storage-FFFFFF?style=flat&logo=ipfs&logoColor=black"></a>
-- Database: <a href="#"><img src="https://img.shields.io/badge/-MongoDB-47A248?style=flat&logo=mongodb&logoColor=white"></a
+- Database: <a href="#"><img src="https://img.shields.io/badge/-MongoDB-47A248?style=flat&logo=mongodb&logoColor=white"></a>
 - Developer tools: <a href="#"><img src="https://img.shields.io/badge/-npm-CB3837?style=flat&logo=npm&logoColor=white"></a>
 <a href="#"><img src="https://img.shields.io/badge/-pip-3776AB?style=flat&logo=pypi&logoColor=white"></a>
 <a href="#"><img src="https://img.shields.io/badge/-Git-F05032?style=flat&logo=git&logoColor=white"></a>

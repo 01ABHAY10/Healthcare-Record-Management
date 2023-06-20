@@ -1,1 +1,414 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>H.R.M. - Analytics</title><link rel="icon" type="image/x-icon" href="/images/icon.png"><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous"><link href="/css/style.css" rel="stylesheet"></head><body class="content"><nav class="navbar navbar-expand-lg"><div class="container-fluid"><a class="navbar-brand" href="/homepage"><div class="d-flex align-items-center"><img src="/images/icon.png" alt="Logo" width="35" height="35" class="d-inline-block align-text-top"><h3 class="ms-2 mb-0"><b style="font-family:'Franklin Gothic Medium','Arial Narrow',Arial,sans-serif">HEALTHCARE RECORD</b></h3></div></a><button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button><div class="collapse navbar-collapse justify-content-end" id="navbarNav"><ul class="navbar-nav"><li class="nav-item"><a class="nav-link active" aria-current="page" href="/homepage">Home</a></li><li class="nav-item"><a class="nav-link active link" data-bs-toggle="modal" data-bs-target=".aboutusModal">About us</a></li><li class="nav-item"><div class="dropdown"><a class="btn dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Contact</a><ul class="dropdown-menu"><li><a class="dropdown-item" href="https://mail.google.com/mail/?view=cm&fs=1&to=healthcare.record.management@gmail.com">Mail</a></li></ul></div></li><li class="nav-item"><a data-bs-toggle="modal" data-bs-target=".myModal" class="user link"><img src="/images/profile.png" width="45" height="45"></a></li></ul></div></div></nav><div class="modal fade myModal"><div class="modal-dialog"><div class="modal-content"><div class="modal-header center"><h1 class="modal-title fs-5" style="color:green"><b>Logged-In</b></h1></div><div class="modal-body"><div class="center showUser"><h5><b>User :</b>jamesbond@gmail.com</h5></div><br><div class="center"><button class="btn btn-danger logout">Logout</button></div></div></div></div></div><div class="modal fade aboutusModal"><div class="modal-dialog"><div class="modal-content"><div class="modal-header center"><h1 class="modal-title fs-5"><b style="color:#00f">About us:</b></h1></div><div class="modal-body center mb-4">Welcome to<b>Healthcare Record</b>, a dedicated team of professionals committed to<b>revolutionizing</b>the way patient data is<b>stored</b>,<b>managed</b>, and<b>accessed</b>. Our mission is to provide a<b>secure</b>, and<b>privacy-focused</b>platform for<b>hospitals</b>to securely store and<b>analyze</b>patient data while prioritizing patient<b>confidentiality</b>.<br>Join us on this journey as we redefine the way patient data is stored, managed, and accessed. Experience the power of secure and<b>distributed patient data storage</b>with<b>Healthcare Record</b>.</div></div></div></div><div><h2 class="ms-2 mb-0 center"><b style="font-family:'Franklin Gothic Medium','Arial Narrow',Arial,sans-serif">ANALYTICS</b></h2></div><div class="cards"><div class="card analytics-card"><div class="row g-0"><div class="col-md-6"><img class="card-img-top" src="/images/plot0.png" alt="Card image cap"></div><div class="col-md-6"><div class="card-body"><h3 class="card-title">Diabetes Prevalence by Age Group</h3><p class="card-text"><b>Description:</b><br>This bar plot illustrates the number of individuals suffering from diabetes in different age groups: 1-15, 16-30, 31-45, 46-60, and 60+. Each bar represents an age range, with bar height indicating the respective diabetes prevalence. The plot provides a quick comparison of diabetes burden across age cohorts, highlighting any notable trends.<br>This concise visualization aids in identifying age-specific patterns, which can inform targeted interventions and healthcare strategies to address the varying needs of different age groups affected by diabetes.</p></div></div></div></div><div class="card analytics-card"><div class="row g-0"><div class="col-md-6"><div class="card-body"><h3 class="card-title">Comparison of Cancer Cases Based on Lifestyle Choices</h3><p class="card-text"><b>Description:</b><br>This grouped bar plot presents a comparison of the number of people suffering from cancer and those who are not, based on their lifestyle choices. The bars are categorized according to different combinations of drinking, smoking, and tobacco consumption. The bars on the left represent individuals who do not engage in any of these behaviors (non-drinkers, non-smokers, and non-tobacco users). The bars on the right represent individuals who participate in one or more of these habits.<br>By examining this grouped bar plot, we can gain valuable insights into the relationship between lifestyle choices and cancer incidence. It is essential to note that these findings are based on the specific data set used for this analysis. Remember, interpreting the results should consider various factors, such as sample size, demographics, and potential confounding variables.</p></div></div><div class="col-md-6"><img class="card-img-top" src="/images/plot1.png" alt="Card image cap"></div></div></div><div class="card analytics-card"><div class="row g-0"><div class="col-md-6"><img class="card-img-top" src="/images/plot3.png" alt="Card image cap"></div><div class="col-md-6"><div class="card-body"><h3 class="card-title">Blood Group Distribution in the Sample Population</h3><p class="card-text"><b>Description:</b><br>The pie chart represents the distribution of blood groups in a sample population. The chart provides a visual breakdown of the prevalence of different blood groups within the group under study. Each slice of the pie corresponds to a specific blood group, and the size of each slice represents the proportion of individuals with that blood group. To aid in interpretation, each blood group is labeled alongside its corresponding slice, making it easy to identify and associate the segments with their respective groups.</p></div></div></div></div><div class="card analytics-card"><div class="row g-0"><div class="col-md-6"><div class="card-body"><h3 class="card-title">Distribution of Disease Burden Among Individuals.</h3><p class="card-text"><b>Description:</b><br>The bar plot represents the distribution of disease burden among individuals, showcasing the number of people suffering from different numbers of diseases. The x-axis indicates the number of diseases, ranging from 0 to 6, while the y-axis represents the number of people.<br><b>Insights:</b><br><u>Most Common Scenario:</u>The majority of individuals in the study/sample do not suffer from any diseases, as reflected by the highest bar representing zero diseases.<br><u>Gradual Decline:</u>As the number of diseases increases, the number of people affected decreases progressively, indicating a decline in the prevalence of multiple diseases.<br><u>Prevalence of Single Diseases:</u>The bar representing one disease shows a notable count, suggesting that a significant portion of individuals in the study/sample are affected by a single disease.<br><u>Rare Cases:</u>The bars representing individuals with two to six diseases demonstrate a steady decrease, indicating that individuals affected by multiple diseases simultaneously are relatively rare.</p></div></div><div class="col-md-6"><img class="card-img-top" src="/images/plot2.png" alt="Card image cap"></div></div></div><div class="card analytics-card"><div class="row g-0"><div class="col-md-6"><img class="card-img-top" src="/images/plot4.png" alt="Card image cap"></div><div class="col-md-6"><div class="card-body"><h3 class="card-title">Weight vs. Height Scatter Plot with BMI Ranges.</h3><p class="card-text"><b>Description:</b><br>The scatter plot represents the relationship between weight (kg) and height (m) of individuals. Each data point on the plot corresponds to a specific individual, with the x-coordinate indicating their weight and the y-coordinate representing their height. The plot is color-coded, with blue points representing males and pink points representing females. Additionally, the background color of the plot is used to indicate different ranges of Body Mass Index (BMI).</p></div></div></div></div><div class="card analytics-card"><div class="row g-0"><div class="col-md-6"><div class="card-body"><h3 class="card-title">Distribution of Individuals by Disease Type.</h3><p class="card-text"><b>Description:</b><br>The pie chart provides an overview of the distribution of individuals suffering from acute and chronic diseases within our study population. Acute diseases are characterized by a sudden onset and short duration, while chronic diseases persist over the long term. This visual representation helps us understand the relative proportions of these disease types and their impact on the population.<br><b>Definitions:</b><br>Acute Diseases: Conditions that have a rapid onset and a short duration. They typically require immediate medical attention and can resolve within a few days or weeks.<br>Chronic Diseases: Long-term conditions that persist over an extended period, often for years or a lifetime. They usually progress slowly and may require ongoing medical management.</p></div></div><div class="col-md-6"><img class="card-img-top" src="/images/plot5.png" alt="Card image cap"></div></div></div><div class="card analytics-card"><div class="row g-0"><div class="col-md-6"><img class="card-img-top" src="/images/plot6.png" alt="Card image cap"></div><div class="col-md-6"><div class="card-body"><h3 class="card-title">Analysis of COVID-19 Vaccine Dosage and Effectiveness</h3><p class="card-text"><b>Description:</b><br>The grouped bar plot presented here provides a comprehensive visualization of the COVID-19 vaccine dosages administered to individuals, categorizing them into four groups: no dose, first dose, second dose, and booster dose. Additionally, the plot distinguishes between individuals who have contracted COVID-19 and those who remain COVID-free, enabling a clear assessment of vaccine effectiveness.<br><b>Insights:</b><br>The plot illustrates the distribution of vaccine dosages, indicating the number of individuals in each category (no dose, first dose, second dose, booster dose) and their COVID-19 status. It allows for a clear assessment of vaccine effectiveness by comparing the proportions of COVID-positive and COVID-negative individuals within each dosage category. The plot shows the progression of vaccine administration, from individuals without any doses to those receiving subsequent doses. Trends in vaccine uptake and effectiveness can be identified by comparing multiple plots over different time periods. The plot provides valuable information for decision-making regarding vaccine distribution and public health strategies.</p></div></div></div></div></div><div class="alert-analytics alert alert-info center" role="alert">The analytics get updated every 24-hour at 0000 (0 hundred hours).</div><footer class="footer sticky-bottom" style="margin-top:6%"><div class="container center"><span class="text-muted">© 2023</span><span class="text-muted">Created and Designed by room no. 241, P. D. Tandon Hostel</span></div></footer><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script><script src="/js/main.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>H.R.M. - Analytics</title>
+    <link rel="icon" type="image/x-icon" href="/images/icon.png" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
+      crossorigin="anonymous"
+    />
+    <link href="/css/style.css" rel="stylesheet" />
+  </head>
+  <body class="content">
+    <nav class="navbar navbar-expand-lg">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/homepage">
+          <div class="d-flex align-items-center">
+            <img
+              src="/images/icon.png"
+              alt="Logo"
+              width="35"
+              height="35"
+              class="d-inline-block align-text-top"
+            />
+            <h3 class="ms-2 mb-0">
+              <b
+                style="
+                  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial,
+                    sans-serif;
+                "
+              >
+                HEALTHCARE RECORD</b
+              >
+            </h3>
+          </div>
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div
+          class="collapse navbar-collapse justify-content-end"
+          id="navbarNav"
+        >
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/homepage"
+                >Home</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active link" data-bs-toggle="modal" data-bs-target=".aboutusModal">About us</a>
+            </li>
+            <li class="nav-item">
+              <div class="dropdown">
+                <a
+                  class="btn dropdown-toggle"
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                  >Contact</a
+                >
+                <ul class="dropdown-menu">
+                  <li>
+                    <a
+                      class="dropdown-item"
+                      href="https://mail.google.com/mail/?view=cm&fs=1&to=healthcare.record.management@gmail.com"
+                      >Mail</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a data-bs-toggle="modal" data-bs-target=".myModal" class="user link">
+                <img src="/images/profile.png" width="45" height="45" />
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- login modal starts here  -->
+    <div class="modal fade myModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header center">
+            <h1 class="modal-title fs-5" style="color: green">
+              <b>Logged-In</b>
+            </h1>
+          </div>
+          <div class="modal-body">
+            <div class="center showUser">
+              <h5><b>User :</b> jamesbond@gmail.com</h5>
+            </div>
+            <br />
+            <div class="center">
+              <button class="btn btn-danger logout">Logout</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- login modal ends here  -->
+     <!-- About us Modal start here  -->
+     <div class="modal fade aboutusModal" >
+      <div class="modal-dialog">
+        <div class="modal-content ">
+          <div class="modal-header center" >
+            <h1 class="modal-title fs-5 " ><b style="color: blue;">About us:</b></h1>
+          </div>
+          <div class="modal-body center mb-4">
+            Welcome to <b>Healthcare Record</b>, a dedicated team
+            of professionals committed to <b>revolutionizing</b>
+            the way patient data is <b>stored</b>, <b>managed</b>, and <b>accessed</b>.
+            Our mission is to provide a <b>secure</b>, and
+            <b>privacy-focused</b> platform for <b>hospitals</b> to securely store
+            and <b>analyze</b> patient data while prioritizing patient <b>confidentiality</b>.
+            <br>
+            Join us on this journey as we redefine the way patient data is stored, 
+            managed, and accessed. Experience the power of secure 
+            and <b>distributed patient data storage</b> with <b>Healthcare Record</b>.  
+         </div>
+        </div>
+      </div>
+   </div>
+    <!-- About us Modal end here  -->
+    <div>
+      <h2 class="ms-2 mb-0 center">
+        <b
+          style="
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial,
+              sans-serif;
+          "
+          >ANALYTICS</b
+        >
+      </h2>
+    </div>
+
+    <div class="cards">
+      <div class="card analytics-card">
+        <div class="row g-0">
+          <div class="col-md-6">
+            <img
+              class="card-img-top"
+              src="/images/plot0.png"
+              alt="Card image cap"
+            />
+          </div>
+          <div class="col-md-6">
+            <div class="card-body">
+              <h3 class="card-title">Diabetes Prevalence by Age Group</h3>
+              <p class="card-text">
+                <b>Description:</b> <br />
+                This bar plot illustrates the number of individuals suffering
+                from diabetes in different age groups: 1-15, 16-30, 31-45,
+                46-60, and 60+. Each bar represents an age range, with bar
+                height indicating the respective diabetes prevalence. The plot
+                provides a quick comparison of diabetes burden across age
+                cohorts, highlighting any notable trends. <br />This concise
+                visualization aids in identifying age-specific patterns, which
+                can inform targeted interventions and healthcare strategies to
+                address the varying needs of different age groups affected by
+                diabetes.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card analytics-card">
+        <div class="row g-0">
+          <div class="col-md-6">
+            <div class="card-body">
+              <h3 class="card-title">
+                Comparison of Cancer Cases Based on Lifestyle Choices
+              </h3>
+              <p class="card-text">
+                <b>Description:</b><br />
+                This grouped bar plot presents a comparison of the number of
+                people suffering from cancer and those who are not, based on
+                their lifestyle choices. The bars are categorized according to
+                different combinations of drinking, smoking, and tobacco
+                consumption. The bars on the left represent individuals who do
+                not engage in any of these behaviors (non-drinkers, non-smokers,
+                and non-tobacco users). The bars on the right represent
+                individuals who participate in one or more of these habits.<br />
+                By examining this grouped bar plot, we can gain valuable
+                insights into the relationship between lifestyle choices and
+                cancer incidence. It is essential to note that these findings
+                are based on the specific data set used for this analysis.
+                Remember, interpreting the results should consider various
+                factors, such as sample size, demographics, and potential
+                confounding variables.
+              </p>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <img
+              class="card-img-top"
+              src="/images/plot1.png"
+              alt="Card image cap"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="card analytics-card">
+        <div class="row g-0">
+          <div class="col-md-6">
+            <img
+              class="card-img-top"
+              src="/images/plot3.png"
+              alt="Card image cap"
+            />
+          </div>
+          <div class="col-md-6">
+            <div class="card-body">
+              <h3 class="card-title">
+                Blood Group Distribution in the Sample Population
+              </h3>
+              <p class="card-text">
+                <b>Description:</b><br />The pie chart represents the
+                distribution of blood groups in a sample population. The chart
+                provides a visual breakdown of the prevalence of different blood
+                groups within the group under study. Each slice of the pie
+                corresponds to a specific blood group, and the size of each
+                slice represents the proportion of individuals with that blood
+                group. To aid in interpretation, each blood group is labeled
+                alongside its corresponding slice, making it easy to identify
+                and associate the segments with their respective groups.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card analytics-card">
+        <div class="row g-0">
+          <div class="col-md-6">
+            <div class="card-body">
+              <h3 class="card-title">
+                Distribution of Disease Burden Among Individuals.
+              </h3>
+              <p class="card-text">
+                <b>Description:</b><br />
+                The bar plot represents the distribution of disease burden among
+                individuals, showcasing the number of people suffering from
+                different numbers of diseases. The x-axis indicates the number
+                of diseases, ranging from 0 to 6, while the y-axis represents
+                the number of people.<br />
+
+                <b>Insights:</b><br />
+
+                <u>Most Common Scenario:</u> The majority of individuals in the
+                study/sample do not suffer from any diseases, as reflected by
+                the highest bar representing zero diseases. <br><u>Gradual Decline:</u> As
+                the number of diseases increases, the number of people affected
+                decreases progressively, indicating a decline in the prevalence
+                of multiple diseases. <br><u>Prevalence of Single Diseases:</u> The bar
+                representing one disease shows a notable count, suggesting that
+                a significant portion of individuals in the study/sample are
+                affected by a single disease. <br><u>Rare Cases:</u> The bars representing
+                individuals with two to six diseases demonstrate a steady
+                decrease, indicating that individuals affected by multiple
+                diseases simultaneously are relatively rare.
+              </p>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <img
+              class="card-img-top"
+              src="/images/plot2.png"
+              alt="Card image cap"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="card analytics-card">
+        <div class="row g-0">
+          <div class="col-md-6">
+            <img
+              class="card-img-top"
+              src="/images/plot4.png"
+              alt="Card image cap"
+            />
+          </div>
+          <div class="col-md-6">
+            <div class="card-body">
+              <h3 class="card-title">
+                Weight vs. Height Scatter Plot with BMI Ranges.
+              </h3>
+              <p class="card-text">
+                <b>Description:</b> <br />
+                The scatter plot represents the relationship between weight (kg)
+                and height (m) of individuals. Each data point on the plot
+                corresponds to a specific individual, with the x-coordinate
+                indicating their weight and the y-coordinate representing their
+                height. The plot is color-coded, with blue points representing
+                males and pink points representing females. Additionally, the
+                background color of the plot is used to indicate different
+                ranges of Body Mass Index (BMI).
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card analytics-card">
+        <div class="row g-0">
+          <div class="col-md-6">
+            <div class="card-body">
+              <h3 class="card-title">
+                Distribution of Individuals by Disease Type.
+              </h3>
+              <p class="card-text">
+                <b>Description:</b><br />
+                The pie chart provides an overview of the distribution of
+                individuals suffering from acute and chronic diseases within our
+                study population. Acute diseases are characterized by a sudden
+                onset and short duration, while chronic diseases persist over
+                the long term. This visual representation helps us understand
+                the relative proportions of these disease types and their impact
+                on the population.
+                <br /><b>Definitions:</b><br />
+                Acute Diseases: Conditions that have a rapid onset and a short
+                duration. They typically require immediate medical attention and
+                can resolve within a few days or weeks.
+                <br />Chronic Diseases: Long-term conditions that persist over
+                an extended period, often for years or a lifetime. They usually
+                progress slowly and may require ongoing medical management.
+              </p>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <img
+              class="card-img-top"
+              src="/images/plot5.png"
+              alt="Card image cap"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="card analytics-card">
+        <div class="row g-0">
+          <div class="col-md-6">
+            <img
+              class="card-img-top"
+              src="/images/plot6.png"
+              alt="Card image cap"
+            />
+          </div>
+          <div class="col-md-6">
+            <div class="card-body">
+              <h3 class="card-title">
+                Analysis of COVID-19 Vaccine Dosage and Effectiveness
+              </h3>
+              <p class="card-text">
+                <b>Description:</b><br />
+                The grouped bar plot presented here provides a comprehensive
+                visualization of the COVID-19 vaccine dosages administered to
+                individuals, categorizing them into four groups: no dose, first
+                dose, second dose, and booster dose. Additionally, the plot
+                distinguishes between individuals who have contracted COVID-19
+                and those who remain COVID-free, enabling a clear assessment of
+                vaccine effectiveness.<br />
+                <b>Insights:</b><br />
+                The plot illustrates the distribution of vaccine dosages,
+                indicating the number of individuals in each category (no dose,
+                first dose, second dose, booster dose) and their COVID-19
+                status. It allows for a clear assessment of vaccine
+                effectiveness by comparing the proportions of COVID-positive and
+                COVID-negative individuals within each dosage category. The plot
+                shows the progression of vaccine administration, from
+                individuals without any doses to those receiving subsequent
+                doses. Trends in vaccine uptake and effectiveness can be
+                identified by comparing multiple plots over different time
+                periods. The plot provides valuable information for
+                decision-making regarding vaccine distribution and public health
+                strategies.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert-analytics alert alert-info center" role="alert">
+      The analytics get updated every 24-hour at 0000 (0 hundred hours).
+    </div>
+
+    <footer class="footer sticky-bottom" style="margin-top: 6%">
+      <div class="container center">
+        <span class="text-muted">© 2023</span>
+        <span class="text-muted"
+          >Created and Designed by room no. 241, P. D. Tandon Hostel</span
+        >
+      </div>
+    </footer>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+      crossorigin="anonymous"
+    ></script>
+    <script src="/js/main.js"></script>
+  </body>
+</html>

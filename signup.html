@@ -1,1 +1,78 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Login/SignUp</title><link rel="icon" type="image/x-icon" href="/images/icon.png"><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous"><link rel="stylesheet" href="/css/style.css"></head><body id="signup-body"><button class="hidden" id="actsgnModal" data-bs-toggle="modal" data-bs-target="#signupModal">.</button><div class="container"><div class="card sign lscard"><img class="icon" src="/images/icon.png" alt="404"><h3 class="title"><b>HEALTHCARE RECORD</b></h3><h4 class="login">Signup</h4><form action="/signup" method="post"><div class="mb-3"><label for="exampleInputEmail1" class="form-label" id="email-input">Email address</label><input type="email" class="form-control" name="email" id="email" required><div class="mb-3"><label for="exampleInputPassword1" id="pswd" class="form-label">Password</label><input type="password" name="password" class="form-control" id="password" required></div><div class="mb-3"><label for="exampleInputPassword1" class="form-label">Confirm Password</label><input type="password" name="cnfpassword" class="form-control" id="cnfpassword" required></div><div class="login"><button type="button" class="btn btn-primary" id="sgn-btn">Sign-up</button></div></div></form><small class="mx-4 my-2"><b>Already have an account?</b><a href="#" id="login-btn"><b>login</b></a></small></div></div><div class="modal fade" id="signupModal"><div class="modal-dialog"><div class="modal-content"><div class="modal-header center"><h1 class="modal-title fs-5" id="modal-content">Enter the security token sent to your mail.</h1></div><div class="modal-body"><div class="mb-3 row"><label class="col-sm-1 col-form-label"><b>Token</b></label><div class="col-sm-9"><input class="form-control" id="token"></div></div></div><div class="modal-footer"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="close">Close</button><button type="button" class="modal-btn btn" id="VerifySgnToken">Verify</button></div></div></div></div><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script><script src="/js/login.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login/SignUp</title>
+  <link rel="icon" type="image/x-icon" href="/images/icon.png">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous" />
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body id="signup-body">
+  <button  class="hidden" id="actsgnModal"  data-bs-toggle="modal" data-bs-target="#signupModal">.</button>
+  <div class="container">
+    <div class="card sign lscard">
+    <img class=icon src="/images/icon.png" alt="404">
+    <h3 class="title"><b>HEALTHCARE RECORD</b></h3>
+    <h4 class="login">Signup</h4>
+   
+    <form action="/signup" method="post">
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label" id="email-input">Email address</label>
+    <input type="email" class="form-control" name="email" id="email" value="" required>
+  <div class="mb-3">
+    <label for="exampleInputPassword1" id="pswd" class="form-label">Password</label>
+    <input type="password" name="password" class="form-control" id="password"  value="" required>
+  </div>
+  <div class="mb-3">
+    <label for="exampleInputPassword1" class="form-label">Confirm Password</label>
+    <input type="password" name="cnfpassword" class="form-control" id="cnfpassword" value="" required>
+  </div>
+
+  <div class="login"><button type="button" class="btn btn-primary" id="sgn-btn">Sign-up</button></div>
+       
+      </form>
+      <small class="mx-4 my-2">
+        <b>Already have an account?</b>
+        <a href="#" id="login-btn"><b> login</b></a>
+      </small>
+  </div>
+  </div>
+
+  <div class="modal fade" id="signupModal" >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header center">
+                <h1 class="modal-title fs-5 " id="modal-content">Enter the security token sent to your mail.</h1>
+              </div>
+              <div class="modal-body">
+                <div class="mb-3 row">
+                  <label class="col-sm-1 col-form-label"><b>Token</b></label>
+                  <div class="col-sm-9">
+                      <input type="text" class="form-control"  id="token">
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="close">Close</button>
+                <button type="button" class="modal-btn btn" id="VerifySgnToken">Verify</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"
+    crossorigin="anonymous"></script>
+<script src="/js/login.js"></script>
+
+    
+</body>
+
+</html>

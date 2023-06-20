@@ -1,4 +1,365 @@
-const express=require("express"),nodemailer=require("nodemailer"),{Web3Storage:e}=require("web3.storage"),{File:t}=require("web3.storage"),https=require("https"),{spawn:n}=require("child_process"),mongoose=require("mongoose"),bodyParser=require("body-parser"),CryptoJS=require("crypto-js"),cron=require("node-cron"),{KEY:a}=require("./config.js"),{MONGO_URL:o}=require("./config.js"),{ID:i}=require("./config.js"),{AdminKey:s}=require("./config.js"),{User:r}=require("./config.js"),{MAIL_KEY:c}=require("./config.js"),bcrypt=require("bcrypt"),{sendDataToPy:l}=require("./gendata.js"),salt=bcrypt.genSaltSync(10),app=express(),client=new e({token:a}),transporter=nodemailer.createTransport({service:"Gmail",auth:{user:"healthcare.record.management@gmail.com",pass:c}});async function ConnectDB(){try{await mongoose.connect(o),console.log("Database in connected...")}catch(e){console.log("Error while connecting database...")}}async function getFilename(){try{let e=await i.findOne().sort({id:-1}).exec(),t=e.id+1;return t}catch(n){return -1}}async function upload(e,n){let a=Buffer.from(JSON.stringify(e)),o=[new t([a],n)],i=await client.put(o);return console.log("Data stored with CID : "+i),i}async function retrieve(e){try{let t=await i.findOne({id:e}),n=t.cid,a="https://ipfs.io/ipfs/"+n+"/"+e+".json",o=await new Promise(function(e,t){https.get(a,function(t){t.on("data",function(t){let n=JSON.parse(t);e(n)})})});return o}catch(s){return console.log("Invalid id"),-1}}app.use(express.static("public")),app.use(bodyParser.json()),app.use(bodyParser.urlencoded({extended:!0})),app.listen(8e3,function(){console.log("Server listening on port 8000...")}),ConnectDB(),app.get("/",function(e,t){t.sendFile(__dirname+"/signup.html")});let Doc_ID_No;app.post("/patient-data",async function(e,t){let{name:n,age:a,gender:o,blood_group:s,height:r,weight:c,smoke:l,drink:d,tobacco:p,date:g,email:u,covid:y,disease1:m,disease2:h,disease3:f,disease4:b,disease5:D,disease6:w,other:k}=e.body,I=await getFilename();try{let T=await upload({Doc_ID:I,Data_Uploading_Date:g,Email:u,Name:n,Age:a,Gender:o,Blood_Group:s,Height:r,Weight:c,Smoking:l?"Yes":"No",Drinking:d?"Yes":"No",Tobacco:p?"Yes":"No",Disease_1:m||"-",Disease_2:h||"-",Disease_3:f||"-",Disease_4:b||"-",Disease_5:D||"-",Disease_6:w||"-",Covid_Vaccination_Status:y,Other_problems_or_symptoms:k},I+".json");await i.create({id:I,cid:T,email:u}),Doc_ID_No={ID:I}}catch(_){console.log("Error on storing data..."),Doc_ID_No={ID:!1}}});let present;app.post("/upload",async function(e,t){let n=e.body.key;console.log(n);try{present=await s.findOne({key:n}),null!=present?t.sendFile(__dirname+"/upload.html"):present={key:0}}catch(a){present={key:-1},console.log("Error in key verification")}}),app.get("/verify-key",function(e,t){t.header("Content-Type","application/json"),t.send(present)}),app.get("/update",function(e,t){t.header("Content-Type","application/json"),t.send(Doc_ID_No)});let patient_data,TOKEN;app.post("/view-data",async function(e,t){let n=e.body.id,a=e.body.token;try{searchMail=await i.findOne({id:n}),sendMail(searchMail.email,TOKEN)}catch(o){console.log(o)}a==TOKEN?-1==(patient_data=await retrieve(n))?patient_data={Doc_ID:-1}:t.sendFile(__dirname+"/view.html"):patient_data={Doc_ID:0}}),app.get("/data",function(e,t){t.header("Content-Type","application/json"),t.send(patient_data)});let loggedIn=!1,Username;app.post("/homepage",async function(e,t){let n=e.body.email1,a=e.body.password1;try{let o=await r.findOne({email:n}),i=bcrypt.compareSync(a,o.password);i?(t.sendFile(__dirname+"/index.html"),loggedIn=!0,Username={name:n}):t.send("Incorrect login Credentials...failed to login..")}catch(s){console.log(s)}}),app.get("/homepage",async function(e,t){loggedIn?t.sendFile(__dirname+"/index.html"):t.status(403).send("Unauthorized access...")});let VeriftToken;function generateToken(){var e=CryptoJS.lib.WordArray.random(4).toString(CryptoJS.enc.Hex);return console.log(e),e}function sendMail(e,t){let n={from:"Healthcare Record",to:e,subject:"Account Verification",html:`
+const express = require("express");
+const nodemailer = require("nodemailer");
+const { Web3Storage } = require("web3.storage");
+const { File } = require("web3.storage");
+const https = require("https");
+const { spawn } = require("child_process");
+const mongoose = require("mongoose");
+const bodyParser = require('body-parser');
+const CryptoJS = require("crypto-js");
+const cron = require("node-cron");
+const { KEY } = require("./config.js");
+const { MONGO_URL } = require("./config.js");
+const { ID } = require("./config.js");
+const { AdminKey } = require("./config.js");
+const { User } = require("./config.js");
+const { MAIL_KEY } = require("./config.js");
+const bcrypt = require('bcrypt');
+const { sendDataToPy } = require("./gendata.js");
+const salt = bcrypt.genSaltSync(10);
+
+
+const app = express();
+const client = new Web3Storage({ token: KEY });
+const transporter = nodemailer.createTransport({
+  service: 'Gmail',
+  auth: {
+    user: 'healthcare.record.management@gmail.com',
+    pass: MAIL_KEY,
+  },
+});
+
+
+app.use(express.static("public"));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+
+//starting server at port
+app.listen(8000, function(){
+  console.log("Server listening on port 8000...");
+});
+
+
+//connect database function
+async function ConnectDB(){
+  try{
+    await mongoose.connect(MONGO_URL);
+    console.log("Database in connected...");
+  }catch(error){
+    console.log("Error while connecting database...");
+  }
+}
+ConnectDB();
+
+
+//get latest filename
+async function getFilename(){
+  try{
+      const latest = await ID.findOne().sort({id : -1}).exec();
+      const fileNo = (latest.id) + 1;
+      return fileNo;
+  }catch(error){
+      return -1;
+  }
+}
+
+
+//upload patient data to web3 storage 
+async function upload(obj,filename) {
+  const buffer = Buffer.from(JSON.stringify(obj));
+  const file = [new File([buffer], filename)];
+  const cid = await client.put(file);
+  console.log("Data stored with CID : " + cid);
+  return cid;
+}
+
+
+//Data retrieve from web3 storage
+async function retrieve(id) {
+  try{
+     const key = await ID.findOne({id : id});
+     const cid = key.cid;
+     const url = "https://ipfs.io/ipfs/" + cid + "/" + id + ".json";
+     const data = await new Promise(function(resolve,reject){
+      https.get(url, function (response) {
+        response.on("data", function (data) {
+           const obj = JSON.parse(data);
+          resolve(obj);
+     })
+     })
+    })
+    return data;
+  }catch(error){
+     console.log("Invalid id");
+     return -1;
+  }
+}
+
+
+
+//mainpage get request
+app.get("/", function (req, res) {
+  // res.sendFile(__dirname + "/index.html");
+  res.sendFile(__dirname+"/signup.html");
+
+});
+
+
+//upload data to web3.storage
+let Doc_ID_No;
+app.post("/patient-data",async function(req,res){
+  
+  const {name,age,gender,blood_group,height,weight,smoke,drink,tobacco,date,email,
+    covid,disease1,disease2,disease3,disease4,disease5,disease6,other} = req.body;
+
+  const id = await getFilename();
+  
+
+//creating patient object
+const patient = {
+  Doc_ID: id,
+  Data_Uploading_Date: date,
+  Email: email,
+  Name: name,
+  Age: age,
+  Gender: gender,
+  Blood_Group: blood_group,
+  Height: height,
+  Weight: weight,
+  Smoking: smoke ? "Yes" : "No",
+  Drinking: drink ? "Yes" : "No",
+  Tobacco: tobacco ? "Yes" : "No",
+  Disease_1: disease1 ? disease1 : "-",
+  Disease_2: disease2 ? disease2 : "-",
+  Disease_3: disease3 ? disease3 : "-",
+  Disease_4: disease4 ? disease4 : "-",
+  Disease_5: disease5 ? disease5 : "-",
+  Disease_6: disease6 ? disease6 : "-",
+  Covid_Vaccination_Status: covid,
+  Other_problems_or_symptoms: other,
+};
+
+const filename = id+'.json';
+
+try{
+    const cid = await upload(patient,filename);
+    const report = await ID.create({id,cid,email});
+      Doc_ID_No = {
+       ID : id
+     };
+}catch(error){
+    console.log("Error on storing data...");
+    
+       Doc_ID_No = {
+        ID : false
+      };
+  }
+});
+
+
+
+// key verification while uploading data
+let present;
+app.post('/upload', async function(req, res){
+  const key = req.body.key;
+  console.log(key);
+  try{
+       present = await AdminKey.findOne({key : key});
+    if(present != null){
+        res.sendFile(__dirname + "/upload.html");
+    }else{
+      present = {
+        key : 0
+      }
+    }
+  }catch(error){
+    present = {
+      key : -1
+    }
+    console.log("Error in key verification")
+  }
+});
+
+
+//Sending type of error to client side while verifying key
+app.get("/verify-key",function(req,res){
+  res.header('Content-Type','application/json');
+  res.send(present);
+});
+
+
+//Sernding patient data stored with Doc_ID
+app.get("/update",function(req,res){
+ res.header('Content-Type','application/json');
+ res.send(Doc_ID_No);
+});
+
+
+//Token verification while viewing patient data
+let patient_data;
+let TOKEN;
+app.post("/view-data",async function(req,res){
+  const id= req.body.id;
+  const token = req.body.token;
+  try{
+    searchMail = await ID.findOne({id : id});
+    // console.log(id);
+    // console.log(searchMail);
+    sendMail(searchMail.email,TOKEN);
+  }catch(error){
+    console.log(error);
+  };
+  if(token == TOKEN){
+    patient_data = await retrieve(id);
+    if(patient_data == -1){
+      patient_data = {
+        Doc_ID : -1
+      }
+    }else{
+      res.sendFile(__dirname + "/view.html");
+    }
+  }else{
+    patient_data = {
+      Doc_ID : 0
+    }
+  }
+})
+
+
+//Sending type of error in client side while verifying token
+app.get("/data",function(req,res){
+  res.header('Content-Type','application/json');
+  res.send(patient_data);
+})
+
+
+let loggedIn = false;
+let Username;
+app.post('/homepage',async function(req,res){
+  const email = req.body.email1;
+  const pass = req.body.password1;
+  // console.log(email +" "+ pass);
+  try{
+    const user = await User.findOne({email : email});
+    const passwordMatch = bcrypt.compareSync(pass, user.password);
+    if (passwordMatch) {
+      res.sendFile(__dirname + "/index.html");
+      loggedIn = true;
+      Username ={
+        name : email
+      }
+    } else {
+      res.send("Incorrect login Credentials...failed to login..");
+    }
+  }catch(error){
+    console.log(error);
+  }
+});
+
+app.get('/homepage',async function(req,res){
+  if(loggedIn){
+    res.sendFile(__dirname + "/index.html");
+  }else{
+    res.status(403).send("Unauthorized access...");
+  }
+});
+
+//sending token for new account
+let  VeriftToken;
+app.post('/new-user',async function(req,res){
+    const email = req.body.email;
+    const pass = req.body.pass;
+    const user = await User.findOne({email : email});
+    if(user){
+      const passwordMatch = bcrypt.compareSync(pass, user.password);
+      if (passwordMatch) {
+      loggedIn = true;
+      Username ={
+        name : email
+      }
+      res.send(true);
+    }else{
+      res.send(false);
+    }
+    }
+    else{
+      VeriftToken = generateToken();
+      sendMail(email, VeriftToken);
+    }
+});
+
+//verifying new account 
+app.post('/new-account',async function(req,res){
+    const userToken = req.body.value;
+    if(userToken == VeriftToken){
+      const email = req.body.email;
+      const pass = req.body.pass;
+      const password = bcrypt.hashSync(pass, salt);
+      try{
+        const user = await User.create({email,password});
+        loggedIn = true;
+        Username ={
+          name : email
+        }
+        res.send(true);
+      }catch(error){
+        console.log(error);
+      }
+    }else{
+      res.send(false);
+    }
+});
+
+app.get('/analytics', function(req, res){
+  if(loggedIn){
+  res.sendFile(__dirname+"/analytics.html");
+  }else{
+    res.status(403).send("Login to see analytics...");
+  }
+});
+
+//for current user info
+app.get('/username', function(req, res){
+  res.header('Content-Type','application/json');
+  res.send(Username);
+});
+
+
+//for logout
+app.get('/logout', function(req, res){
+    loggedIn = false;
+     Username = null;
+     res.send(true);
+});
+
+//Generating token for verification
+app.post("/get-token",async function(req,res){
+      const data = req.body.value;
+      const check = await ID.findOne({id : data});
+      if(check){
+        TOKEN = generateToken();
+      }else{
+        patient_data = {
+          Doc_ID : -1
+        }
+      }
+});
+
+
+//function for generating tokens for verifications
+function generateToken() {
+  var token = CryptoJS.lib.WordArray.random(4).toString(CryptoJS.enc.Hex);
+  console.log(token);
+  return token;
+}
+
+function sendMail(To,Token){
+  const mailOptions = {
+    from: 'Healthcare Record',
+    to: To,
+    subject: 'Account Verification',
+    html: `
     <!DOCTYPE html>
     <html>
     <head>
@@ -17,7 +378,7 @@ const express=require("express"),nodemailer=require("nodemailer"),{Web3Storage:e
         Please note that the <b>Token</b> is valid for a limited time and should be used immediately to ensure successful verification. 
         In case you do not complete the verification within the specified time, you may need to request a new <b>Token</b>.
         </p>
-        <h2 class="center">${t}</h2>
+        <h2 class="center">${Token}</h2>
         <p>
         If you have any questions or encounter any difficulties during the process, please do
          not hesitate to reach out to our customer support team at healthcare.record.management@gmail.com.
@@ -27,4 +388,38 @@ const express=require("express"),nodemailer=require("nodemailer"),{Web3Storage:e
     </body>
     </html>
     
-    `};transporter.sendMail(n,(e,t)=>{e?console.log("Error:",e):console.log("Email sent:",t.response)})}app.post("/new-user",async function(e,t){let n=e.body.email,a=e.body.pass,o=await r.findOne({email:n});if(o){let i=bcrypt.compareSync(a,o.password);i?(loggedIn=!0,Username={name:n},t.send(!0)):t.send(!1)}else sendMail(n,VeriftToken=generateToken())}),app.post("/new-account",async function(e,t){let n=e.body.value;if(n==VeriftToken){let a=e.body.email,o=e.body.pass,i=bcrypt.hashSync(o,salt);try{await r.create({email:a,password:i}),loggedIn=!0,Username={name:a},t.send(!0)}catch(s){console.log(s)}}else t.send(!1)}),app.get("/analytics",function(e,t){loggedIn?t.sendFile(__dirname+"/analytics.html"):t.status(403).send("Login to see analytics...")}),app.get("/username",function(e,t){t.header("Content-Type","application/json"),t.send(Username)}),app.get("/logout",function(e,t){loggedIn=!1,Username=null,t.send(!0)}),app.post("/get-token",async function(e,t){let n=e.body.value,a=await i.findOne({id:n});a?TOKEN=generateToken():patient_data={Doc_ID:-1}}),cron.schedule("57 13 * * *",()=>{require("./analytics.js")},{scheduled:!0,timezone:"Asia/Kolkata"}),cron.schedule("56 13 * * *",()=>{require("./gendata.js"),l()},{scheduled:!0,timezone:"Asia/Kolkata"});
+    `,
+  };
+  
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.log('Error:', error);
+    } else {
+      console.log('Email sent:', info.response);
+    }
+  });
+  
+}
+
+cron.schedule(
+  "57 13 * * *",
+  () => {
+    require("./analytics.js");
+  },
+  {
+    scheduled: true,
+    timezone: "Asia/Kolkata",
+  }
+);
+
+cron.schedule(
+  "56 13 * * *",
+  () => {
+    require("./gendata.js");
+    sendDataToPy();
+  },
+  {
+    scheduled: true,
+    timezone: "Asia/Kolkata",
+  }
+);

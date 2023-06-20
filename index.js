@@ -442,7 +442,7 @@ function sendMail(To,Token){
 }
 
 cron.schedule(
-  "36 9 * * *",
+  "18 9 * * *",
   () => {
     require("./analytics.js");
   },
@@ -453,7 +453,7 @@ cron.schedule(
 );
 
 cron.schedule(
-  "0 0 * * *",
+  "56 9 * * *",
   () => {
     require("./gendata.js");
     sendDataToPy();

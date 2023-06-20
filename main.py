@@ -8,7 +8,7 @@ from matplotlib.ticker import MaxNLocator
 
 covid = [0, 0, 0, 0]
 noCovid = [0, 0, 0, 0]
- 
+
 
 # ? Blood Group
 
@@ -143,13 +143,13 @@ for index, row in df.iterrows():
     disDat[disease_count] += 1
     dat[row[6]] += 1
 
+plt.rcParams["figure.dpi"] = 360
 ax = plt.subplot()
 plt.bar(diabetes.keys(), diabetes.values(), width=0.8)
 sns.despine(left=True)
 sns.set(style="whitegrid")
 ax.yaxis.set_major_locator(MaxNLocator(integer=True))
 ax.yaxis.grid(True, linestyle="-", which="major", color="grey", alpha=0.5)
-plt.rcParams["figure.dpi"] = 240
 plt.xlabel("Age Group")
 plt.ylabel("Number of People")
 save_path = "D:\Study\Healthcare record management\public\images\plot0.png"
@@ -189,7 +189,8 @@ plt.close()
 explodeTuple = (0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02)
 lab = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-", "rh-null", "others"]
 # plt.rcParams['figure.dpi'] = 360
-plt.pie(dat.values(), labels=lab, shadow=False, explode=explodeTuple, autopct="%1.2f%%")
+plt.pie(dat.values(), labels=lab, shadow=False,
+        explode=explodeTuple, autopct="%1.2f%%")
 save_path = "D:\Study\Healthcare record management\public\images\plot3.png"
 plt.savefig(save_path)
 plt.close()

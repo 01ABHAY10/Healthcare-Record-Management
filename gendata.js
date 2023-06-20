@@ -36,7 +36,6 @@ async function getFilename() {
   }
 }
 
-
 async function sendDataToPy() {
   const last = await Var.findOne({name:"last"});
   let n = await getFilename();
@@ -64,4 +63,4 @@ async function sendDataToPy() {
   await last.save();
 }
 
-module.exportsa = {sendDataToPy};
+module.exports = {sendDataToPy};

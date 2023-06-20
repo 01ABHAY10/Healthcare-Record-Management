@@ -19,7 +19,6 @@ const { sendDataToPy } = require("./gendata.js");
 const salt = bcrypt.genSaltSync(10);
 
 
-
 const app = express();
 const client = new Web3Storage({ token: KEY });
 const transporter = nodemailer.createTransport({
@@ -31,8 +30,6 @@ const transporter = nodemailer.createTransport({
 });
 
 
-
-
 app.use(express.static("public"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -42,7 +39,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.listen(8000, function(){
   console.log("Server listening on port 8000...");
 });
-
 
 
 //connect database function
@@ -100,36 +96,6 @@ async function retrieve(id) {
   }
 }
 
-
-      // sending obj to main.py
-//       python.stdin.write(JSON.stringify(obj));
-//       python.stdin.end();
-
-      // listen for response from Python process
-//       python.stdout.on("data", (data) => {
-//         console.log("Received data from Python:", data.toString());
-//       });
-
-      // handle errors and exit events
-//       python.on("error", (err) => {
-//         console.error("Python process error:", err);
-//       });
-
-//       python.on("exit", (code) => {
-//         console.log("Python process exited with code:", code);
-//       });
-//     });
-//   });
-// }
-
-// bafybeicw5nzz3fgqhlhw36a2sin62i6rqiidesegirdo4si44dgy7w53r;
-
-//  upload();
-// Retrieve(
-//   "trial",
-//   "bafybeicw5nzz3fgqhlhw36a2sin62i6rqiidesegirdo4si44dgy7w53ry"
-// );
-// app.use(express.static("public"));
 
 
 //mainpage get request
@@ -268,12 +234,6 @@ app.get("/data",function(req,res){
 })
 
 
-// app.post('/signup',function(req,res){
-//   const email = req.body.email;
-//   const pass = req.body.pass;
-//   res.sendFile(__dirname+"/signup.html");
-
-// });
 let loggedIn = false;
 let Username;
 app.post('/homepage',async function(req,res){
@@ -442,7 +402,7 @@ function sendMail(To,Token){
 }
 
 cron.schedule(
-  "2 10 * * *",
+  "0 0 * * *",
   () => {
     require("./analytics.js");
   },
@@ -453,7 +413,7 @@ cron.schedule(
 );
 
 cron.schedule(
-  "56 9 * * *",
+  "0 12 * * *",
   () => {
     require("./gendata.js");
     sendDataToPy();

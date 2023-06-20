@@ -29,7 +29,7 @@
               <a class="nav-link active" aria-current="page" href='/homepage'>Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="#">About us</a>
+              <a class="nav-link active link" data-bs-toggle="modal" data-bs-target=".aboutusModal">About us</a>
             </li>
             <li class="nav-item">
           <div class="dropdown">
@@ -51,7 +51,7 @@
               </li>
           </ul>
           <li class="nav-item">
-            <a data-bs-toggle="modal" data-bs-target=".myModal" class="user">
+            <a data-bs-toggle="modal" data-bs-target=".myModal" class="user link">
               <img src="/images/profile.png" width="45" height="45">
             </a>
           </li>
@@ -59,6 +59,7 @@
       </div>
     </nav>
     <!-- navbar end here  -->
+    <!-- login modal starts here  -->
     <div class="modal fade myModal"  >
       <div class="modal-dialog">
         <div class="modal-content">
@@ -77,7 +78,30 @@
         </div>
       </div>
     </div>
-    
+    <!-- login modal ends here  -->
+    <!-- About us Modal start here  -->
+    <div class="modal fade aboutusModal" >
+      <div class="modal-dialog">
+        <div class="modal-content ">
+          <div class="modal-header center" >
+            <h1 class="modal-title fs-5 " ><b style="color: blue;">About us:</b></h1>
+          </div>
+          <div class="modal-body center mb-4">  
+            Welcome to <b>Healthcare Record</b>, a dedicated team
+            of professionals committed to <b>revolutionizing</b>
+            the way patient data is <b>stored</b>, <b>managed</b>, and <b>accessed</b>.
+            Our mission is to provide a <b>secure</b>, and
+            <b>privacy-focused</b> platform for <b>hospitals</b> to securely store
+            and <b>analyze</b> patient data while prioritizing patient <b>confidentiality</b>.
+            <br>
+            Join us on this journey as we redefine the way patient data is stored, 
+            managed, and accessed. Experience the power of secure 
+            and distributed patient data storage with Healthcare Record.
+         </div>
+        </div>
+      </div>
+   </div>
+    <!-- About us Modal end here  -->
     <!-- carousel start here  -->
     <div  class="carousel carousel-dark slide"  data-bs-ride="carousel" id="carouselExample">
       <div class="carousel-inner">

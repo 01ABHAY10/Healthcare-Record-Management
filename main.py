@@ -70,7 +70,6 @@ chronicDis = []
 
 df = pd.read_csv("event.csv")
 for index, row in df.iterrows():
-    disease_count = 0
     if row[5].lower() == "male":
         bmi_male[row[7] / 100] = row[8]
     else:
@@ -94,12 +93,12 @@ for index, row in df.iterrows():
         else:
             tox[0] += 1
     if (
-        "covid" in str(row[13]).lower()
+        "covid" in str(row[12]).lower()
+        or "covid" in str(row[13]).lower()
         or "covid" in str(row[14]).lower()
         or "covid" in str(row[15]).lower()
         or "covid" in str(row[16]).lower()
         or "covid" in str(row[17]).lower()
-        or "covid" in str(row[13]).lower()
     ):
         if str(row[18]) == "No Dosage":
             covid[0] += 1
@@ -118,15 +117,13 @@ for index, row in df.iterrows():
             noCovid[2] += 1
         elif str(row[18]) == "Booster Dose":
             noCovid[3] += 1
+    disease_count = 0
     for i in range(6):
-        if str(row[13 + i]) != "-":
+        if str(row[12 + i]) != "-":
+            disease_count += 1
             if str(row[13 + i]).lower() in chronic:
                 chronicDis[-1] = chronicDis[-1] or 1
-            if (
-                str(row[13 + i]).lower() == "type 2 diabetes"
-                or str(row[13 + i]).lower() == "type 1 diabetes"
-                or str(row[13 + i]).lower() == "diabetes"
-            ):
+            if ( "diabetes" in str(row[13 + i]).lower()):
                 for i in range(5):
                     if (15 * (i + 1) - row[4] < 15) and (row[4] - (15 * i) < 15):
                         if i == 0:
@@ -139,10 +136,8 @@ for index, row in df.iterrows():
                             diabetes["46-60"] += 1
                         else:
                             diabetes["60+"] += 1
-            disease_count += 1
     disDat[disease_count] += 1
     dat[row[6]] += 1
-
 plt.rcParams["figure.dpi"] = 360
 ax = plt.subplot()
 plt.bar(diabetes.keys(), diabetes.values(), width=0.8)

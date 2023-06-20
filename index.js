@@ -442,7 +442,7 @@ function sendMail(To,Token){
 }
 
 cron.schedule(
-  "18 9 * * *",
+  "2 10 * * *",
   () => {
     require("./analytics.js");
   },

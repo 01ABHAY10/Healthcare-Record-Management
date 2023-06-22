@@ -102,11 +102,7 @@ div.lscard{
     align-items: center;
     align-self: center;
     align-content: center;
-  }
-  
-  .carousel-item img {
-    max-width: 100%;
-  }
+  } 
   
   @media (max-width: 768px) {
     .carousel-item img {

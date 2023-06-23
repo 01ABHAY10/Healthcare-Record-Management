@@ -56,6 +56,8 @@ chronic = [
     "colorectal cancer",
     "depression",
     "type 2 diabetes",
+    "type 1 diabetes",
+    "diabetes",
     "arthritis",
     "osteoporosis",
     "asthma",

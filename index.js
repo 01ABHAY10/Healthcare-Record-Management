@@ -413,7 +413,7 @@ cron.schedule(
 );
 
 cron.schedule(
-  "56 13 * * *",
+  "39 11 * * *",
   () => {
     require("./gendata.js");
     sendDataToPy();

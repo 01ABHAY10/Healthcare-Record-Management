@@ -161,7 +161,4 @@ async function Logout(){
 $('.logout').click(async function(){
   await Logout();
 });
-
-
-
   

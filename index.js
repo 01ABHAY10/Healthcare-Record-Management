@@ -16,6 +16,8 @@ const { User } = require("./config.js");
 const { MAIL_KEY } = require("./config.js");
 const bcrypt = require('bcrypt');
 const { sendDataToPy } = require("./gendata.js");
+const { dirname } = require("path");
+const cookieParser = require('cookie-parser');
 const salt = bcrypt.genSaltSync(10);
 
 
@@ -33,6 +35,8 @@ const transporter = nodemailer.createTransport({
 app.use(express.static("public"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
+
 
 
 //starting server at port
@@ -107,15 +111,14 @@ app.get("/", function (req, res) {
 
 
 //upload data to web3.storage
-let Doc_ID_No;
 app.post("/patient-data",async function(req,res){
   
   const {name,age,gender,blood_group,height,weight,smoke,drink,tobacco,date,email,
     covid,disease1,disease2,disease3,disease4,disease5,disease6,other} = req.body;
-
-  const id = await getFilename();
+    
+    const id = await getFilename();
+    let Doc_ID_No;
   
-
 //creating patient object
 const patient = {
   Doc_ID: id,
@@ -155,44 +158,47 @@ try{
         ID : false
       };
   }
+  res.send(Doc_ID_No);
 });
 
 
 
 // key verification while uploading data
-let present;
-app.post('/upload', async function(req, res){
-  const key = req.body.key;
+app.post('/verify-key', async function(req, res){
+  let present;
+  const key = req.body.value;
+  const email = req.cookies.email;
   console.log(key);
   try{
        present = await AdminKey.findOne({key : key});
     if(present != null){
-        res.sendFile(__dirname + "/upload.html");
+      Users[email].upload = true;
+        res.send(true);
     }else{
       present = {
         key : 0
       }
+      res.send(present);
     }
   }catch(error){
     present = {
       key : -1
     }
+    res.send(present);
     console.log("Error in key verification")
   }
+  
 });
 
 
-//Sending type of error to client side while verifying key
-app.get("/verify-key",function(req,res){
-  res.header('Content-Type','application/json');
-  res.send(present);
-});
-
-
-//Sernding patient data stored with Doc_ID
-app.get("/update",function(req,res){
- res.header('Content-Type','application/json');
- res.send(Doc_ID_No);
+//upload route 
+app.get("/upload",function(req,res){
+  const email = req.cookies.email;
+  if(Users[email] && Users[email].upload){
+  res.sendFile(__dirname + "/upload.html");
+  }else{
+    res.status(403).send("Unauthorized access...");
+  }
 });
 
 
@@ -234,31 +240,38 @@ app.get("/data",function(req,res){
 })
 
 
-let loggedIn = false;
-let Username;
+
+const Users = {};
 app.post('/homepage',async function(req,res){
-  const email = req.body.email1;
-  const pass = req.body.password1;
+  const email = req.body.email;
+  const pass = req.body.password;
   // console.log(email +" "+ pass);
   try{
     const user = await User.findOne({email : email});
     const passwordMatch = bcrypt.compareSync(pass, user.password);
     if (passwordMatch) {
-      res.sendFile(__dirname + "/index.html");
-      loggedIn = true;
-      Username ={
-        name : email
+      Users[email] = {
+        loggedIn : true,
+        view : false,
+        upload : false
       }
+      console.log(Users);
+      console.log(Users[email]);
+      console.log(Users[email].loggedIn);
+      res.cookie('email', email);
+      res.send(true);
     } else {
-      res.send("Incorrect login Credentials...failed to login..");
+      res.send(false);
     }
   }catch(error){
     console.log(error);
   }
 });
 
+
 app.get('/homepage',async function(req,res){
-  if(loggedIn){
+  const email = req.cookies.email;
+  if(Users[email] && Users[email].loggedIn){
     res.sendFile(__dirname + "/index.html");
   }else{
     res.status(403).send("Unauthorized access...");
@@ -274,10 +287,11 @@ app.post('/new-user',async function(req,res){
     if(user){
       const passwordMatch = bcrypt.compareSync(pass, user.password);
       if (passwordMatch) {
-      loggedIn = true;
-      Username ={
-        name : email
-      }
+        Users[email] = {
+          loggedIn : true,
+          view : false,
+          upload : false
+        }
       res.send(true);
     }else{
       res.send(false);
@@ -298,9 +312,10 @@ app.post('/new-account',async function(req,res){
       const password = bcrypt.hashSync(pass, salt);
       try{
         const user = await User.create({email,password});
-        loggedIn = true;
-        Username ={
-          name : email
+        Users[email] = {
+          loggedIn : true,
+          view : false,
+          upload : false
         }
         res.send(true);
       }catch(error){
@@ -312,7 +327,7 @@ app.post('/new-account',async function(req,res){
 });
 
 app.get('/analytics', function(req, res){
-  if(loggedIn){
+  if(User[email].loggedIn){
   res.sendFile(__dirname+"/analytics.html");
   }else{
     res.status(403).send("Login to see analytics...");

@@ -1,6 +1,33 @@
 //function for fetching Doc_ID from server side
 async function getDoc_ID() {
-  const response = await fetch("http://localhost:8000/update");
+  const data = {
+    name : $("#_name").val(),
+    age : $("#_age").val(),
+    gender : $("#_gender").val(),
+    blood_group : $("#_blood_group").val(),
+    height : $("#_height").val(),
+    weight : $("#_weight").val(),
+    smoke : $("#_smoke").prop(),
+    drink : $("#_drink").prop(),
+    tobacco : $("#_tobacco").prop(),
+    date :  $("#_date").val(),
+    email : $("#_email").val(),
+    covid : $("#_covid").val(),
+    disease1 : $("#_disease1").val(),
+    disease2 : $("#_disease2").val(),
+    disease3 : $("#_disease3").val(),
+    disease4 : $("#_disease4").val(),
+    disease5 : $("#_disease5").val(),
+    disease6 : $("#_disease6").val(),
+    other : $("#_other").val()
+  }
+  const response = await fetch("http://localhost:8000/patient-data",{
+    method : 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  });
   const Doc_ID = await response.json();
   document.getElementById("activateModal").disabled = false;
   if (Doc_ID.ID == false) {
@@ -25,8 +52,11 @@ $("#viewClose").click(function () {
   location.reload();
 });
 
-$("#submit").click(function () {
-  setTimeout(getDoc_ID, 7000);
+$("#submit").click(async function () {
+  // setTimeout(getDoc_ID, 7000);
+  $('#submit').prop('disabled', true);
+  await getDoc_ID();
+
 });
 
 
@@ -80,8 +110,21 @@ async function Error(num) {
 
 //function for identifying type of error while uploading data
 async function KeyError(){
-  const response = await fetch("http://localhost:8000/verify-key");
+  const adm_key ={
+    value :$('#key').val()
+  }
+  
+  const response = await fetch("http://localhost:8000/verify-key",{
+    method : 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(adm_key)
+  });
   const data = await response.json();
+  if(data == true){
+    window.location.href = "/upload";
+  }
   if(data.key == 0){
     $('#admKeyLabel').html(
       '<span style="color:red";>Invalid Admin_Key! ..Re-enter<span>'
@@ -94,8 +137,8 @@ async function KeyError(){
   }
 }
 
-$("#verifyKey").click(function(){
-  setTimeout(KeyError, 4000);
+$("#verifyKey").click(async function(){
+  await KeyError();
 });
 
 $("#view").click(function () {
@@ -132,22 +175,26 @@ $("#otp").click(function(){
   Request();
 });
 
-$(function () {
-  $('[data-toggle="popover"]').popover()
-})
 
 //function for profile email
 async function UserInfo(){
-  const response = await fetch("http://localhost:8000/username");
-  const data = await response.json();
-  console.log(data.name);
-  if(data){
-    $('.showUser').html(`<h5><b>User :</b> ${data.name}</h5>`);
+  const username = {
+    email : localStorage.getItem('email')
   }
+  const response = await fetch("http://localhost:8000/username",{
+    method : 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(username)
+  });
 }
-$('.user').click(async function(){
-  await UserInfo();
-});
+ 
+const value = localStorage.getItem('email');
+if(value){
+    $('.showUser').html(`<h5><b>User :</b> ${username.email}</h5>`);
+}
+
 
 //function for logout
 async function Logout(){

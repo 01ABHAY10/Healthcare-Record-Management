@@ -9,16 +9,15 @@ $("#login-btn").click(function() {
     <h3 class="title"><b>HEALTHCARE RECORD</b></h3>
     <h4 class="login">Login</h4>
    
-    <form action="/homepage" method="post">
+  
   <div class="mb-3">
     <label for="exampleInputEmail1" class="form-label">Email address</label>
-    <input type="email" class="form-control"  name="email1" required>
+    <input type="email" class="form-control"  name="email1" id="email1" required>
     <div class="mb-3">
     <label for="exampleInputPassword1" id="pswd" class="form-label">Password</label>
-    <input type="password" name="password1" class="form-control"  required>
+    <input type="password" name="password1" class="form-control" id="password1"  required>
   </div>
-      <div class="login"><button class="btn btn-primary">Login</button></div> 
-      </form>
+      <div class="login"><button class="btn btn-primary" id="LOGIN">Login</button></div> 
       <small class="mx-4 my-2"><b>Not a member?</b><a href="#" id="signup-btn"> <b> Sign-up</b></a></small>
   </div>
   </div>
@@ -58,6 +57,33 @@ $('#sgn-btn').click(async function() {
       await Signup_token();
     }
   });
+
+
+  if($("#LOGIN")){
+    $("#LOGIN").click(async function(){
+        await Login();
+    });
+  }
+
+//function for verify account during signin
+async function Login(){
+  const data = {
+    email : $('#email1').val(),
+    password : $('#password1').val()
+  }
+  const response = await fetch("http://localhost:8000/homepage",{
+    method : 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  });
+  const responseData = await response.json();
+  if(responseData == true){
+    localStorage.setItem('email',$('#email1').val());
+    window.location.href = "/homepage";
+  }
+}
   
 //function for verify account during signup
 async function Verify(){
@@ -74,6 +100,7 @@ async function Verify(){
   });
   const responseData = await response.json();
   if(responseData == true){
+    localStorage.setItem('email',$('#email').val());
     window.location.href = "/homepage";
   }else{
     $('#modal-content').html('<h1 class="modal-title fs-5" style="color : red">Email already exists...Try with another email</h1>');
@@ -99,6 +126,7 @@ async function Signup_token(){
   });
   const responseData = await response.json();
   if(responseData == true){
+    localStorage.setItem('email',$('#email').val());
     window.location.href = "/homepage";
   }else{
     $('#modal-content').html('<h1 class="modal-title fs-5" style="color : red">Invalid Token...Retry again</h1>');

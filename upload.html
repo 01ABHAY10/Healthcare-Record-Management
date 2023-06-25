@@ -103,26 +103,26 @@
     <div class="center my-4">
       <h3><b>Fill the details below</b></h3>
     </div>
-    <form action="/patient-data" method="post" class="row g-3 my-3">
+    <form  class="row g-3 my-3">
       <div class="col-md-5">
         <label class="form-label"><b>Uploading date :</b></label>
-        <input type="date" class="form-control" name="date"  value="" required>
+        <input type="date" class="form-control" id="_date"  value="" required>
       </div>
       <div class="col-md-5">
         <label class="form-label"><b>Email :</b></label>
-        <input type="email" class="form-control" name="email" value="" required>
+        <input type="email" class="form-control" id="_email" value="" required>
       </div>
       <div class="col-md-5">
         <label class="form-label"><b>Name :</b></label>
-        <input type="text" class="form-control" name="name"  value="" required>
+        <input type="text" class="form-control" id="_name"  value="" required>
       </div>
       <div class="col-md-1">
         <label class="form-label"><b>Age :</b></label>
-        <input type="number" class="form-control" name="age"  value="" required>
+        <input type="number" class="form-control" id="_age"  value="" required>
       </div>
       <div class="col-md-2">
         <label class="form-label"><b>Gender :</b></label>
-        <select class='form-control cards' name="gender" >
+        <select class='form-control cards' id="_gender" >
           <option value='' required> ----select---- </option>
           <option value='Male' required> Male </option>
           <option value='Female' required> Female </option>
@@ -131,7 +131,7 @@
       </div>
       <div class="col-md-2">
         <label class="form-label"><b>Blood Group :</b></label>
-        <select class='form-control cards' name="blood_group">
+        <select class='form-control cards' id="_blood_group">
           <option value='' required> ----select---- </option>
           <option value='A+' required> A+ </option>
           <option value='A-' required> A- </option>
@@ -148,58 +148,58 @@
       </div>
       <div class="col-md-5">
         <label class="form-label"><b>Height (in cm) :</b></label>
-        <input type="number" step="0.1" class="form-control" name="height" value="" required>
+        <input type="number" step="0.1" class="form-control" id="_height" value="" required>
       </div>
       <div class="col-md-5">
         <label class="form-label"><b>Weight (in kg) :</b></label>
-        <input type="number" step="0.1" class="form-control" name="weight"  value="" required>
+        <input type="number" step="0.1" class="form-control" id="_weight"  value="" required>
       </div>
       <div class="col-md-3">
         <div class="form-check form-check-inline">
-  <input class="form-check-input" type="checkbox" name="smoke" >
+  <input class="form-check-input" type="checkbox" id="_smoke" >
   <label class="form-check-label" for="smoke"><b>Smoking</b></label>
 </div>
       </div>
       <div class="col-md-3">
         <div class="form-check form-check-inline">
-  <input class="form-check-input" type="checkbox" name="drink"  >
+  <input class="form-check-input" type="checkbox" id="_drink"  >
   <label class="form-check-label" for="drink"><b>Drinking</b></label>
 </div>
       </div>
       <div class="col-md-3">
         <div class="form-check form-check-inline">
-  <input class="form-check-input" type="checkbox" n>
+  <input class="form-check-input" type="checkbox" id="_tobacco">
   <label class="form-check-label" for="tobacco"><b>Tobacco</b></label>
         </div>
       </div>
       
   <div class="col-md-5">
     <label class="form-label"><b>Disease 1 :</b></label>
-    <input type="text" class="form-control" name="disease1"  value="">
+    <input type="text" class="form-control" id="_disease1"  value="">
   </div>
   <div class="col-md-5">
     <label class="form-label"><b>Disease 2 :</b></label>
-    <input type="text" class="form-control" name="disease2" value="">
+    <input type="text" class="form-control" id="_disease2" value="">
   </div>
   <div class="col-md-5">
     <label class="form-label"><b>Disease 3 :</b></label>
-    <input type="text" class="form-control" name="disease3"  value="">
+    <input type="text" class="form-control" id="_disease3"  value="">
   </div>
   <div class="col-md-5">
     <label class="form-label"><b>Disease 4 :</b></label>
-    <input type="text" class="form-control" name="disease4"  value="">
+    <input type="text" class="form-control" id="_disease4"  value="">
   </div>
   <div class="col-md-5">
     <label class="form-label"><b>Disease 5 :</b></label>
-    <input type="text" class="form-control" name="disease5"  value="">
+    <input type="text" class="form-control" id="_disease5"  value="">
   </div>
   <div class="col-md-5">
     <label class="form-label"><b>Disease 6 :</b></label>
-    <input type="text" class="form-control" name="disease6"  value="">
+    <input type="text" class="form-control" id="_disease6"  value="">
   </div>
   <div class="col-md-5">
     <label class="form-label"><b>Covid Vaccination Status :</b></label>
-    <select class='form-control cards' name="covid" >
+    <select class='form-control cards' id="_covid" >
       <option value='' required> ----select---- </option>
       <option value='First Dose' required> First Dose </option>
       <option value='Second Dose' required> Second Dose </option>
@@ -209,9 +209,9 @@
   </div>
   <div class="col-md-5 description">
     <label class="form-label my-2"><b>Any other problems or symptoms :</b></label>
-    <textarea class="form-control" name="other"  rows="4"></textarea>
+    <textarea class="form-control" id="_other"  rows="4"></textarea>
   </div>
-    <div class="center"><input type="submit" id="submit" class="col-md-2 btn btn-primary" value="Submit"></div>
+    <div class="center mb-3"><button  id="submit" class="col-md-2 btn btn-primary" >Submit</button></div>
   </form>
   </div>
   <!-- card end here  -->

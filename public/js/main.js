@@ -1,6 +1,6 @@
 //function for fetching Doc_ID from server side
 async function getDoc_ID() {
-  const response = await fetch("https://hrm-1v31.onrender.com/update");
+  const response = await fetch("http://localhost:8000/update");
   const Doc_ID = await response.json();
   document.getElementById("activateModal").disabled = false;
   if (Doc_ID.ID == false) {
@@ -32,7 +32,7 @@ $("#submit").click(function () {
 
 //function for fetching patient data
 async function getData() {
-  const response = await fetch("https://hrm-1v31.onrender.com/data");
+  const response = await fetch("http://localhost:8000/data");
   const data = await response.json();
   if (data && data.Doc_ID != -1) {
     $("#doc").html("Patient with Doc_ID : " + data.Doc_ID);
@@ -63,7 +63,7 @@ async function getData() {
 
 //function for identifying type of error while viewing data
 async function Error(num) {
-  const response = await fetch("https://hrm-1v31.onrender.com/data");
+  const response = await fetch("http://localhost:8000/data");
   const data = await response.json();
   if(data.Doc_ID == -1 && num == 1){
     $("#viewLabel").html(
@@ -80,7 +80,7 @@ async function Error(num) {
 
 //function for identifying type of error while uploading data
 async function KeyError(){
-  const response = await fetch("https://hrm-1v31.onrender.com/verify-key");
+  const response = await fetch("http://localhost:8000/verify-key");
   const data = await response.json();
   if(data.key == 0){
     $('#admKeyLabel').html(
@@ -104,7 +104,7 @@ $("#view").click(function () {
   }, 5000);
 });
 
-if (window.location.href == "https://hrm-1v31.onrender.com/view-data") {
+if (window.location.href == "http://localhost:8000/view-data") {
   getData();
 };
 
@@ -116,7 +116,7 @@ async function Request(){
     value : docID
   }
   console.log(docID);
-  const response = await fetch("https://hrm-1v31.onrender.com/get-token",{
+  const response = await fetch("http://localhost:8000/get-token",{
     method : 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -138,7 +138,7 @@ $(function () {
 
 //function for profile email
 async function UserInfo(){
-  const response = await fetch("https://hrm-1v31.onrender.com/username");
+  const response = await fetch("http://localhost:8000/username");
   const data = await response.json();
   console.log(data.name);
   if(data){
@@ -151,7 +151,7 @@ $('.user').click(async function(){
 
 //function for logout
 async function Logout(){
-  const response = await fetch("https://hrm-1v31.onrender.com/logout");
+  const response = await fetch("http://localhost:8000/logout");
   const data = await response.json();
   console.log(data);
   if(data == true){

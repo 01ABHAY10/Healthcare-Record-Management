@@ -65,7 +65,7 @@ async function Verify(){
     email : $('#email').val(),
     pass : $('#password').val()
   }
-  const response = await fetch("https://hrm-1v31.onrender.com/new-user",{
+  const response = await fetch("http://localhost:8000/new-user",{
     method : 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -90,7 +90,7 @@ async function Signup_token(){
     email : $('#email').val(),
     pass : $('#password').val()
   }
-  const response = await fetch("https://hrm-1v31.onrender.com/new-account",{
+  const response = await fetch("http://localhost:8000/new-account",{
     method : 'POST',
     headers: {
       'Content-Type': 'application/json'

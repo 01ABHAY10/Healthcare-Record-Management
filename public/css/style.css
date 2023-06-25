@@ -115,6 +115,10 @@ div.lscard{
       
     }
   }
+
+  .carousel-content {
+    margin: 10% 10%;
+  }
   
   .footer {
     position:static;

@@ -26,6 +26,7 @@
     "nodemailer": "^6.9.1",
     "nodemon": "^2.0.20",
     "pyodide": "^0.22.1",
+    "vercel": "^30.2.3",
     "web3.storage": "^4.5.4"
   }
 }

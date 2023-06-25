@@ -203,49 +203,54 @@ app.get("/upload",function(req,res){
 
 
 //Token verification while viewing patient data
-let patient_data;
-let TOKEN;
-app.post("/view-data",async function(req,res){
+
+app.post("/data",async function(req,res){
   const id= req.body.id;
   const token = req.body.token;
-  try{
-    searchMail = await ID.findOne({id : id});
-    // console.log(id);
-    // console.log(searchMail);
-    sendMail(searchMail.email,TOKEN);
-  }catch(error){
-    console.log(error);
-  };
-  if(token == TOKEN){
-    patient_data = await retrieve(id);
+  const email = req.cookies.email;
+  if(token == VerifiedData[id]){
+   const patient_data = await retrieve(id);
     if(patient_data == -1){
-      patient_data = {
-        Doc_ID : -1
-      }
+      res.send(-1);
     }else{
-      res.sendFile(__dirname + "/view.html");
+      Users[email].view = true;
+      res.send(patient_data);
     }
   }else{
-    patient_data = {
-      Doc_ID : 0
-    }
+    res.send(0);
+  }
+})
+
+//Generating token for verification
+const VerifiedData = {};
+app.post("/get-token",async function(req,res){
+      const data = req.body.value;
+      const check = await ID.findOne({id : data});
+      if(check){
+        const TOKEN = generateToken();
+        VerifiedData[data] = TOKEN;
+        sendMail(check.email,TOKEN);
+      }else{
+        res.send(false);
+      }
+});
+
+//Sending type of error in client side while verifying token
+app.get("/view-data",function(req,res){
+  const email = req.cookies.email;
+  if(Users[email] && Users[email].view){
+    res.sendFile(__dirname + "/view.html")
+  }else{
+    res.status(403).send("Unauthorized access...");
   }
 })
 
 
-//Sending type of error in client side while verifying token
-app.get("/data",function(req,res){
-  res.header('Content-Type','application/json');
-  res.send(patient_data);
-})
-
-
-
+//user info verification in signin
 const Users = {};
 app.post('/homepage',async function(req,res){
   const email = req.body.email;
   const pass = req.body.password;
-  // console.log(email +" "+ pass);
   try{
     const user = await User.findOne({email : email});
     const passwordMatch = bcrypt.compareSync(pass, user.password);
@@ -255,9 +260,6 @@ app.post('/homepage',async function(req,res){
         view : false,
         upload : false
       }
-      console.log(Users);
-      console.log(Users[email]);
-      console.log(Users[email].loggedIn);
       res.cookie('email', email);
       res.send(true);
     } else {
@@ -279,7 +281,7 @@ app.get('/homepage',async function(req,res){
 });
 
 //sending token for new account
-let  VeriftToken;
+const NewUser = {};
 app.post('/new-user',async function(req,res){
     const email = req.body.email;
     const pass = req.body.pass;
@@ -292,23 +294,27 @@ app.post('/new-user',async function(req,res){
           view : false,
           upload : false
         }
+      res.cookie('email', email);
       res.send(true);
     }else{
       res.send(false);
     }
     }
     else{
-      VeriftToken = generateToken();
-      sendMail(email, VeriftToken);
+      const VerifyToken = generateToken();
+      NewUser[email] = {
+        Token : VerifyToken
+      }
+      sendMail(email, VerifyToken);
     }
 });
 
 //verifying new account 
 app.post('/new-account',async function(req,res){
     const userToken = req.body.value;
-    if(userToken == VeriftToken){
-      const email = req.body.email;
-      const pass = req.body.pass;
+    const email = req.body.email;
+    const pass = req.body.pass;
+    if(NewUser[email] && userToken == NewUser[email].Token){
       const password = bcrypt.hashSync(pass, salt);
       try{
         const user = await User.create({email,password});
@@ -317,6 +323,7 @@ app.post('/new-account',async function(req,res){
           view : false,
           upload : false
         }
+        delete NewUser[email];
         res.send(true);
       }catch(error){
         console.log(error);
@@ -327,7 +334,8 @@ app.post('/new-account',async function(req,res){
 });
 
 app.get('/analytics', function(req, res){
-  if(User[email].loggedIn){
+  const email = req.cookies.email;
+  if(Users[email] && Users[email].loggedIn){
   res.sendFile(__dirname+"/analytics.html");
   }else{
     res.status(403).send("Login to see analytics...");
@@ -336,6 +344,9 @@ app.get('/analytics', function(req, res){
 
 //for current user info
 app.get('/username', function(req, res){
+  const Username = {
+    name : req.cookies.email
+  }
   res.header('Content-Type','application/json');
   res.send(Username);
 });
@@ -343,23 +354,12 @@ app.get('/username', function(req, res){
 
 //for logout
 app.get('/logout', function(req, res){
-    loggedIn = false;
-     Username = null;
-     res.send(true);
+    const email = req.cookies.email;
+    delete Users[email];
+    res.clearCookie('email');
+    res.send(true);
 });
 
-//Generating token for verification
-app.post("/get-token",async function(req,res){
-      const data = req.body.value;
-      const check = await ID.findOne({id : data});
-      if(check){
-        TOKEN = generateToken();
-      }else{
-        patient_data = {
-          Doc_ID : -1
-        }
-      }
-});
 
 
 //function for generating tokens for verifications

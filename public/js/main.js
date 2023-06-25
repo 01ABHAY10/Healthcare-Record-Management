@@ -56,15 +56,24 @@ $("#submit").click(async function () {
   // setTimeout(getDoc_ID, 7000);
   $('#submit').prop('disabled', true);
   await getDoc_ID();
-
 });
 
 
-//function for fetching patient data
+//function for fetching patient data and error(if any)
 async function getData() {
-  const response = await fetch("http://localhost:8000/data");
+  const SendData = {
+    id : $('#id').val(),
+    token : $('#token').val()
+  }
+  const response = await fetch("http://localhost:8000/data",{
+    method : 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(SendData)
+  });
   const data = await response.json();
-  if (data && data.Doc_ID != -1) {
+  if (data && data != -1) {
     $("#doc").html("Patient with Doc_ID : " + data.Doc_ID);
     $("#date").val(data.Data_Uploading_Date);
     $("#email").val(data.Email);
@@ -85,27 +94,19 @@ async function getData() {
     $("#disease6").val(data.Disease_6);
     $("#covid").val(data.Covid_Vaccination_Status);
     $("#other").attr("placeholder", data.Other_problems_or_symptoms);
-  } else {
-    alert("Error");
-  }
-}
-
-
-//function for identifying type of error while viewing data
-async function Error(num) {
-  const response = await fetch("http://localhost:8000/data");
-  const data = await response.json();
-  if(data.Doc_ID == -1 && num == 1){
+    window.location.href = "/view-data";
+  } 
+  if(data == -1){
     $("#viewLabel").html(
       '<span style="color:red";>Invalid Doc_ID! ..Re-enter<span>'
     );
   }
-  if(data.Doc_ID == 0 && num == 0){
+  if(data == 0){
     $("#viewLabel").html(
       '<span style="color:red";>Incorrect Token!..Retry<span>'
     );
   }
-}
+  }
 
 
 //function for identifying type of error while uploading data
@@ -141,24 +142,17 @@ $("#verifyKey").click(async function(){
   await KeyError();
 });
 
-$("#view").click(function () {
-  setTimeout(function(){
-    Error(0);
-  }, 5000);
+$("#view").click(async function () {
+    await getData();
 });
-
-if (window.location.href == "http://localhost:8000/view-data") {
-  getData();
-};
 
 
 //function for requesting to generate token to server side
 async function Request(){
-  const docID = $('#docID').val();
+  const docID = $('#id').val();
   const data = {
     value : docID
   }
-  console.log(docID);
   const response = await fetch("http://localhost:8000/get-token",{
     method : 'POST',
     headers: {
@@ -166,35 +160,31 @@ async function Request(){
     },
     body: JSON.stringify(data)
   });
+  const responseData = await response.json();
+  if(responseData == false){
+    $('#admKeyLabel').html(
+      '<span style="color:red";>Error occured! ..Try again<span>'
+    );
+  }
 }
 
-$("#otp").click(function(){
-  setTimeout(function(){
-    Error(1);
-  }, 4000);
-  Request();
+$("#otp").click(async function(){
+  await Request();
 });
 
 
 //function for profile email
 async function UserInfo(){
-  const username = {
-    email : localStorage.getItem('email')
+  const response = await fetch("http://localhost:8000/username");
+  const data = await response.json();
+  console.log(data.name);
+  if(data){
+    $('.showUser').html(`<h5><b>User :</b> ${data.name}</h5>`);
   }
-  const response = await fetch("http://localhost:8000/username",{
-    method : 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(username)
-  });
 }
- 
-const value = localStorage.getItem('email');
-if(value){
-    $('.showUser').html(`<h5><b>User :</b> ${username.email}</h5>`);
-}
-
+$('.user').click(async function(){
+  await UserInfo();
+});
 
 //function for logout
 async function Logout(){

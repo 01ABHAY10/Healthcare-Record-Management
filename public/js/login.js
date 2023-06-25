@@ -80,7 +80,6 @@ async function Login(){
   });
   const responseData = await response.json();
   if(responseData == true){
-    localStorage.setItem('email',$('#email1').val());
     window.location.href = "/homepage";
   }
 }
@@ -100,7 +99,6 @@ async function Verify(){
   });
   const responseData = await response.json();
   if(responseData == true){
-    localStorage.setItem('email',$('#email').val());
     window.location.href = "/homepage";
   }else{
     $('#modal-content').html('<h1 class="modal-title fs-5" style="color : red">Email already exists...Try with another email</h1>');
@@ -126,7 +124,6 @@ async function Signup_token(){
   });
   const responseData = await response.json();
   if(responseData == true){
-    localStorage.setItem('email',$('#email').val());
     window.location.href = "/homepage";
   }else{
     $('#modal-content').html('<h1 class="modal-title fs-5" style="color : red">Invalid Token...Retry again</h1>');

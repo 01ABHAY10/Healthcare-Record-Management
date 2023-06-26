@@ -7,9 +7,9 @@ async function getDoc_ID() {
     blood_group : $("#_blood_group").val(),
     height : $("#_height").val(),
     weight : $("#_weight").val(),
-    smoke : $("#_smoke").prop(),
-    drink : $("#_drink").prop(),
-    tobacco : $("#_tobacco").prop(),
+    smoke: $('#_smoke').is(':checked'),
+    drink: $('#_drink').is(':checked'),
+    tobacco: $('#_tobacco').is(':checked'),
     date :  $("#_date").val(),
     email : $("#_email").val(),
     covid : $("#_covid").val(),
@@ -72,8 +72,27 @@ async function getData() {
     },
     body: JSON.stringify(SendData)
   });
-  const data = await response.json();
-  if (data && data != -1) {
+  const responseData = await response.json();
+  if (responseData && responseData != -1) {
+    window.location.href = "/view-data";
+  } 
+  if(responseData == -1){
+    $("#viewLabel").html(
+      '<span style="color:red";>Invalid Doc_ID! ..Re-enter<span>'
+    );
+  }
+  if(responseData == 0){
+    $("#viewLabel").html(
+      '<span style="color:red";>Incorrect Token!..Retry<span>'
+    );
+  }
+  }
+
+  //function for fetching patient data
+  async function viewData(){
+    const response = await fetch("http://localhost:8000/patient-data");
+    const data = await response.json();
+    if(data){
     $("#doc").html("Patient with Doc_ID : " + data.Doc_ID);
     $("#date").val(data.Data_Uploading_Date);
     $("#email").val(data.Email);
@@ -94,18 +113,13 @@ async function getData() {
     $("#disease6").val(data.Disease_6);
     $("#covid").val(data.Covid_Vaccination_Status);
     $("#other").attr("placeholder", data.Other_problems_or_symptoms);
-    window.location.href = "/view-data";
-  } 
-  if(data == -1){
-    $("#viewLabel").html(
-      '<span style="color:red";>Invalid Doc_ID! ..Re-enter<span>'
-    );
+    }
   }
-  if(data == 0){
-    $("#viewLabel").html(
-      '<span style="color:red";>Incorrect Token!..Retry<span>'
-    );
-  }
+  if(window.location.href == "http://localhost:8000/view-data"){
+    async function FUNC(){
+      await viewData();
+    }
+     FUNC();
   }
 
 
@@ -177,7 +191,6 @@ $("#otp").click(async function(){
 async function UserInfo(){
   const response = await fetch("http://localhost:8000/username");
   const data = await response.json();
-  console.log(data.name);
   if(data){
     $('.showUser').html(`<h5><b>User :</b> ${data.name}</h5>`);
   }
@@ -190,7 +203,6 @@ $('.user').click(async function(){
 async function Logout(){
   const response = await fetch("http://localhost:8000/logout");
   const data = await response.json();
-  console.log(data);
   if(data == true){
     location.href="/";
   }

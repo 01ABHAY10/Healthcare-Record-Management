@@ -214,7 +214,8 @@ app.post("/data",async function(req,res){
       res.send(-1);
     }else{
       Users[email].view = true;
-      res.send(patient_data);
+      Users[email].data = patient_data;
+      res.send(true);
     }
   }else{
     res.send(0);
@@ -235,7 +236,7 @@ app.post("/get-token",async function(req,res){
       }
 });
 
-//Sending type of error in client side while verifying token
+//view-data route
 app.get("/view-data",function(req,res){
   const email = req.cookies.email;
   if(Users[email] && Users[email].view){
@@ -244,6 +245,13 @@ app.get("/view-data",function(req,res){
     res.status(403).send("Unauthorized access...");
   }
 })
+
+//sending patient data to frontend
+app.get("/patient-data",function(req,res){
+  const email = req.cookies.email;
+  const data = Users[email].data;
+  res.send(data);
+});
 
 
 //user info verification in signin
@@ -292,7 +300,8 @@ app.post('/new-user',async function(req,res){
         Users[email] = {
           loggedIn : true,
           view : false,
-          upload : false
+          upload : false,
+          data : null
         }
       res.cookie('email', email);
       res.send(true);
@@ -321,7 +330,8 @@ app.post('/new-account',async function(req,res){
         Users[email] = {
           loggedIn : true,
           view : false,
-          upload : false
+          upload : false,
+          data : null
         }
         delete NewUser[email];
         res.send(true);
@@ -365,7 +375,6 @@ app.get('/logout', function(req, res){
 //function for generating tokens for verifications
 function generateToken() {
   var token = CryptoJS.lib.WordArray.random(4).toString(CryptoJS.enc.Hex);
-  console.log(token);
   return token;
 }
 

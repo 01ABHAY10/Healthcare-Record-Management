@@ -333,7 +333,7 @@ app.post('/new-account',async function(req,res){
           upload : false,
           data : null
         }
-        delete NewUser[email];
+         delete NewUser[email];
         res.send(true);
       }catch(error){
         console.log(error);

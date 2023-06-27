@@ -166,6 +166,10 @@ div.lscard{
       margin-bottom: 7%;
       margin-right: 25%;
     }
+    .profile-text {
+      display: none;
+      text-decoration: none !important;
+    }
   }
   @media (max-width : 768px){
     .card-container{
@@ -181,6 +185,12 @@ div.lscard{
     }
     .description{
       margin-bottom: 7%;
+    }
+    .profile-img{
+      display: none;
+    }
+    .profile-text {
+      color: black;
     }
   }
   

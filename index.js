@@ -19,7 +19,7 @@ const { sendDataToPy } = require("./gendata.js");
 const { dirname } = require("path");
 const cookieParser = require('cookie-parser');
 const salt = bcrypt.genSaltSync(10);
-
+const twelveHoursInMilliseconds = 12 * 60 * 60 * 1000; // 12 hours in milliseconds
 
 const app = express();
 const client = new Web3Storage({ token: KEY });
@@ -168,7 +168,6 @@ app.post('/verify-key', async function(req, res){
   let present;
   const key = req.body.value;
   const email = req.cookies.email;
-  console.log(key);
   try{
        present = await AdminKey.findOne({key : key});
     if(present != null){
@@ -266,9 +265,10 @@ app.post('/homepage',async function(req,res){
       Users[email] = {
         loggedIn : true,
         view : false,
-        upload : false
+        upload : false,
+        data : null
       }
-      res.cookie('email', email);
+      res.cookie('email', email, { maxAge: twelveHoursInMilliseconds });
       res.send(true);
     } else {
       res.send(false);
@@ -303,8 +303,8 @@ app.post('/new-user',async function(req,res){
           upload : false,
           data : null
         }
-      res.cookie('email', email);
-      res.send(true);
+        res.cookie('email', email, { maxAge: twelveHoursInMilliseconds });
+        res.send(true);
     }else{
       res.send(false);
     }
@@ -327,6 +327,7 @@ app.post('/new-account',async function(req,res){
       const password = bcrypt.hashSync(pass, salt);
       try{
         const user = await User.create({email,password});
+        res.cookie('email', email, { maxAge: twelveHoursInMilliseconds });
         Users[email] = {
           loggedIn : true,
           view : false,

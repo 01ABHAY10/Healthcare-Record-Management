@@ -22,7 +22,7 @@ dat = {
     "O+": 0,
     "O-": 0,
     "rh-null": 0,
-    "others": 0,
+    "other": 0,
 }
 
 # ? Cancer

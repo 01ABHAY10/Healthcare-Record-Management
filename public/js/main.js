@@ -78,10 +78,10 @@ async function getData() {
   } 
   if(responseData == -1){
     $("#viewLabel").html(
-      '<span style="color:red";>Invalid Doc_ID! ..Re-enter<span>'
+      '<span style="color:red";>Error occured!...Try again<span>'
     );
   }
-  if(responseData == 0){
+  if(responseData == false){
     $("#viewLabel").html(
       '<span style="color:red";>Incorrect Token!..Retry<span>'
     );
@@ -176,8 +176,8 @@ async function Request(){
   });
   const responseData = await response.json();
   if(responseData == false){
-    $('#admKeyLabel').html(
-      '<span style="color:red";>Error occured! ..Try again<span>'
+    $("#viewLabel").html(
+      '<span style="color:red";>Invalid Doc_ID! ..Re-enter<span>'
     );
   }
 }

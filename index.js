@@ -209,7 +209,7 @@ app.post("/data",async function(req,res){
   const email = req.cookies.email;
   if(token == VerifiedData[id]){
    const patient_data = await retrieve(id);
-    if(patient_data == -1){
+    if(patient_data == null){
       res.send(-1);
     }else{
       Users[email].view = true;
@@ -217,7 +217,7 @@ app.post("/data",async function(req,res){
       res.send(true);
     }
   }else{
-    res.send(0);
+    res.send(false);
   }
 })
 
